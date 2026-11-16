@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fiche de révision corrigée du R3.11 Droit du numérique, avec entraînement aléatoire et cas pratiques notés.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>R3.11 · Droit du numérique</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+  .book { max-width: 820px; margin: 0 auto; padding: 32px 16px 80px; line-height: 1.6; }
+  .book h1 { font-size: 2.3rem; text-align: center; margin: .2em 0 0; }
+  .book .sub { text-align: center; color: var(--muted); margin-bottom: 2em; }
+  .book h2 { margin-top: 2.2em; border-bottom: 2px solid var(--accent); padding-bottom: .2em; }
+  .book h3 { margin: 1.4em 0 .3em; }
+  .book table { width: 100%; border-collapse: collapse; margin: .8em 0; font-size: .95rem; }
+  .book td, .book th { border-bottom: 1px solid var(--line); padding: .45em .4em; text-align: left; vertical-align: top; }
+  .book th { color: var(--muted); font-weight: 700; }
+  .art { font-weight: 800; color: var(--accent); }
+  td.art { white-space: nowrap; }
+  .book td { overflow-wrap: anywhere; }
+  .box { background: var(--card); border-radius: 14px; padding: 1em 1.3em; box-shadow: var(--shadow); margin: 1em 0; }
+  .warn { border-left: 4px solid var(--bad); }
+  .book nav ol { margin: 0; padding-left: 1.2em; }
+  @media print { .no-print, #entrainement, #cas-rediges, .fab { display: none !important; } body { background: #fff; } }
+  .train { border: 2px solid var(--accent); }
+  .train h2 { margin-top: 0; border: 0; }
+  .train fieldset { border: 0; padding: 0; margin: 0 0 12px; }
+  .train legend { font-weight: 800; margin-bottom: 6px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills label { display: inline-flex; align-items: center; gap: 6px; background: var(--soft); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-weight: 600; font-size: .95rem; }
+  .pills input { accent-color: var(--accent); }
+  .tr-card { background: var(--card); border-radius: 16px; padding: 18px; box-shadow: var(--shadow); margin-top: 14px; }
+  .tr-card h3 { line-height: 1.35; }
+  .tr-head .bar { margin-top: 8px; }
+  .kbd { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 6px; background: rgba(255,255,255,.25); font-size: .8rem; margin-right: 4px; }
+  .choice { font-weight: 700; font-size: 1rem; }
+  .bad { color: var(--bad); font-weight: 700; }
+  .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  .train-chap { text-align: right; margin-top: 1.4em; }
+  .fab { position: fixed; right: 16px; bottom: 16px; z-index: 5; border-radius: 999px; box-shadow: var(--shadow); text-decoration: none; }
+  .book table .bar { margin: 0; }
+  .redac-ta { min-height: 220px; margin-top: 6px; line-height: 1.5; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .cols { grid-template-columns: 1fr; } }
+  .kl { list-style: none; padding: 0; margin: 0; }
+  .kl li { padding: 3px 0; }
+  .kl.ok li::before { content: "✓ "; color: var(--good); font-weight: 900; }
+  .kl.bad li::before { content: "✗ "; color: var(--bad); font-weight: 900; }
+  .model, .copy { white-space: pre-line; background: var(--soft); border-radius: 12px; padding: 12px 14px; line-height: 1.55; }
+  .tr-card h4 { margin: 14px 0 6px; }
+  details summary { cursor: pointer; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body data-course="r3-11">
+<main class="book">
+<p class="no-print"><a href="../../">← Toutes les matières</a> · <a href="../../jeu/">🎮 Jeu multijoueur</a></p>
+<div style="text-align:center;font-size:3rem">⚖️</div>
+<h1>R3.11 · Droit du numérique</h1>
+<p class="sub">Fiche de révision corrigée · entraînement aléatoire · cas pratiques notés</p>
+
+<nav class="box">
+<ol>
+  <li><a href="#entrainement">🎯 Entraînement aléatoire</a></li>
+  <li><a href="#cas-rediges">✍️ Cas pratiques rédigés (mode contrôle)</a></li>
+  <li><a href="#contrats">Le droit des contrats</a></li>
+  <li><a href="#numerique">Les contrats du numérique</a></li>
+  <li><a href="#rgpd">Protection des personnes & RGPD</a></li>
+  <li><a href="#ia">Le règlement européen sur l'IA (IA Act)</a></li>
+  <li><a href="#travail">Le contrat de travail</a></li>
+  <li><a href="#corrections">Corrections par rapport aux notes de cours</a></li>
+</ol>
+</nav>
+
+<section id="entrainement" class="box train">
+  <h2>🎯 Entraînement aléatoire</h2>
+  <p class="muted">Questions rapides. Pour s'entraîner au contrôle, voir aussi <a href="#cas-rediges">✍️ les cas pratiques rédigés</a>.</p>
+  <p class="muted">Une série différente à chaque fois, tirée parmi <b id="train-count">…</b> questions possibles (dont des questions générées à partir des articles). Les questions ratées reviennent plus souvent.</p>
+  <form id="train-form">
+    <fieldset><legend>Chapitres</legend><div class="pills" data-theme-pills="theme"></div></fieldset>
+    <fieldset><legend>Types de questions</legend><div class="pills">
+      <label><input type="checkbox" name="type" value="qcm" checked> QCM</label>
+      <label><input type="checkbox" name="type" value="vf" checked> Vrai / faux</label>
+      <label><input type="checkbox" name="type" value="cas" checked> Cas pratiques</label>
+      <label><input type="checkbox" name="type" value="chiffres" checked> Chiffres</label>
+      <label><input type="checkbox" name="type" value="articles" checked> Articles</label>
+    </div></fieldset>
+    <fieldset><legend>Série</legend><div class="pills">
+      <label><input type="radio" name="n" value="10" checked> 10 questions</label>
+      <label><input type="radio" name="n" value="20"> 20</label>
+      <label><input type="radio" name="n" value="40"> 40</label>
+    </div></fieldset>
+    <fieldset><legend>Mode</legend><div class="pills">
+      <label><input type="radio" name="mode" value="revision" checked> Révision (corrigé après chaque question)</label>
+      <label><input type="radio" name="mode" value="exam"> Examen blanc (corrigé à la fin)</label>
+      <label><input type="checkbox" name="weak" checked> Cibler mes points faibles</label>
+    </div></fieldset>
+    <button class="btn block" type="submit">Générer une série</button>
+  </form>
+  <div id="trainer"></div>
+</section>
+
+<section id="cas-rediges" class="box train">
+  <h2>✍️ Cas pratiques rédigés (mode contrôle)</h2>
+  <p class="muted"><b id="redac-count">…</b> modèles de cas dont les faits changent à chaque tirage (noms, montants, délais, circonstances), et parfois la solution avec eux. Rédigez votre réponse ; elle est comparée au corrigé et notée en <b>% de similarité par notions clés</b>.</p>
+  <p class="muted">Méthode attendue : <b>problème juridique → règle (articles) → application aux faits → conclusion</b>.</p>
+  <form id="redac-form">
+    <fieldset><legend>Chapitres</legend><div class="pills" data-theme-pills="rtheme"></div></fieldset>
+    <fieldset><legend>Série</legend><div class="pills">
+      <label><input type="radio" name="rn" value="1"> 1 cas</label>
+      <label><input type="radio" name="rn" value="3" checked> 3 cas</label>
+      <label><input type="radio" name="rn" value="5"> 5 cas</label>
+      <label><input type="radio" name="rn" value="10"> 10 cas</label>
+    </div></fieldset>
+    <fieldset><legend>Chrono</legend><div class="pills">
+      <label><input type="radio" name="rtime" value="0" checked> Sans chrono</label>
+      <label><input type="radio" name="rtime" value="10"> 10 min par cas</label>
+      <label><input type="radio" name="rtime" value="15"> 15 min par cas</label>
+    </div></fieldset>
+    <button class="btn block" type="submit">Générer des cas pratiques</button>
+  </form>
+  <div id="redac"></div>
+</section>
+
+<h2 id="contrats">1. Le droit des contrats</h2>
+
+<h3>La période précontractuelle</h3>
+<table>
+  <tr><td class="art">Art. 1112</td><td>Négociations libres (engager, mener, rompre) mais <b>bonne foi obligatoire</b>. En cas de faute, la réparation couvre le préjudice subi (frais engagés) mais <b>jamais la perte des avantages attendus</b> du contrat non conclu, <b>ni la perte de chance</b> de les obtenir.</td></tr>
+  <tr><td class="art">Art. 1112-1</td><td>Devoir d'information : transmettre toute information dont l'importance est déterminante pour le consentement de l'autre.</td></tr>
+  <tr><td class="art">Art. 1123</td><td><b>Pacte de préférence</b> : une partie s'engage à proposer d'abord au bénéficiaire si elle décide de contracter. Seul le promettant est engagé.</td></tr>
+  <tr><td class="art">Art. 1124</td><td><b>Promesse unilatérale</b> : le promettant est engagé pendant le délai ; le bénéficiaire a une <b>option</b> (libre de lever ou non). L'indemnité d'immobilisation est <b>facultative</b> : la promesse est valable sans elle.</td></tr>
+  <tr><td>—</td><td><b>Promesse synallagmatique (bilatérale)</b> : les deux parties sont engagées ; l'exécution attend souvent une condition (ex. permis de construire).</td></tr>
+</table>
+
+<h3>Liberté contractuelle et forme</h3>
+<table>
+  <tr><td class="art">Art. 1102</td><td>Chacun est libre de contracter ou non, de choisir son cocontractant, le contenu et la forme du contrat, dans les limites de la loi.</td></tr>
+  <tr><td class="art">Art. 1172</td><td>Consensualisme : l'accord suffit (oral, poignée de main…). Mais la preuve est difficile : l'écrit reste la règle dans les affaires. Certains actes exigent un écrit (ex. statuts de société).</td></tr>
+</table>
+
+<h3>Conditions de validité (art. 1128) : consentement, capacité, contenu licite et certain</h3>
+<table>
+  <tr><th>Vice</th><th>Définition</th><th>Article</th></tr>
+  <tr><td><b>Erreur</b></td><td>Fausse représentation d'une qualité essentielle de la prestation, ou de la personne dans un contrat conclu en considération de celle-ci.</td><td class="art">1132 à 1136</td></tr>
+  <tr><td><b>Dol</b></td><td>Consentement obtenu par manœuvres, mensonges ou <b>dissimulation intentionnelle</b> d'une information déterminante.</td><td class="art">1137 à 1139</td></tr>
+  <tr><td><b>Violence</b></td><td>Contrainte inspirant la crainte d'un mal considérable (physique ou morale) ; inclut l'abus de dépendance.</td><td class="art">1140 à 1143</td></tr>
+</table>
+<p><b>Capacité</b> (art. 1145-1146) : toute personne peut contracter sauf incapacité légale : mineurs non émancipés, majeurs protégés. Une personne morale agit par ses représentants (gérant, président, mandataire).</p>
+<p><b>Contenu</b> : le contrat ne peut déroger à l'ordre public, ni par ses stipulations, ni par son but (<span class="art">art. 1162</span>). La prestation doit être présente ou future, possible, déterminée ou déterminable (<span class="art">art. 1163</span>).</p>
+
+<h3>Sanction : la nullité</h3>
+<table>
+  <tr><td><b>Effet</b></td><td>Le contrat est anéanti <b>rétroactivement</b>, censé n'avoir jamais existé ; les prestations sont restituées (<span class="art">art. 1178</span>).</td></tr>
+  <tr><td><b>Relative</b></td><td>Protège un intérêt privé (vices, incapacité). Seule la partie protégée peut agir (<span class="art">art. 1181</span>).</td></tr>
+  <tr><td><b>Absolue</b></td><td>Protège l'intérêt général (contenu illicite). Toute personne justifiant d'un intérêt et le ministère public (<span class="art">art. 1180</span>).</td></tr>
+  <tr><td><b>Délai</b></td><td><b>5 ans</b> (<span class="art">art. 2224</span>). Point de départ : découverte de l'erreur ou du dol ; cessation de la violence (<span class="art">art. 1144</span>) ; majorité ou émancipation pour un mineur (<span class="art">art. 1152</span>), soit en principe jusqu'à 23 ans.</td></tr>
+</table>
+
+<h3>Les clauses</h3>
+<table>
+  <tr><td><b>Prix</b></td><td>Prix déterminé ou déterminable. Fixation unilatérale possible si elle a été <b>convenue</b> dans un <b>contrat-cadre</b> (<span class="art">art. 1164</span>) et, dans les <b>prestations de service</b>, à défaut d'accord avant l'exécution (<span class="art">art. 1165</span>), avec motivation en cas de contestation et sanction de l'abus. <b>Imprévision</b> (<span class="art">art. 1195</span>) : un changement de circonstances imprévisible rendant l'exécution excessivement onéreuse permet de demander une renégociation ; à défaut d'accord, le juge peut réviser ou mettre fin au contrat.</td></tr>
+  <tr><td><b>Exécution</b></td><td><b>Clause de réserve de propriété</b> (<span class="art">art. 2367</span>) : le vendeur reste propriétaire jusqu'au paiement complet et peut reprendre le matériel en cas d'impayé ou de faillite.</td></tr>
+  <tr><td><b>Inexécution</b></td><td><b>Clause pénale</b> (<span class="art">art. 1231-5</span>) : somme forfaitaire fixée à l'avance en cas d'inexécution (dont le retard). Le juge peut la modérer ou l'augmenter si elle est manifestement excessive ou dérisoire.</td></tr>
+</table>
+<p><b>Contrat-cadre</b> (<span class="art">art. 1111</span>) : accord fixant les caractéristiques générales des relations futures, précisées ensuite par des contrats d'application.</p>
+
+<h3>Les effets du contrat</h3>
+<table>
+  <tr><td class="art">Art. 1103</td><td><b>Force obligatoire</b> : « les contrats légalement formés tiennent lieu de loi à ceux qui les ont faits ». Modification ou révocation par consentement mutuel ou pour les causes que la loi autorise (<span class="art">art. 1193</span>).</td></tr>
+  <tr><td class="art">Art. 1199</td><td><b>Effet relatif</b> : le contrat ne crée d'obligations qu'entre les parties ; les tiers ne peuvent ni en demander l'exécution ni être contraints de l'exécuter.</td></tr>
+  <tr><td class="art">Art. 1205</td><td><b>Stipulation pour autrui</b> : le <b>stipulant</b> fait promettre au <b>promettant</b> d'accomplir une prestation au profit d'un tiers <b>bénéficiaire</b>.</td></tr>
+</table>
+
+<p class="no-print train-chap"><button class="btn alt" data-train="contrats">🎯 5 questions sur les contrats</button> <button class="btn alt" data-redac="contrats">✍️ Un cas pratique</button></p>
+
+<h2 id="numerique">2. Les contrats du numérique</h2>
+
+<h3>La preuve électronique</h3>
+<table>
+  <tr><td class="art">Art. 1366</td><td>L'écrit électronique a la même force probante que le papier si son <b>auteur est identifié</b> et son <b>intégrité garantie</b>. À défaut, le juge apprécie souverainement sa valeur.</td></tr>
+  <tr><td class="art">Art. 1367</td><td>Signature électronique : procédé fiable d'identification. La fiabilité est <b>présumée</b> pour la signature électronique <b>qualifiée</b> (prestataire de confiance qualifié, règlement eIDAS).</td></tr>
+  <tr><td>eIDAS 2</td><td>Règlement (UE) 2024/1183 : portefeuille européen d'identité numérique.</td></tr>
+  <tr><td>LRE</td><td>Lettre recommandée électronique = même valeur que la LRAR papier si elle passe par un prestataire qualifié (ex. AR24) (<span class="art">art. L100 CPCE</span>). Pour un consommateur : <b>accord préalable obligatoire</b>.</td></tr>
+</table>
+
+<h3>Contrats avec les consommateurs (B2C)</h3>
+<table>
+  <tr><td><b>Cookies & prospection</b></td><td>Consentement préalable aux traceurs (bandeau). Prospection par e-mail des particuliers : <b>opt-in</b>, case non pré-cochée, désabonnement simple (exception : un client existant peut être sollicité pour des produits analogues s'il a été informé et peut s'y opposer, <span class="art">art. L34-5 CPCE</span> ; en B2B, régime d'opt-out).</td></tr>
+  <tr><td><b>Information</b></td><td>Caractéristiques essentielles, prix <b>TTC</b>, modalités de paiement et de livraison, identité du professionnel. Bouton de commande indiquant clairement l'obligation de payer (<span class="art">art. L221-14 C. consom.</span>).</td></tr>
+  <tr><td class="art">Art. 1127-2</td><td><b>Double clic</b> : vérifier le détail et le prix total, corriger les erreurs, puis confirmer. Accusé de réception électronique sans délai injustifié.</td></tr>
+  <tr><td><b>Archivage</b></td><td>Commande ≥ <b>120 €</b> (<span class="art">D213-1</span>) : archivage <b>10 ans</b> (<span class="art">D213-2</span>), accessible à tout moment sur demande (<span class="art">art. L213-1 C. consom.</span>).</td></tr>
+  <tr><td><b>Rétractation</b></td><td><b>14 jours</b> à compter de la réception du bien, sans motif ni pénalité (<span class="art">art. L221-18</span>). Frais de retour à la charge du consommateur sauf accord du vendeur ou défaut d'information (<span class="art">art. L221-23</span>). Exception : contenu numérique fourni immédiatement avec accord exprès, renonciation expresse et confirmation du professionnel sur support durable (<span class="art">art. L221-28</span>).</td></tr>
+  <tr><td><b>Conformité numérique</b></td><td>Contenu ou service conforme au contrat et <b>mises à jour</b> (y compris de sécurité) nécessaires pendant la durée attendue (<span class="art">art. L224-25-1 et s.</span>).</td></tr>
+</table>
+
+<h3>Contrats entre professionnels (B2B)</h3>
+<table>
+  <tr><td><b>Confidentialité</b></td><td>Interdiction de divulguer les informations sensibles et le code source auxquels on accède.</td></tr>
+  <tr><td><b>Indexation</b></td><td>Révision du prix selon un indice en relation avec l'objet du contrat ou l'activité ; interdiction d'indexer sur le niveau général des prix ou des salaires (<span class="art">art. L112-2 C. monétaire et financier</span>). Dans l'informatique : <b>indice Syntec</b>.</td></tr>
+  <tr><td><b>Hébergement</b></td><td>Responsabilité limitée de l'hébergeur : responsable seulement s'il a connaissance d'un contenu manifestement illicite et ne le retire pas promptement (LCEN 2004, DSA). Le client garantit détenir les droits sur ses contenus.</td></tr>
+  <tr><td><b>Réversibilité</b></td><td>Récupérer données et configurations en fin de contrat. <b>Data Act</b> (règlement (UE) 2023/2854) : faciliter le changement de fournisseur cloud ; frais de changement supprimés progressivement (totalement au 12 janvier 2027).</td></tr>
+</table>
+
+<p class="no-print train-chap"><button class="btn alt" data-train="numerique">🎯 5 questions sur le numérique</button> <button class="btn alt" data-redac="numerique">✍️ Un cas pratique</button></p>
+
+<h2 id="rgpd">3. Protection des personnes & RGPD</h2>
+<p><b>Risques</b> : exploitation commerciale (profilage, revente), politique (micro-ciblage, affaire Cambridge Analytica), frauduleuse (piratage, usurpation).</p>
+<p><b>RGPD</b> : règlement (UE) 2016/679, applicable depuis le <b>25 mai 2018</b>. Il s'applique aussi aux organismes hors UE qui ciblent ou suivent des personnes situées dans l'UE (<span class="art">art. 3</span>).</p>
+<table>
+  <tr><th>Droit / obligation</th><th>Article</th><th>Traduction technique</th></tr>
+  <tr><td>Information</td><td class="art">13 et 14</td><td>Quelles données, pourquoi, combien de temps, qui y accède (art. 14 : données collectées indirectement, ex. scraping).</td></tr>
+  <tr><td>Consentement</td><td class="art">4.11 et 7</td><td>Libre, spécifique, éclairé, univoque : cases <b>décochées</b> par défaut, table de consentements en base.</td></tr>
+  <tr><td>Accès</td><td class="art">15</td><td>Copie des données détenues.</td></tr>
+  <tr><td>Rectification</td><td class="art">16</td><td>Modification côté interface et mise à jour en base.</td></tr>
+  <tr><td>Effacement</td><td class="art">17</td><td>Suppression ; si la loi impose une conservation (factures), conserver le nécessaire et anonymiser irréversiblement le reste.</td></tr>
+  <tr><td>Portabilité</td><td class="art">20</td><td>Export dans un format structuré, couramment utilisé et lisible par machine.</td></tr>
+  <tr><td>Opposition</td><td class="art">21</td><td>Pouvoir refuser certains usages (ex. prospection, profilage). Les cookies relèvent, eux, du consentement préalable et de son retrait.</td></tr>
+  <tr><td>Privacy by design / by default</td><td class="art">25</td><td>Sécurité dès la conception ; réglage le plus protecteur par défaut (profil privé).</td></tr>
+  <tr><td>Registre des traitements</td><td class="art">30</td><td>Cartographie : données, finalités, durées de conservation.</td></tr>
+  <tr><td>Sécurité</td><td class="art">32</td><td>Hachage robuste des mots de passe, chiffrement, contrôle d'accès.</td></tr>
+  <tr><td>Violation de données</td><td class="art">33 et 34</td><td>Notifier la CNIL sous <b>72 h</b> ; informer les personnes si le risque est élevé.</td></tr>
+  <tr><td>Analyse d'impact (AIPD / PIA)</td><td class="art">35</td><td>Étude préalable des risques pour la vie privée.</td></tr>
+  <tr><td>DPO</td><td class="art">37 à 39</td><td>Veille au respect du RGPD dans l'organisme.</td></tr>
+  <tr><td>Amendes</td><td class="art">83</td><td>Jusqu'à 10 M€ / 2 % ou <b>20 M€ / 4 %</b> du CA annuel mondial (le plus élevé).</td></tr>
+</table>
+<p><b>Accountability</b> (<span class="art">art. 5.2 et 24</span>) : l'organisme doit pouvoir prouver sa conformité à tout moment. <b>Minimisation</b> (<span class="art">art. 5.1.c</span>) : seulement les données nécessaires.</p>
+<p><b>CNIL</b> : mission préventive (informer, accompagner) et curative (plaintes, contrôles, mises en demeure, sanctions). <b>Action de groupe</b> : une association agréée ou un syndicat peut agir au nom des victimes d'un même manquement (régime unifié par la loi du 30 avril 2025).</p>
+<p><b>Usurpation d'identité numérique</b> (<span class="art">art. 226-4-1 C. pénal</span>) : 1 an d'emprisonnement et 15 000 € d'amende (2 ans et 30 000 € si l'auteur est le conjoint, concubin ou partenaire de PACS), plus dommages-intérêts au civil. Parade technique : authentification forte (2FA).</p>
+<p><b>Salariés</b> : minimisation ; contrôle des outils possible (filtrage, sécurité) mais pas d'ouverture des fichiers ou messages identifiés comme personnels hors présence du salarié (sauf risque ou événement particulier) ; pas de surveillance disproportionnée comme un keylogger ou des captures d'écran automatiques (<span class="art">art. L1121-1 C. trav.</span>).</p>
+<p><b>IA et données</b> : le RGPD s'applique aux données d'entraînement. Fouille de textes et de données (directive (UE) 2019/790) : les titulaires de droits peuvent s'y opposer par un moyen lisible par machine (ex. robots.txt). Effacement difficile dans un modèle (« machine unlearning ») : on ajoute des <b>garde-fous</b> (guardrails), des filtres en sortie empêchant de divulguer des données sensibles.</p>
+
+<p class="no-print train-chap"><button class="btn alt" data-train="rgpd">🎯 5 questions sur le RGPD</button> <button class="btn alt" data-redac="rgpd">✍️ Un cas pratique</button></p>
+
+<h2 id="ia">4. Le règlement européen sur l'IA (IA Act)</h2>
+<p>Règlement (UE) 2024/1689, modifié par le « Digital Omnibus » IA (règlement (UE) 2026/1744, en vigueur depuis le 27 juillet 2026), qui a reporté les obligations à risque élevé. Il <b>complète</b> le RGPD et classe les systèmes selon leur <b>niveau de risque</b> pour la santé, la sécurité et les droits fondamentaux.</p>
+<table>
+  <tr><th>Date</th><th>Étape</th></tr>
+  <tr><td>1er août 2024</td><td>Entrée en vigueur</td></tr>
+  <tr><td>2 février 2025</td><td>Interdiction des pratiques à risque inacceptable</td></tr>
+  <tr><td>2 août 2025</td><td>Obligations des modèles d'IA à usage général (IA générative)</td></tr>
+  <tr><td>2 août 2026</td><td>Obligations de transparence (art. 50 : chatbots, contenus générés)</td></tr>
+  <tr><td>2 décembre 2027</td><td>Systèmes à risque élevé de l'annexe III (CV, crédit, examens…)</td></tr>
+  <tr><td>2 août 2028</td><td>Risque élevé de l'annexe I (IA intégrée à des produits réglementés)</td></tr>
+</table>
+<table>
+  <tr><th>Risque</th><th>Exemples</th><th>Régime</th></tr>
+  <tr><td><b>Inacceptable</b></td><td>Notation sociale ; manipulation subliminale ; identification biométrique à distance en temps réel dans l'espace public <b>à des fins répressives</b> (sauf exceptions strictement encadrées) ; reconnaissance des émotions au travail et à l'école</td><td>Interdit</td></tr>
+  <tr><td><b>Élevé</b></td><td>Tri de CV et recrutement ; octroi de crédit ; évaluation des examens ; composants de sécurité d'infrastructures critiques (numérique, trafic routier, eau, gaz, électricité)</td><td>Autorisé après évaluation : données de qualité examinées pour atténuer les biais, journalisation (traçabilité), supervision humaine</td></tr>
+  <tr><td><b>Transparence</b> (spécifique)</td><td>Chatbots, IA générative, deepfakes</td><td>Informer l'utilisateur qu'il parle à une IA ; marquer les contenus générés (watermarking)</td></tr>
+  <tr><td><b>Minimal</b></td><td>Anti-spam, jeux vidéo</td><td>Libre (seule l'obligation générale de maîtrise de l'IA, art. 4, s'applique)</td></tr>
+</table>
+<p><b>Clean Data Pipeline</b> : collecte (scraping respectant les oppositions) → assainissement (suppression des données personnelles via regex et NER) → filtrage (doublons, biais) → traçabilité des versions → déploiement (filtres anti-fuite, watermarking).</p>
+
+<p class="no-print train-chap"><button class="btn alt" data-train="ia">🎯 5 questions sur l'IA Act</button> <button class="btn alt" data-redac="ia">✍️ Un cas pratique</button></p>
+
+<h2 id="travail">5. Le contrat de travail</h2>
+<table>
+  <tr><td><b>Salarié</b></td><td>Travaille pour le compte et sous l'autorité d'un employeur, contre rémunération ; bénéficie du droit du travail (salaire minimum, congés payés) ; doit respecter les instructions licites.</td></tr>
+  <tr><td><b>Indépendant</b></td><td>Travaille pour son compte, organise librement son activité, supporte le risque économique, sans lien de subordination.</td></tr>
+  <tr><td><b>3 éléments</b></td><td>Prestation de travail + rémunération + <b>lien de subordination</b> (pouvoir de donner des ordres, d'en contrôler l'exécution et de sanctionner : Cass. soc., 13 nov. 1996, Société générale).</td></tr>
+  <tr><td><b>Requalification</b></td><td>Le nom du contrat ne lie pas le juge. Des conditions réelles de subordination entraînent la requalification en contrat de travail (plateformes : Cass. soc., 28 nov. 2018, Take Eat Easy ; 4 mars 2020, Uber).</td></tr>
+</table>
+
+<p class="no-print train-chap"><button class="btn alt" data-train="travail">🎯 5 questions sur le contrat de travail</button> <button class="btn alt" data-redac="travail">✍️ Un cas pratique</button></p>
+
+<h2 id="corrections">6. Corrections par rapport aux notes de cours</h2>
+<div class="box warn">
+<p>Les notes partagées contiennent quelques erreurs. Le jeu et cette fiche utilisent la version corrigée :</p>
+<ul>
+  <li>Obligation d'information : <b>art. 1112-1</b> du Code civil (et non « 1012-1 »).</li>
+  <li>Rétractation : <b>art. L221-18</b> et <b>L221-28</b> du Code de la consommation (le « L » manquait) ; garantie numérique : <b>L224-25-1</b> et suivants.</li>
+  <li>Indemnité d'immobilisation : aucun taux légal de 10 % n'est imposé. Environ 10 % est un usage courant (notamment en immobilier), pas une règle.</li>
+  <li>Indexation : la phrase « il est interdit de se référer au niveau général des prix et des salaires » vient de l'<b>art. L112-2 du Code monétaire et financier</b> ; Syntec est l'indice sectoriel utilisé, pas l'auteur de la règle.</li>
+  <li>Clause pénale : elle sanctionne toute <b>inexécution</b> (dont le retard), pas seulement le retard de paiement. Et la clause « relative à l'exécution » décrite est la <b>clause de réserve de propriété</b>.</li>
+  <li>Hébergeur : il n'est pas totalement « dispensé » de responsabilité ; il le devient s'il ne retire pas promptement un contenu manifestement illicite qui lui est signalé.</li>
+  <li>RGPD : l'art. 32 porte sur la <b>sécurité des traitements</b> ; les violations de données relèvent des <b>art. 33 et 34</b> (notification sous 72 h).</li>
+  <li>IA Act : les obligations de l'IA générative s'appliquent depuis <b>août 2025</b> (et non mai 2025). Les obligations à risque élevé ont été <b>reportées</b> par le Digital Omnibus (2 décembre 2027 / 2 août 2028), et non « 2026-2027 ». « Trello » n'est pas une infrastructure critique : on parle de numérique, trafic routier, eau, gaz, électricité.</li>
+  <li>Archivage : 120 € vient de l'art. <b>D213-1</b>, 10 ans de l'art. <b>D213-2</b> du Code de la consommation.</li>
+  <li>Pourparlers : ni le gain manqué, <b>ni la perte de chance</b> ne sont indemnisables (art. 1112 al. 2).</li>
+  <li>Cas du télétravail (keylogger) : le fondement est la <b>minimisation et la proportionnalité</b> (art. 5.1.c RGPD, art. L1121-1 C. trav.), pas les articles 7 et 17.</li>
+  <li>Effet relatif et sous-traitance : la règle est que le client ne peut pas exiger l'exécution du contrat de sous-traitance. Il existe toutefois des exceptions légales (ex. action directe en paiement du sous-traitant, loi de 1975) : évitez d'écrire qu'il n'existe « aucune action » possible.</li>
+</ul>
+</div>
+<p class="muted" style="text-align:center;margin-top:2em">Fiche établie à partir du cours R3.11 et des textes en vigueur. En cas de doute, la version de l'enseignant fait foi pour l'examen.</p>
+</main>
+<a class="btn fab no-print" href="#entrainement">🎯 S'entraîner</a>
+<script src="donnees.js"></script>
+<script src="../../assets/js/casegen.js"></script>
+<script src="cas.js"></script>
+<script src="../../assets/js/course.js"></script>
+<script src="../../assets/js/trainer.js"></script>
+<script src="../../assets/js/redac.js"></script>
+</body>
+</html>

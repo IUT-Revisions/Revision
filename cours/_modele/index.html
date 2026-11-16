@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>CODE · Titre du cours</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+  .book { max-width: 820px; margin: 0 auto; padding: 32px 16px 80px; line-height: 1.6; }
+  .box { background: var(--card); border-radius: 14px; padding: 1em 1.3em; box-shadow: var(--shadow); margin: 1em 0; }
+  .train { border: 2px solid var(--accent); }
+  .train fieldset { border: 0; padding: 0; margin: 0 0 12px; }
+  .train legend { font-weight: 800; margin-bottom: 6px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills label { display: inline-flex; align-items: center; gap: 6px; background: var(--soft); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-weight: 600; }
+  .tr-card { background: var(--card); border-radius: 16px; padding: 18px; box-shadow: var(--shadow); margin-top: 14px; }
+  .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  .bad { color: var(--bad); font-weight: 700; }
+  .redac-ta { min-height: 220px; }
+  .kl { list-style: none; padding: 0; } .model, .copy { white-space: pre-line; background: var(--soft); border-radius: 12px; padding: 12px 14px; }
+</style>
+</head>
+<!-- data-course : identifiant court, sert à ranger les statistiques de l'élève dans son navigateur -->
+<body data-course="code-du-cours">
+<main class="book">
+<p><a href="../../">← Toutes les matières</a></p>
+<h1>CODE · Titre du cours</h1>
+
+<!-- 1. La fiche : rédigez ici le cours (sections h2 par chapitre). -->
+<h2 id="chapitre1">1. Premier chapitre</h2>
+<p>…</p>
+
+<!-- 2. Entraînement aléatoire (questions de donnees.js). Les cases « chapitres » sont créées automatiquement. -->
+<section id="entrainement" class="box train">
+  <h2>🎯 Entraînement aléatoire</h2>
+  <p class="muted"><b id="train-count">…</b> questions possibles.</p>
+  <form id="train-form">
+    <fieldset><legend>Chapitres</legend><div class="pills" data-theme-pills="theme"></div></fieldset>
+    <fieldset><legend>Types de questions</legend><div class="pills">
+      <label><input type="checkbox" name="type" value="qcm" checked> QCM</label>
+      <label><input type="checkbox" name="type" value="vf" checked> Vrai / faux</label>
+      <label><input type="checkbox" name="type" value="cas" checked> Cas pratiques</label>
+      <label><input type="checkbox" name="type" value="chiffres" checked> Chiffres</label>
+      <label><input type="checkbox" name="type" value="articles" checked> Notions</label>
+    </div></fieldset>
+    <fieldset><legend>Série</legend><div class="pills">
+      <label><input type="radio" name="n" value="10" checked> 10</label>
+      <label><input type="radio" name="n" value="20"> 20</label>
+    </div></fieldset>
+    <fieldset><legend>Mode</legend><div class="pills">
+      <label><input type="radio" name="mode" value="revision" checked> Révision</label>
+      <label><input type="radio" name="mode" value="exam"> Examen blanc</label>
+      <label><input type="checkbox" name="weak" checked> Cibler mes points faibles</label>
+    </div></fieldset>
+    <button class="btn block" type="submit">Générer une série</button>
+  </form>
+  <div id="trainer"></div>
+</section>
+
+<!-- 3. Cas pratiques rédigés (modèles de cas.js). Supprimez cette section si le cours n'en a pas. -->
+<section id="cas-rediges" class="box train">
+  <h2>✍️ Cas pratiques rédigés</h2>
+  <p class="muted"><b id="redac-count">…</b> modèles de cas.</p>
+  <form id="redac-form">
+    <fieldset><legend>Chapitres</legend><div class="pills" data-theme-pills="rtheme"></div></fieldset>
+    <fieldset><legend>Série</legend><div class="pills">
+      <label><input type="radio" name="rn" value="1"> 1 cas</label>
+      <label><input type="radio" name="rn" value="3" checked> 3 cas</label>
+    </div></fieldset>
+    <fieldset><legend>Chrono</legend><div class="pills">
+      <label><input type="radio" name="rtime" value="0" checked> Sans chrono</label>
+      <label><input type="radio" name="rtime" value="10"> 10 min par cas</label>
+    </div></fieldset>
+    <button class="btn block" type="submit">Générer des cas pratiques</button>
+  </form>
+  <div id="redac"></div>
+</section>
+</main>
+<script src="donnees.js"></script>
+<script src="../../assets/js/casegen.js"></script>
+<script src="cas.js"></script>
+<script src="../../assets/js/course.js"></script>
+<script src="../../assets/js/trainer.js"></script>
+<script src="../../assets/js/redac.js"></script>
+</body>
+</html>
