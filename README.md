@@ -1,5 +1,7 @@
 # GabouLearn — Révisions
 
+🌐 **https://iut-revisions.github.io/Revision/**
+
 Site de révision pour **tous les cours** du BUT. Chaque matière est une rubrique qui peut proposer :
 
 - 📖 une **fiche de cours corrigée** ;
@@ -66,4 +68,6 @@ Règles de contenu : chaque réponse doit citer sa source (article, cours…), e
 
 ## Publication sur GitHub Pages
 
-Dans les paramètres du dépôt : *Settings → Pages → Deploy from a branch → `main` / `/ (root)`*.
+Dans les paramètres du dépôt : *Settings → Pages → Deploy from a branch → `main` / `/ (root)`*. Le site est alors publié sur https://iut-revisions.github.io/Revision/.
+
+Tous les liens internes sont relatifs : le site fonctionne aussi bien sous `/Revision/` qu'à la racine d'un domaine.

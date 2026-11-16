@@ -468,6 +468,8 @@ function handleEvents(req, res, url, ip) {
 const ROOT = path.join(__dirname, '..');
 function handleStatic(req, res, url) {
   if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, { Allow: 'GET, HEAD' }, '');
+  // en ligne, le site vit sous /Revision/ (GitHub Pages) : on accepte ce préfixe en local aussi
+  if (url.pathname === '/Revision' || url.pathname.startsWith('/Revision/')) return send(res, 301, { Location: url.pathname.slice('/Revision'.length) || '/' }, '');
   let rel;
   try { rel = decodeURIComponent(url.pathname); } catch { return send(res, 400, {}, ''); }
   if (rel.includes('\0') || rel.split('/').some((seg) => seg.startsWith('.') || seg === 'node_modules')) return send(res, 404, {}, 'Introuvable.');
