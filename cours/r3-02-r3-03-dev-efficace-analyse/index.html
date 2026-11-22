@@ -21,7 +21,7 @@
 <meta name="twitter:title" content="R3.02 · R3.03 Interactive : cours + parcours guidé + QCM corrigés">
 <meta name="twitter:description" content="UML, exigences, complexité, structures de données, tris, Effective Java, écoconception : cours, parcours guidé de 2 h et 131 questions corrigées.">
 <meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-r3-02-r3-03.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.02 Développement efficace et R3.03 Analyse : cours et parcours guidé interactif","url":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, semestre 3","timeRequired":"PT2H","teaches":["Analyse des exigences","Cas d'utilisation et diagrammes de séquence","Associations UML : agrégation, composition, généralisation, réalisation","Complexité algorithmique et notation Grand O","Listes chaînées, arbres, tables de hachage","Tri à bulles, recherche binaire, quicksort","Effective Java","Écoconception web"],"isAccessibleForFree":true,"dateModified":"2026-11-22","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.02 · R3.03 Interactive","item":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre agrégation et composition en UML ?","acceptedAnswer":{"@type":"Answer","text":"Les deux ont un losange côté tout. Agrégation (losange vide) : la partie survit au tout et peut être partagée. Composition (losange plein) : la partie n'a qu'un seul propriétaire et disparaît avec le tout."}},{"@type":"Question","name":"Quelle est la complexité du quicksort ?","acceptedAnswer":{"@type":"Answer","text":"O(n log n) en moyenne et au meilleur cas, O(n²) au pire cas, par exemple avec le dernier élément comme pivot sur une liste déjà triée."}},{"@type":"Question","name":"Pourquoi redéfinir hashCode quand on redéfinit equals ?","acceptedAnswer":{"@type":"Answer","text":"Deux objets égaux selon equals doivent avoir le même hashCode (fiche 11 d'Effective Java). Sinon HashMap et HashSet cherchent dans la mauvaise alvéole et get renvoie null."}},{"@type":"Question","name":"Quels sont les 5 éléments d'un scénario ?","acceptedAnswer":{"@type":"Answer","text":"La situation de départ, le flux normal des événements, ce qui peut mal se passer, les activités parallèles et l'état final."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.02 Développement efficace et R3.03 Analyse : cours et parcours guidé interactif","url":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, semestre 3","timeRequired":"PT2H10M","teaches":["Analyse des exigences","Cas d'utilisation et diagrammes de séquence","Associations UML : agrégation, composition, généralisation, réalisation","Complexité algorithmique et notation Grand O","Listes chaînées, arbres, tables de hachage","Tri à bulles, recherche binaire, quicksort","Effective Java","Écoconception web"],"isAccessibleForFree":true,"dateModified":"2026-11-22","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.02 · R3.03 Interactive","item":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre agrégation et composition en UML ?","acceptedAnswer":{"@type":"Answer","text":"Les deux ont un losange côté tout. Agrégation (losange vide) : la partie survit au tout et peut être partagée. Composition (losange plein) : la partie n'a qu'un seul propriétaire et disparaît avec le tout."}},{"@type":"Question","name":"Quelle est la complexité du quicksort ?","acceptedAnswer":{"@type":"Answer","text":"O(n log n) en moyenne et au meilleur cas, O(n²) au pire cas, par exemple avec le dernier élément comme pivot sur une liste déjà triée."}},{"@type":"Question","name":"Pourquoi redéfinir hashCode quand on redéfinit equals ?","acceptedAnswer":{"@type":"Answer","text":"Deux objets égaux selon equals doivent avoir le même hashCode (fiche 11 d'Effective Java). Sinon HashMap et HashSet cherchent dans la mauvaise alvéole et get renvoie null."}},{"@type":"Question","name":"Quels sont les 5 éléments d'un scénario ?","acceptedAnswer":{"@type":"Answer","text":"La situation de départ, le flux normal des événements, ce qui peut mal se passer, les activités parallèles et l'état final."}}]}]}</script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
 <link rel="stylesheet" href="../../assets/css/style.css">
@@ -35,6 +35,7 @@
   .book td, .book th { border-bottom: 1px solid var(--line); padding: .45em .4em; text-align: left; vertical-align: top; }
   .book th { color: var(--muted); font-weight: 700; }
   .book td { overflow-wrap: anywhere; }
+  .book td:first-child { overflow-wrap: normal; word-break: normal; }
   .tbl { overflow-x: auto; }
   .box { background: var(--card); border-radius: 14px; padding: 1em 1.3em; box-shadow: var(--shadow); margin: 1em 0; }
   .keep { border-left: 4px solid var(--good); }
@@ -56,6 +57,16 @@
   .flash h3 { margin: 0 0 .2em; font-size: 1rem; color: var(--accent); }
   .flash p { margin: 0; font-size: .93rem; }
   td.sym { width: 230px; }
+  @media (max-width: 640px) {
+    .book table.stack, .book table.stack tbody, .book table.stack tr, .book table.stack td { display: block; width: auto; }
+    .book table.stack tr:first-child { display: none; }
+    .book table.stack tr { border-bottom: 1px solid var(--line); padding: .55em 0; }
+    .book table.stack td { border: 0; padding: .12em 0; }
+    .book table.stack td[data-label]::before { content: attr(data-label) " : "; font-weight: 700; color: var(--muted); font-size: .85em; }
+    .book table.stack td:first-child { font-weight: 700; }
+    .book table.stack td.sym::before { display: block; }
+    .book table.stack td.sym svg.rel { max-width: 220px; }
+  }
   /* SVG relations */
   svg.rel { max-width: 320px; display: block; }
   .rel-box { fill: var(--card); stroke: var(--ink); stroke-width: 1.5; }
@@ -114,6 +125,40 @@
   .qs-cell { width: 2.4em; height: 2.4em; display: grid; place-items: center; border-radius: 10px; background: var(--soft); font-weight: 900; font-size: 1.15rem; }
   .qs-cell.piv { background: var(--sun); color: #3a2a1a; }
   .qs-cell.sw { background: var(--good); color: #fff; }
+  /* entraînement UML ↔ Java */
+  #entrainement-box { scroll-margin-top: 8px; }
+  #uml-java { scroll-margin-top: 12px; }
+  .uj-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 1em 0 .4em; }
+  .uj-q { background: var(--soft); border-radius: 12px; padding: 10px; margin: 8px 0 12px; overflow-x: auto; }
+  .uj-q .uj-code { background: var(--card); margin: 0; }
+  .uj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 10px; }
+  .uj-grid.one { grid-template-columns: 1fr; }
+  .uj-opt { position: relative; text-align: left; border: 2px solid var(--line); background: var(--card); border-radius: 12px; padding: 30px 8px 8px; cursor: pointer; color: var(--ink); font: inherit; min-width: 0; }
+  .uj-opt:hover:not(:disabled) { border-color: var(--accent); }
+  .uj-opt:disabled { cursor: default; }
+  .uj-opt.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 12%, var(--card)); }
+  .uj-opt.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, var(--card)); }
+  .uj-letter { position: absolute; top: 6px; left: 8px; background: var(--soft); border-radius: 6px; padding: 0 8px; font-weight: 900; font-size: .85rem; }
+  .uj-code { margin: 0; font-size: .78rem; line-height: 1.45; white-space: pre; }
+  .uj-code .kw { color: var(--accent); font-weight: 700; }
+  .uj-code .ty { color: var(--good); }
+  .uj-uml { overflow-x: auto; }
+  svg.uml { width: 100%; height: auto; display: block; margin: 0 auto; }
+  .u-box { fill: var(--card); stroke: var(--ink); stroke-width: 1.4; }
+  .u-sep { stroke: var(--ink); stroke-width: 1; }
+  .u-name { fill: var(--ink); font: 700 14px system-ui, sans-serif; }
+  .u-st { fill: var(--muted); font: 11px system-ui, sans-serif; }
+  .u-txt, .u-lab { fill: var(--ink); font: 12px ui-monospace, Consolas, monospace; }
+  .u-lab { fill: var(--accent); font-weight: 700; }
+  .u-it { font-style: italic; }
+  .u-ul { stroke: var(--ink); stroke-width: 1; }
+  .u-line { stroke: var(--ink); stroke-width: 1.8; }
+  .u-hollow { fill: var(--card); stroke: var(--ink); stroke-width: 1.8; }
+  .u-full { fill: var(--ink); stroke: var(--ink); stroke-width: 1.8; }
+  .uj-fb { margin-top: 12px; }
+  .uj-t { font-size: .9rem; font-weight: 600; }
+  @media (max-width: 640px) { .uj-code { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .72rem; } .uj-opt { padding: 28px 6px 6px; } .box#entrainement-box { padding: .8em .7em; } }
+  .top-line { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
   .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
   @media print { .no-print, #parcours-section, .fab, .launch, .chap-cta, .hero-cta { display: none !important; } body { background: #fff; } }
 </style>
@@ -142,7 +187,8 @@
   <li><a href="#tris">Algorithmes de tri</a></li>
   <li><a href="#java">Java efficace</a></li>
   <li><a href="#ecoweb">Écoconception web</a></li>
-  <li><a href="#tps">Tes TPs en UML</a></li>
+  <li><a href="#tps">Tes TD/TP, énoncé par énoncé</a></li>
+  <li><a href="#entrainement">🏋️ Entraînement UML ↔ Java</a></li>
   <li><a href="#flash">⚡ Fiche flash</a></li>
   <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
 </ol>
@@ -265,7 +311,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td>Exemple</td><td>Personne — Voiture</td><td>Université ◇ Étudiant</td><td>Université ◆ Département</td></tr>
 </table></div>
 <div class="box warn"><h4>Piège QCM</h4>Losange vide à 3 branches = <b>n-aire</b>. En composition, multiplicité côté composite <b>≤ 1</b>. Héritage et réalisation : <b>ni multiplicité ni rôle</b>. Le <b>triangle plein n'existe pas</b>.</div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="assoc">🎯 Étape « Associations » du parcours</button></p>
+<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">🏋️ S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="assoc">🎯 Étape « Associations » du parcours</button></p>
 
 <!-- ============================================================ 5 -->
 <h2 id="complexite">5. Complexité algorithmique <small class="muted">(slides 62-76)</small></h2>
@@ -402,9 +448,73 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
 <p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">🎯 Étape « Écoinformatique & écoconception » du parcours</button></p>
 
 <!-- ============================================================ 10 -->
-<h2 id="tps">10. Tes TPs en UML</h2>
-<p><b>Village du Père Noël</b> : classe abstraite <i>Personnage</i> (italique) ; héritage à 3 niveaux Personnage ← Humanoide ← Lutin ← LutinFarceur ; <code>Lutin extends Humanoide implements Travailleur, Divertissable, EtreFantastique</code> ; <b>Village ◆ Bâtiment</b> (composition) ; <b>Bâtiment ◇ Personnage</b> (agrégation : le personnage change de bâtiment) ; <b>PereNoel</b> singleton (constructeur privé, attribut statique instance, <code>getInstance()</code> = fabrique statique) ; <b>enum</b> Proprete et Nourriture(valeurNutritive) + EnumMap ; template method <code>accueillir()</code> → <code>peutAccueillir()</code> ; pattern matching instanceof ; itérer sur une copie quand on modifie la liste.</p>
-<p>TP2 threads : MyJobAlphabet et MyJobNumber implémentent <code>Runnable</code> (réalisation), <code>new Thread(job).start()</code>, affichage entrelacé non déterministe. TP6 : bulles sur DLinkedList en échangeant les <b>éléments</b> (pas les nœuds).</p>
+<h2 id="tps">10. Tes TD/TP, énoncé par énoncé</h2>
+<p class="muted">D'après les énoncés de M. Martin-Nevot (« Qualité de développement », TD1-1 à TD4 et le projet) et tes TPs. Les TD1 à TD3 peuvent tomber au contrôle ; le TD4 et le projet servent surtout pour la suite. Pour chaque TD : ce qu'on te demandait, puis ce que le QCM peut en tirer.</p>
+
+<h3>TD1-1 · Gestion d'une bibliothèque</h3>
+<div class="tbl"><table>
+  <tr><th>Classe</th><th>Contenu demandé</th><th>Ce qu'il faut savoir</th></tr>
+  <tr><td><b>Book</b></td><td>title, author, editor, pageNb ; constructeur ; accesseurs/mutateurs ; affichage ; test d'égalité</td><td>Égalité = redéfinir <code>equals</code> <b>et</b> <code>hashCode</code> (F11), sinon un HashSet garde les doublons</td></tr>
+  <tr><td><b>Library</b></td><td><b>constante de classe</b> MAX_BOOKS ; name, address, max, tableau de Book d'au plus MAX_BOOKS ; ajouter, retirer, éliminer les doublons, livres communs à 2 bibliothèques, tri par auteur</td><td><code>private static final int MAX_BOOKS</code> (souligné en UML). Library ◇ Book (les livres viennent de l'extérieur). Doublons : 2 boucles O(n²) ; HashSet O(n) en moyenne. Livres communs : O(n·m) naïf, O(n + m) avec un HashSet. Tri par auteur : <code>Comparator.comparing(Book::getAuthor)</code>, O(n log n)</td></tr>
+  <tr><td><b>LibraryUI</b></td><td>menu (pas forcément graphique)</td><td>LibraryUI → Library : l'IHM connaît le modèle, pas l'inverse</td></tr>
+</table></div>
+
+<h3>TD1-2 · Impôts locaux d'une mairie (héritage)</h3>
+<pre><code>class Home {                          // owner, address, surface
+    public double tax() { return 2 * surface; }          // 2 €/m²
+}
+class PersonalHome extends Home {     // + roomNb, pool
+    @Override public double tax() { return super.tax() + 15 * roomNb + (pool ? 80 : 0); }
+}
+class ProHome extends Home {          // + employeeNb
+    @Override public double tax() { return super.tax() + 150 * (employeeNb / 10); }
+}</code></pre>
+<p>Deux généralisations vers Home (trait plein ▷). <code>for (Home h : homes) h.tax()</code> appelle la version de la <b>classe réelle</b> (liaison dynamique). « 150 € par dizaine d'employés » : la division entière ci-dessus arrondit à la dizaine inférieure ; vérifie la convention de ton groupe.</p>
+
+<h3>TD2 · Java « avancé » : les threads</h3>
+<div class="tbl"><table>
+  <tr><th>Exercice</th><th>À retenir</th></tr>
+  <tr><td>2 façons de créer un thread</td><td><code>MyThread extends Thread</code> + <code>t1.start()</code>, ou <code>MyJob implements Runnable</code> + <code>new Thread(job).start()</code>. Runnable : la classe peut encore hériter (héritage simple), et la tâche est séparée du thread</td></tr>
+  <tr><td>Alphabet ∥ nombres 1 à 26</td><td>Deux tâches (tes MyJobAlphabet / MyJobNumber) : sortie <b>entrelacée et non déterministe</b></td></tr>
+  <tr><td>3 threads, 10 × (attente aléatoire 0-200 ms, afficher son nom)</td><td><code>Thread.sleep(rand)</code>, <code>getName()</code> ; le main attend avec <b><code>join()</code></b></td></tr>
+  <tr><td>Juliette &amp; Roméo, Account (balance = 100)</td><td>JulietteAndRomeoJob <i>implements Runnable</i>, name + account <b>partagé</b>. doWithdraw : vérifier, dormir 500 ms, retirer ⇒ <b>race condition</b>, solde négatif. Correctif : <code>synchronized</code> (méthode ou bloc sur account)</td></tr>
+</table></div>
+<p><code>start()</code> crée un fil d'exécution qui appelle <code>run()</code> ; appeler <code>run()</code> directement reste dans le thread courant ; un 2<sup>e</sup> <code>start()</code> lève IllegalThreadStateException.</p>
+
+<h3>TD3 · Simulation du village du Père Noël (cas pratique)</h3>
+<div class="tbl"><table>
+  <tr><th>Élément de l'énoncé</th><th>Modélisation attendue</th></tr>
+  <tr><td>Humanoïdes : lutins, elfes postiers, fées de Noël, enfants visiteurs. Créatures : rennes, lycanthropes, bonshommes de neige vivants, esprits du Nord</td><td><i>Personnage</i> abstraite ← <i>Humanoide</i> / <i>Creature</i> abstraites ← classes concrètes. Lutin ← LutinFarceur (farces illimitées, pas stockées)</td></tr>
+  <tr><td>Tous : nom, sexe, âge, faim, fatigue, magie de Noël ; son, déplacement, manger, se reposer, magie ±</td><td>Attributs et méthodes dans Personnage ; <code>emettreSon()</code> abstraite, redéfinie partout</td></tr>
+  <tr><td>Se divertir (lutins, enfants), travailler (lutins, elfes postiers, fées), être fantastique (lutins, fées, lycanthropes, bonshommes de neige, esprits du Nord)</td><td><b>Interfaces</b> Divertissable, Travailleur, EtreFantastique : capacités transversales aux humanoïdes et aux créatures. <code>Lutin extends Humanoide implements Divertissable, Travailleur, EtreFantastique</code></td></tr>
+  <tr><td>Nourritures (biscuits, chocolats chauds, guimauves, gruau d'avoine, sucres d'orge, bonbons), chacune avec une valeur nutritive</td><td><code>enum Nourriture</code> avec attribut valeurNutritive (F34) ; réserve = <code>EnumMap&lt;Nourriture, Integer&gt;</code></td></tr>
+  <tr><td>Bâtiment : superficie, capacité, propreté (mauvais / correct / bon), personnages présents ; types : maison du Père Noël, tour de l'horloge, chalets dortoir non mixtes, enclos, confiseries, ateliers, bureaux de poste, écoles de magie, boutiques de jouets, aires de jeux, réserves</td><td><i>Batiment</i> abstraite, <code>enum Proprete</code>. « Pas n'importe qui n'importe où » : template method <code>accueillir()</code> → <code>peutAccueillir()</code> redéfinie, ou généricité <code>Enclos&lt;T extends Creature&gt;</code> (un seul type de créature)</td></tr>
+  <tr><td>Un seul Père Noël : examiner, faire entretenir, transférer un personnage</td><td><b>Singleton</b> : constructeur privé, <u>instance</u> static, <u>getInstance()</u>. Maison du Père Noël et tour de l'horloge : bâtiments uniques</td></tr>
+  <tr><td>Village : Père Noël, superficie et capacité max, bâtiments ; <code>main</code> = boucle temporelle aléatoire</td><td><b>Village ◆ Bâtiment</b> (composition) ; <b>Bâtiment ◇ Personnage</b> (agrégation : transfert possible) ; itérer sur une <b>copie</b> quand on modifie la liste (sinon ConcurrentModificationException)</td></tr>
+</table></div>
+
+<h3>TD4 · Algorithmique « avancée » : colonie de lycanthropes</h3>
+<div class="tbl"><table>
+  <tr><th>Élément de l'énoncé</th><th>Modélisation attendue</th></tr>
+  <tr><td>Lycanthrope : sexe, catégorie d'âge (jeune / adulte / vieux), force, facteur de domination, rang, niveau, impétuosité, meute</td><td>enums <code>CategorieAge</code> et <code>Rang</code> (α, β, γ … ω, ordre de déclaration ⇒ <code>compareTo</code>). Niveau = valeur <b>calculée</b> (méthode, pas attribut stocké). Lycanthrope → Meute <b>0..1</b> (solitaire = null, sans rang)</td></tr>
+  <tr><td>Meute : couple α + lycanthropes ; hiérarchie, reproduction (1 à 7 jeunes γ), déclarer les ω, ajouter / enlever</td><td>Meute ◇ Lycanthrope (un lycanthrope peut partir ou devenir solitaire). Couple α : 1 mâle + 1 femelle, reconstitué si le mâle α est dominé</td></tr>
+  <tr><td>Mâle α = plus forte force parmi les mâles adultes</td><td>Un seul parcours <b>O(n)</b>, pas un tri O(n log n) : l'énoncé demande la complexité minimale</td></tr>
+  <tr><td>Domination : si niveau agresseur &gt; cible ou cible ω ⇒ échange des rangs</td><td>Tri de la meute par rang avec un <code>Comparator</code> ; échange de rangs en O(1)</td></tr>
+  <tr><td>Hurlements : appartenance, domination, soumission, agressivité ; chacun émis par un lycanthrope, perçus de partout</td><td>enum ou hiérarchie <b>scellée</b> (<code>sealed</code>) de Hurlement → Lycanthrope émetteur (1) ; diffusion = pattern <b>Observateur</b></td></tr>
+  <tr><td>Colonie = meutes au même endroit ; main temporel</td><td>Colonie ◇ Meute ; boucle : nouvelles meutes, saison des amours, vieillissement, hurlements, transformations en humain</td></tr>
+</table></div>
+
+<div class="box tp"><h4>Projet (trinôme, rendu le 10/12/2026 à 23 h, oral le 11/12 à 13 h 30)</h4>Il porte sur le TD3 + le TD4. Le code doit contenir : héritage, classes abstraites, interfaces, <b>généricité</b>, <b>types scellés</b>, collections (ArrayList + au moins une autre avec itérateurs), exceptions, modèles de conception, <b>threads</b> et au moins un <b>algorithme de tri</b>. Nommage en anglais, commentaires, interface en ligne de commande acceptée.</div>
+<p><b>Autres TPs</b> : TP6, tri à bulles sur DLinkedList en échangeant les <b>éléments</b> (pas les nœuds) ; contrôle d'accès en diagramme de séquence (voir <a href="#exigences">Exigences</a>).</p>
+<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">🏋️ S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="tp">🎯 Étape « Tes TD/TP » du parcours</button></p>
+
+<!-- ============================================================ entraînement -->
+<h2 id="entrainement">🏋️ Entraînement UML ↔ Java</h2>
+<p>Un diagramme de classes → choisis le bon code Java. Un code Java → choisis le bon diagramme. Les trois mauvaises réponses ne diffèrent que d'<b>un seul détail</b>, comme au QCM.</p>
+<section class="box no-print" id="entrainement-box">
+  <div id="uml-java"><p class="muted">Chargement de l'entraînement…</p></div>
+</section>
+<noscript><p class="muted">L'entraînement interactif nécessite JavaScript.</p></noscript>
 
 <!-- ============================================================ flash -->
 <h2 id="flash">⚡ Fiche flash (veille et matin de l'examen)</h2>
@@ -429,7 +539,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
 <!-- ============================================================ parcours -->
 <section class="box launch no-print">
   <h2 style="border:0;margin-top:0">Prêt pour le contrôle ?</h2>
-  <p>Le parcours guidé reprend tout le cours en <b>11 étapes</b> : l'essentiel, des cartes à réciter, des exercices interactifs (symboles UML, ordre des complexités, parcours d'arbre, partition du quicksort), des quiz corrigés, un examen blanc et ton carnet d'erreurs.</p>
+  <p>Le parcours guidé reprend tout le cours en <b>12 étapes</b> : l'essentiel, des cartes à réciter, des exercices interactifs (symboles UML, ordre des complexités, parcours d'arbre, partition du quicksort), des quiz corrigés, un examen blanc et ton carnet d'erreurs.</p>
   <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
   <p class="time">⏱ Temps moyen : <b data-total-time>2 h</b> · ta progression est enregistrée dans ce navigateur</p>
 </section>
@@ -442,5 +552,6 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
 <a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
 <script src="data.js"></script>
 <script src="parcours.js"></script>
+<script src="uml-java.js"></script>
 </body>
 </html>
