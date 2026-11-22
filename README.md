@@ -1,6 +1,6 @@
 # GabouLearn — Révisions
 
-🌐 **https://iut-revisions.github.io/Revision/**
+🌐 **https://gaboulearn.fr/**
 
 Site de révision pour **tous les cours** du BUT. Chaque matière est une rubrique qui peut proposer :
 
@@ -9,7 +9,7 @@ Site de révision pour **tous les cours** du BUT. Chaque matière est une rubriq
 - ✍️ des **cas pratiques rédigés** dont les faits changent à chaque tirage, notés en **% par notions clés**, avec un corrigé type ;
 - 🎮 un **jeu multijoueur** à héberger soi-même sur un réseau local (R3.11 pour l'instant).
 
-Matières disponibles : **R3.11 Droit du numérique**.
+Matières disponibles : **R3.02 · R3.03 Interactive** (Développement efficace + Analyse, parcours guidé) et **R3.11 Droit du numérique**.
 
 ## Utiliser le site
 
@@ -68,6 +68,6 @@ Règles de contenu : chaque réponse doit citer sa source (article, cours…), e
 
 ## Publication sur GitHub Pages
 
-Dans les paramètres du dépôt : *Settings → Pages → Deploy from a branch → `main` / `/ (root)`*. Le site est alors publié sur https://iut-revisions.github.io/Revision/.
+Dans les paramètres du dépôt : *Settings → Pages → Deploy from a branch → `main` / `/ (root)`*. Le site est alors publié sur https://gaboulearn.fr/.
 
 Tous les liens internes sont relatifs : le site fonctionne aussi bien sous `/Revision/` qu'à la racine d'un domaine.

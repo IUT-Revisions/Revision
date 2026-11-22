@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /jeu/
+Disallow: /cours/_modele/
+
+Sitemap: https://gaboulearn.fr/sitemap.xml

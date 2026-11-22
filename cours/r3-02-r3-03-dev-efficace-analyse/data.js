@@ -1,0 +1,320 @@
+// R3.02 Développement efficace + R3.03 Analyse — données du parcours guidé.
+// Questions du cours PDF (Q1 à Q111) + quelques questions « X » ajoutées sur les pièges du cours.
+// Format d'une question : [id, chapitre, énoncé, [propositions A, B, C, D], bonnes réponses (lettres), explication]
+// Plusieurs bonnes réponses possibles (format du QCM). L'ordre est mélangé à l'affichage.
+(function (root) {
+'use strict';
+
+const RAW = [
+  // ---------------------------------------------------------------- Écoinformatique
+  [1, 'eco', 'La formule du jour de dépassement est…', ['J = (B / E) × 365', 'J = (E / B) × 365', 'J = B × E / 365', 'J = 365 − B/E'], 'A', 'B = biocapacité, E = empreinte écologique (en hectares globaux). Si E > B, alors J < 365.'],
+  [2, 'eco', 'En 2026, combien de limites planétaires sur 9 sont dépassées ?', ['5', '6', '7', '9'], 'C', '7 sur 9 en 2026 (6 en 2023). La dernière dépassée : l\'acidification des océans (2025).'],
+  [3, 'eco', 'L\'empreinte carbone du numérique mondial représente environ…', ['4 % des eGES', '×1,5 l\'aérien mondial', '20 % des eGES', '40 % des eGES'], 'AB', '≈ 4 % des émissions = 1,5 fois le transport aérien (GIEC 2022). Les 20 % concernent la consommation d\'énergie prévue en 2030.'],
+  [4, 'eco', 'Principal responsable de l\'obsolescence programmée du numérique selon le cours :', ['l\'obésité logicielle', 'l\'usure des batteries', 'les datacenters', 'la 5G'], 'A', 'L\'obésiciel : des services trop lourds obligent à changer un matériel qui fonctionne encore.'],
+  [5, 'eco', 'Quel principe d\'écoconception est qualifié de démarche quantitative ?', ['Frugalité', 'Simplicité', 'Pertinence', 'Sobriété graphique'], 'A', 'Frugalité = quantitative ; Simplicité = qualitative ; Pertinence = utilité × rapidité × accessibilité.'],
+  [6, 'eco', 'D\'où vient le plus gros des économies de l\'écoconception ?', ['De l\'allongement de la durée de vie des équipements', 'De l\'optimisation fine des lignes de code', 'Des économies en phase d\'utilisation', 'Du passage au cloud'], 'A', 'Les économies à l\'usage sont une externalité positive ; la conception en amont pèse plus que l\'optimisation du code.'],
+  [7, 'eco', 'Seul scénario Arcep/ADEME 2050 qui fait baisser l\'empreinte du numérique :', ['Génération frugale', 'Coopérations territoriales', 'Technologies vertes', 'Pari réparateur'], 'A', 'Génération frugale : ÷2. Les autres : ×1,6, ×5 et ×14.'],
+  [81, 'eco', 'B (biocapacité) et E (empreinte écologique) s\'expriment en…', ['hectares globaux', 'tonnes de CO₂', 'kWh', 'jours'], 'A', 'Slide 11 : les deux en hectares globaux.'],
+  [82, 'eco', 'Le poids moyen d\'une page web a été multiplié par environ … entre 1995 et 2022.', ['155', '15', '1 000', '2'], 'A', '14 Ko → 2 200 Ko : ×155, une inflation non justifiée.'],
+  [83, 'eco', 'Écoconcevoir un service, c\'est réduire les moyens informatiques…', ['à niveau de qualité constant', 'en réduisant la qualité', 'uniquement à l\'étape de développement', 'à chaque étape du cycle de vie'], 'AD', 'Définition (slide 28) : à qualité constante, et du besoin jusqu\'à la maintenance.'],
+  ['X1', 'eco', 'Jour du dépassement de la France en 2026 :', ['24 avril', '5 mai', '30 juillet', '17 décembre'], 'A', 'France 2026 : 24 avril (2023 : 5 mai). Monde 2026 : 30 juillet.'],
+  ['X2', 'eco', 'La pertinence d\'un service = utilité × rapidité × accessibilité. Si un facteur est très faible…', ['l\'utilisateur change de service : 100 % d\'impacts inutiles', 'la pertinence baisse un peu', 'les deux autres compensent', 'rien ne change'], 'A', 'C\'est un produit, pas une somme : un facteur nul rend tout nul.'],
+
+  // ---------------------------------------------------------------- Écoconception web
+  [66, 'ecow', 'Selon les études citées, quelle part des fonctionnalités demandées n\'est jamais utilisée ?', ['45 %', '70 %', '20 %', '80 %'], 'A', '70 % ne sont pas essentielles, 45 % ne sont jamais utilisées.'],
+  [67, 'ecow', 'En l\'absence de précision, une liste est limitée par défaut à…', ['5 éléments', '10 éléments', '20 éléments', '50 éléments'], 'A', 'BP 2 : quantifier le besoin ; sinon qualité/quantité minimale.'],
+  [68, 'ecow', 'Pour une animation inévitable, quelles propriétés CSS privilégier ?', ['opacity', 'transform', 'width', 'top/left'], 'AB', 'BP 9 : opacity et transform sont optimisées et prises en charge par le GPU.'],
+  [69, 'ecow', 'Pourquoi l\'autocomplétion est-elle coûteuse ?', ['une requête serveur est envoyée à chaque caractère', 'elle utilise le GPU', 'elle bloque le cache', 'elle est interdite par le W3C'], 'A', 'BP 14 : préférer la saisie assistée (indices locaux, <datalist>).'],
+  [70, 'ecow', 'YAGNI signifie…', ['You Ain\'t Gonna Need It', 'Yet Another Good New Idea', 'Your Application Gets No Input', 'You Always Get New Items'], 'A', 'Principe de l\'extreme programming (BP 1).'],
+  [71, 'ecow', 'Pour inclure plusieurs CSS de manière écoconçue, on utilise…', ['des balises <link> avec l\'attribut media', '@import dans la CSS principale', 'une seule énorme CSS pour tout', 'du CSS-in-JS'], 'A', 'BP 35 : une CSS commune + une par media query, via <link media=…>, pas @import.'],
+  [72, 'ecow', 'Ordre de grandeur pour 30 minutes de contenu :', ['vidéo ≈ 500 Mo, podcast ≈ 30 Mo, texte < 1 Mo', 'vidéo ≈ 50 Mo, podcast ≈ 3 Mo', 'vidéo ≈ 5 Go', 'texte ≈ 30 Mo'], 'A', 'BP 30 : fournir une alternative textuelle.'],
+  [73, 'ecow', 'Exemple de pool de connexions JDBC cité :', ['HikariCP', 'Hibernate', 'Tomcat', 'Log4j'], 'A', 'BP 24, intégré à Spring Boot.'],
+  [110, 'ecow', 'BP écoconception : test « nombre de carrousels par page »', ['≤ 1', '≤ 3', '= 0', '≤ 5'], 'A', 'BP 10.'],
+  [111, 'ecow', 'Traitements lourds sur de gros volumes : la BP recommande…', ['de les faire au plus près de la donnée (SGBD)', 'des procédures stockées', 'de tout rapatrier côté client', 'd\'utiliser plus de serveurs'], 'AB', 'BP 17 : procédures stockées précompilées, moins d\'échanges.'],
+  ['X3', 'ecow', 'Pour supprimer un cookie devenu inutile (BP 62) :', ['Set-Cookie: x=; Max-Age=0', 'le laisser expirer dans 1 an', 'le vider côté JavaScript uniquement', 'le chiffrer'], 'A', 'Un cookie est envoyé à chaque requête : petit, et supprimé dès qu\'il ne sert plus (RFC 6265).'],
+
+  // ---------------------------------------------------------------- Analyse des exigences
+  [8, 'exig', '« Le système doit répondre en moins de 2 secondes » est une exigence…', ['non-fonctionnelle', 'fonctionnelle utilisateur', 'fonctionnelle système', 'de processus'], 'A', 'Contrainte de temps de réponse ⇒ non-fonctionnelle (propriété).'],
+  [9, 'exig', 'Les exigences non-fonctionnelles…', ['peuvent être plus critiques que les fonctionnelles', 'rendent le système inutile si elles ne sont pas satisfaites', 'décrivent les services fournis', 'peuvent porter sur le langage ou la méthode de dév.'], 'ABD', 'Les services fournis = fonctionnelles. Les NF : propriétés, contraintes, processus (AGL, langage, méthode).'],
+  [10, 'exig', 'Les 4 activités génériques de l\'ingénierie des exigences sont :', ['élicitation, analyse, validation, gestion', 'faisabilité, conception, test, déploiement', 'découverte, classification, priorisation, spécification', 'recueil, codage, recette, maintenance'], 'A', 'La réponse C, c\'est le cycle d\'élicitation-analyse, pas les activités génériques.'],
+  [11, 'exig', 'Des exigences « consistantes » sont des exigences…', ['sans conflit ni contradiction', 'qui couvrent toutes les fonctionnalités', 'mesurables', 'validées par le client'], 'A', 'Complètes = toutes les fonctionnalités ; consistantes = pas de contradiction. Les deux à la fois : impossible en pratique.'],
+  [12, 'exig', '« Temps de redémarrage après échec » mesure…', ['la robustesse', 'la fiabilité', 'la portabilité', 'la vitesse'], 'A', 'Robustesse : redémarrage, % d\'événements cause d\'échec, probabilité de corruption.'],
+  [13, 'exig', 'Un scénario doit contenir :', ['la situation de départ', 'ce qui peut mal se passer', 'les activités parallèles', 'le diagramme de classes'], 'ABC', '5 éléments : départ, flux normal, ce qui peut mal se passer, activités parallèles, état final.'],
+  [14, 'exig', 'Dans un diagramme de séquence, une valeur renvoyée est représentée par…', ['une flèche pointillée', 'une flèche pleine', 'un losange', 'une barre d\'activation'], 'A', 'Appel = flèche pleine ; retour = pointillés ; exécution = barre d\'activation.'],
+  [15, 'exig', 'Un acteur d\'un cas d\'utilisation peut être…', ['une personne', 'un composant / autre système', 'une méthode', 'une classe d\'association'], 'AB', '« Personne ou composant à l\'origine d\'une interaction avec le système ».'],
+  [16, 'exig', 'SRS signifie…', ['System Requirements Specification', 'Software Release Schedule', 'Sequence Request Scenario', 'Structured Requirement Set'], 'A', 'Le document de synthèse de l\'ingénierie des exigences.'],
+  [84, 'exig', 'Lesquelles sont des exigences non-fonctionnelles ?', ['le système doit être développé en Java', 'disponibilité de 99,9 %', 'l\'utilisateur peut imprimer un article', 'temps de réponse < 1 s'], 'ABD', 'Imprimer un article = service fourni (fonctionnelle).'],
+  [85, 'exig', 'Les exigences fonctionnelles « système »…', ['décrivent les services dans le détail', 'sont des énoncés de haut niveau', 'sont rédigées pour le client final uniquement', 'sont toujours non ambiguës'], 'A', 'Utilisateur = haut niveau ; système = détail.'],
+  [86, 'exig', 'L\'élicitation des exigences implique…', ['les parties prenantes (stakeholders)', 'les utilisateurs finaux et experts du domaine', 'uniquement le chef de projet', 'les ingénieurs de maintenance'], 'ABD', 'Slide 42 : toutes les parties prenantes.'],
+  [87, 'exig', 'Un cas d\'utilisation est…', ['un objectif du système motivé par le besoin d\'un acteur', 'une technique à base de scénarios en UML', 'une classe Java', 'un diagramme d\'état'], 'AB', 'Slides 48-49.'],
+  [88, 'exig', 'Dans un diagramme de cas d\'utilisation, le rectangle qui entoure les cas représente…', ['le système (package)', 'un acteur', 'une classe', 'une note'], 'A', 'Le package = le système.'],
+  ['X4', 'exig', '« Temps moyen d\'échec » et « disponibilité » mesurent…', ['la fiabilité', 'la robustesse', 'la facilité d\'utilisation', 'la portabilité'], 'A', 'Piège : fiabilité = avant l\'échec (temps moyen, disponibilité) ; robustesse = après l\'échec.'],
+  ['X5', 'exig', 'Ordre du cycle d\'élicitation-analyse :', ['découverte → classification → priorisation/négociation → spécification', 'spécification → découverte → priorisation → classification', 'faisabilité → codage → test → recette', 'priorisation → découverte → spécification → classification'], 'A', 'Les 4 étapes du cycle, dans cet ordre.'],
+
+  // ---------------------------------------------------------------- Modélisation objet & UML
+  [17, 'uml', 'Selon le cours, l\'identification des classes d\'objets…', ['est un processus difficile', 'nécessite une connaissance profonde du domaine', 'est automatique avec UML', 'est plus facile pour les entités abstraites'], 'AB', 'Les entités abstraites sont au contraire plus difficiles à modéliser.'],
+  [18, 'uml', 'Problèmes de l\'héritage multiple cités par le cours :', ['conflits sémantiques', 'réorganisation de la hiérarchie plus complexe', 'impossibilité de redéfinir', 'perte de l\'encapsulation'], 'AB', 'Attributs/services de même nom aux sens différents ; hiérarchie plus dure à réorganiser.'],
+  [19, 'uml', 'En UML, la flèche de généralisation va…', ['de la classe fille vers la classe mère', 'de la mère vers la fille', 'de l\'interface vers la classe', 'dans les deux sens'], 'A', '« Vers le haut », de la plus spécialisée vers la classe de base.'],
+  [20, 'uml', 'Les interactions d\'un modèle comportemental sont représentées par des diagrammes…', ['de séquence', 'de collaboration', 'de classes', 'de déploiement'], 'AB', 'Slide 59.'],
+  [21, 'uml', '« B can survive if A is disposed » décrit…', ['l\'agrégation', 'la composition', 'la dépendance', 'l\'héritage'], 'A', 'Agrégation = losange vide. Composition : « B cannot exist without A ».'],
+  [22, 'uml', 'Le symbole # devant un attribut signifie…', ['protected', 'private', 'public', 'package'], 'A', '+ public, - private, # protected (~ package).'],
+  ['X6', 'uml', 'Dans un diagramme de classes, une classe abstraite se reconnaît à…', ['son nom en italique', 'son nom souligné', 'un losange', 'le stéréotype «enum»'], 'A', 'Italique (ou {abstract}). Souligné = un objet (diagramme de séquence) ou un membre statique.'],
+
+  // ---------------------------------------------------------------- Associations UML
+  [23, 'assoc', 'Dans « Commande ◆—— LigneCommande », où est le losange plein et que signifie-t-il ?', ['Côté Commande : la ligne n\'existe pas sans sa commande', 'Côté LigneCommande : la commande appartient à la ligne', 'Côté Commande : la ligne peut être partagée', 'C\'est une agrégation'], 'A', 'Losange côté tout. Plein = composition : partie non partageable, même cycle de vie.'],
+  [24, 'assoc', 'Quelle(s) notation(s) traduisent class Lutin extends Humanoide implements Travailleur ?', ['Triangle vide, trait plein, de Lutin vers Humanoide', 'Triangle vide en pointillés de Lutin vers Travailleur', 'Losange vide côté Humanoide', 'Flèche ouverte pointillée de Travailleur vers Lutin'], 'AB', 'extends = généralisation (plein) ; implements = réalisation (pointillés). Les deux vers le plus général.'],
+  [25, 'assoc', 'Une multiplicité 0..1 côté B sur A — B se code en Java par…', ['une référence de type B dans A, éventuellement null', 'une List<B> dans A', 'un tableau B[2]', 'un héritage A extends B'], 'A', '0..1 ⇒ simple référence pouvant valoir null. * ⇒ collection.'],
+  [26, 'assoc', 'La note d\'un étudiant dans un module est portée par…', ['une classe d\'association Inscription', 'la classe Etudiant', 'la classe Module', 'une généralisation'], 'A', 'L\'information dépend du couple (étudiant, module).'],
+  [27, 'assoc', 'Lesquelles sont représentées en pointillés ?', ['Dépendance', 'Réalisation', 'Composition', 'Agrégation'], 'AB', 'Pointillés = relations faibles ou de contrat : dépendance et réalisation.'],
+  [28, 'assoc', 'Personne avec les rôles « chef » (0..1) et « subordonné » (*) vers elle-même :', ['association réflexive', 'composition', 'généralisation', 'association n-aire'], 'A', 'Une classe associée à elle-même ; les rôles sont indispensables.'],
+  [29, 'assoc', 'Banque [numero] —— 0..1 Compte : le rectangle « numero » est…', ['un qualificatif (clé)', 'une classe d\'association', 'un rôle', 'une contrainte {ordered}'], 'A', 'Association qualifiée : la clé réduit la multiplicité ; en Java, une Map.'],
+  [30, 'assoc', 'Vrai pour l\'agrégation (◇) :', ['la partie peut exister sans le tout', 'la partie peut être partagée entre plusieurs tous', 'le losange est côté partie', 'la destruction du tout détruit les parties'], 'AB', 'Losange côté tout ; la destruction en cascade est propre à la composition.'],
+  [89, 'assoc', 'Losange plein côté A sur A — B :', ['B ne peut exister sans A', 'B peut survivre à A', 'A hérite de B', 'A dépend temporairement de B'], 'A', 'Composition.'],
+  [90, 'assoc', 'Une association « A ——> B » (flèche ouverte, trait plein) signifie…', ['A connaît B (attribut) mais pas l\'inverse', 'B hérite de A', 'A et B sont composés', 'A implémente B'], 'A', 'Association navigable (one-way).'],
+  [91, 'assoc', 'Flèche ouverte en pointillés de MailFrame vers Dimension :', ['dépendance : utilise sans en faire un attribut', 'association', 'réalisation', 'composition'], 'A', '« depends on, or uses but is not a field ».'],
+  [92, 'assoc', 'Classe d\'association : à utiliser quand…', ['une donnée appartient au lien entre deux objets', 'une classe hérite de deux autres', 'on veut un attribut statique', 'deux classes sont identiques'], 'A', 'Ex. : la note d\'un étudiant dans un module.'],
+  [93, 'assoc', 'En composition, la multiplicité côté composite (le tout) vaut au plus…', ['1', '*', '2', '0'], 'A', 'Une partie n\'a qu\'un seul propriétaire.'],
+  [74, 'assoc', 'Village : Bâtiment — Personnage (un personnage change de bâtiment et existe sans lui) est plutôt…', ['une agrégation', 'une composition', 'une généralisation', 'une dépendance'], 'A', 'La partie survit au tout et peut changer de « tout ».'],
+  [76, 'assoc', 'class Lutin extends Humanoide implements Travailleur, Divertissable : combien de flèches de réalisation partent de Lutin ?', ['2', '1', '3', '0'], 'A', 'Une par interface (pointillés + triangle vide) ; + 1 généralisation vers Humanoide.'],
+  [77, 'assoc', 'TP séquence : les 2 voyants (rouge, vert) donnent une multiplicité…', ['2 côté Voyant', '* côté Voyant', '0..1 côté Voyant', '1 côté Voyant'], 'A', 'SystemeAcces « 1 » — « 2 » Voyant.'],
+  ['X7', 'assoc', 'Un losange vide au centre d\'une relation à 3 branches représente…', ['une association n-aire', 'une agrégation', 'une composition', 'une classe d\'association'], 'A', 'Piège : losange central = n-aire, pas agrégation.'],
+  ['X8', 'assoc', 'Une personne travaille pour 0..1 entreprise : où écrit-on « 0..1 » ?', ['côté Entreprise', 'côté Personne', 'au milieu du trait', 'nulle part'], 'A', 'La multiplicité se lit à l\'autre bout.'],
+  ['X9', 'assoc', 'Quelles notations n\'existent PAS en UML ?', ['le triangle plein', 'le losange plein', 'le losange vide', 'la flèche ouverte pointillée'], 'A', 'Losange plein = composition, losange vide = agrégation, flèche pointillée = dépendance. Le triangle plein n\'existe pas.'],
+  ['X10', 'assoc', 'Héritage et réalisation portent…', ['ni multiplicité ni rôle', 'une multiplicité 1..1', 'un rôle obligatoire', 'un nom d\'association'], 'A', 'Ce ne sont pas des associations.'],
+
+  // ---------------------------------------------------------------- Complexité
+  [31, 'cplx', 'La notation Grand O…', ['est indépendante du matériel et du langage', 'donne un temps précis en millisecondes', 'est un ordre de grandeur du nombre de calculs élémentaires', 's\'intéresse aux très grandes entrées'], 'ACD', 'Ce n\'est pas une mesure en unité de temps.'],
+  [32, 'cplx', 'Avions : 4 000 → 190 ms, 8 000 → 664 ms, 16 000 → 2 647 ms. On en déduit…', ['O(n²)', 'O(n)', 'O(log n)', 'O(2ⁿ)'], 'A', 'Taille ×2 ⇒ temps ≈ ×4 : quadratique.'],
+  [33, 'cplx', 'Classer du plus efficace au moins efficace :', ['O(1) < O(log n) < O(n) < O(n log n) < O(n²)', 'O(log n) < O(1) < O(n) < O(n²) < O(n log n)', 'O(n) < O(log n) < O(n²) < O(n log n)', 'O(1) < O(n) < O(log n) < O(n²)'], 'A', 'Puis n³, 2ⁿ, n!.'],
+  [34, 'cplx', 'Quels problèmes ne sait-on résoudre (en général) qu\'en temps exponentiel ?', ['le voyageur de commerce', 'la factorisation en nombres premiers', 'le tri d\'un tableau', 'le craquage de mot de passe par force brute'], 'ABD', 'Le tri se fait en O(n log n).'],
+  [35, 'cplx', 'Les 3 limites asymptotiques étudiées :', ['cas le plus favorable (limite basse)', 'pire cas (limite haute)', 'cas moyen', 'cas parallèle'], 'ABC', 'Slide 68.'],
+  [36, 'cplx', 'Recherche linéaire : si la cible est présente, en moyenne la boucle fait…', ['x.length / 2 tours', 'x.length tours', 'log(x.length) tours', '1 tour'], 'A', 'Et x.length si elle est absente. Dans les deux cas : O(n).'],
+  [37, 'cplx', 'Un code reconnaissable à « la division de l\'entrée à chaque étape » est…', ['logarithmique', 'linéaire', 'quadratique', 'exponentiel'], 'A', 'Ex. : recherche binaire.'],
+  [94, 'cplx', 'Pour n = 1 000 000, quel ordre est le plus rapide ?', ['O(log n)', 'O(n)', 'O(n log n)', 'O(n²)'], 'A', '≈ 20 opérations.'],
+  [95, 'cplx', 'for (i…n) for (j…n) for (k…n) x++; est en…', ['O(n³)', 'O(n²)', 'O(3n)', 'O(n)'], 'A', 'Trois boucles imbriquées.'],
+  [96, 'cplx', 'Un algorithme O(n²) prend 1 s pour n = 1 000. Pour n = 2 000 :', ['≈ 4 s', '≈ 2 s', '≈ 8 s', '≈ 1 s'], 'A', '×2 sur n ⇒ ×4 sur le temps.'],
+  ['X11', 'cplx', '3n² + 5n + 2 s\'écrit…', ['O(n²)', 'O(3n²)', 'O(n² + n)', 'O(n)'], 'A', 'On garde le terme dominant et on enlève les constantes.'],
+  ['X12', 'cplx', 'Un algorithme O(n³) : si n double, le temps est multiplié par…', ['8', '4', '2', '6'], 'A', 'n ⇒ ×2 ; n² ⇒ ×4 ; n³ ⇒ ×8 ; log n ⇒ +1 étape.'],
+  ['X13', 'cplx', 'System.nanoTime() sert à…', ['mesurer un temps écoulé', 'donner l\'heure actuelle', 'calculer la complexité', 'endormir le thread'], 'A', 'TP6 : avant/après, ÷ 1 000 000 pour des ms. Ce n\'est pas une heure.'],
+
+  // ---------------------------------------------------------------- Structures de données
+  [38, 'struct', 'Une pile fonctionne en mode…', ['LIFO', 'FIFO', 'accès indexé', 'aléatoire'], 'A', 'Last In First Out. La file = FIFO.'],
+  [39, 'struct', 'Dans une liste simplement chaînée…', ['la position des nœuds n\'est pas indexée', 'le suivant de la queue est null', 'chaque nœud connaît son précédent', 'la taille est fixée à la création'], 'AB', 'Le précédent, c\'est la liste double ; la taille est indéfinie.'],
+  [40, 'struct', 'Les sentinelles header/trailer d\'une DLinkedList…', ['ne contiennent aucun élément', 'simplifient la programmation', 'ont header.prev == null et trailer.next == null', 'sont comptées dans size'], 'ABC', 'Nœuds factices ; size ne compte que les éléments.'],
+  [41, 'struct', 'Parcours préfixe de l\'arbre F(B(A, D(C, E)), G(-, I(H, -))) :', ['F B A D C E G I H', 'A B C D E F G H I', 'A C E D B H I G F', 'F G I H B D E C A'], 'A', 'Préfixe = racine d\'abord. B = infixe, C = postfixe.'],
+  [42, 'struct', 'Le parcours infixe…', ['lit la racine au milieu', 'n\'a de sens que pour un arbre binaire', 'donne l\'ordre croissant sur un arbre binaire de recherche', 'lit la racine en premier'], 'ABC', 'Slide 97.'],
+  [43, 'struct', 'Selon la définition récursive, un arbre…', ['peut être vide', 'a toujours au moins une racine', 'a des nœuds avec un parent unique (sauf la racine)', 'peut avoir plusieurs racines'], 'AC', '« soit un arbre vide, soit un nœud racine et ses sous-arbres ».'],
+  [44, 'struct', 'Une table de hachage…', ['offre un accès en O(1) en moyenne', 'indexe les valeurs directement par leurs clés', 'peut subir des collisions', 'est un tableau d\'alvéoles + une fonction de hachage'], 'ACD', 'Les valeurs sont indexées par la valeur de hachage calculée, pas par la clé.'],
+  [45, 'struct', 'Pourquoi une taille de table de hachage égale à un nombre premier ?', ['éviter les diviseurs communs qui créent des collisions', 'faire le modulo par décalage', 'économiser de la mémoire', 'garantir zéro collision'], 'A', 'Le décalage, c\'est l\'avantage des puissances de 2. Rien ne garantit zéro collision.'],
+  [46, 'struct', 'Map implémentée avec une liste : chaque opération de base coûte…', ['O(n)', 'O(1)', 'O(log n)', 'O(n²)'], 'A', 'Il faut parcourir la liste au pire.'],
+  [97, 'struct', 'Insérer en tête d\'une liste chaînée coûte…', ['O(1)', 'O(n)', 'O(log n)', 'O(n²)'], 'A', 'On modifie seulement 2 références.'],
+  [98, 'struct', 'Accéder au k-ième élément d\'une liste chaînée coûte…', ['O(k), O(n) au pire', 'O(1)', 'O(log n)', 'c\'est impossible'], 'A', 'Position non indexée : il faut parcourir.'],
+  [99, 'struct', 'Insérer un nœud au milieu d\'une liste doublement chaînée modifie…', ['4 références', '2 références', '1 référence', 'toute la liste'], 'A', 'u.next, v.prev, v.next, w.prev.'],
+  [100, 'struct', 'Arbre 10 → (20, 30 → (40, 50)). Parcours postfixe :', ['20 40 50 30 10', '10 20 30 40 50', '20 10 40 30 50', '40 50 30 20 10'], 'A', 'Exemple exact du cours.'],
+  [101, 'struct', 'Un nœud sans enfant est appelé…', ['feuille', 'nœud externe', 'nœud interne', 'racine'], 'AB', 'Feuille = externe.'],
+  [103, 'struct', 'Collision dans une table de hachage :', ['deux clés distinctes ont la même valeur de hachage', 'deux valeurs identiques', 'un tableau plein', 'une clé null'], 'A', 'Slide 102.'],
+  [78, 'struct', 'TP : la DLinkedList est triée par tri à bulles en échangeant…', ['les éléments des nœuds', 'les nœuds eux-mêmes', 'les sentinelles', 'les index'], 'A', 'swap(a, b) échange les String contenues.'],
+  ['X14', 'struct', 'Supprimer en queue d\'une liste SIMPLEMENT chaînée coûte…', ['O(n)', 'O(1)', 'O(log n)', 'O(n²)'], 'A', 'Il faut parcourir pour trouver l\'avant-dernier.'],
+  ['X15', 'struct', 'La fonction de hachage en Java se fait en 2 temps :', ['calcul du hashCode, puis compression dans [0, N−1] (modulo N)', 'tri des clés, puis recherche binaire', 'compression, puis hashCode', 'XOR de la valeur, puis de la clé'], 'A', 'hashCode (entier) puis compression, généralement modulo N.'],
+
+  // ---------------------------------------------------------------- Tris
+  [47, 'tri', 'Complexité du tri à bulles :', ['O(n²)', 'O(n log n)', 'O(n)', 'O(log n)'], 'A', 'Deux boucles imbriquées.'],
+  [48, 'tri', 'Le quicksort…', ['a été inventé par Tony Hoare', 'est récursif', 'repose sur divide-and-conquer', 'est toujours en O(n log n)'], 'ABC', 'Pire cas : O(n²).'],
+  [49, 'tri', 'Quicksort avec pivot = dernier élément sur une liste déjà triée :', ['pire cas O(n²)', 'meilleur cas', 'une partition vide à chaque appel', 'O(log n)'], 'AC', 'Le pivot est toujours le max.'],
+  [50, 'tri', 'Le partitionnement de Lomuto effectue un tri…', ['en place', 'stable obligatoirement', 'avec une structure auxiliaire', 'par fusion'], 'A', 'Il modifie directement S.'],
+  [51, 'tri', 'Une structure récursive contient obligatoirement :', ['au moins une condition d\'arrêt', 'au moins un appel récursif', 'une boucle for', 'une variable globale'], 'AB', 'Slide 115.'],
+  [52, 'tri', 'La recherche binaire récursive du cours possède…', ['2 conditions d\'arrêt', '1 seule condition d\'arrêt', 'une complexité O(log n)', 'besoin d\'un tableau trié'], 'ACD', 'Trouvé / start > end.'],
+  [53, 'tri', 'Intersection de 2 tableaux : trier les deux puis parcours à deux pointeurs :', ['O(n log n)', 'O(n²)', 'O(n)', 'O(log n)'], 'A', '2·n log n + n.'],
+  [54, 'tri', 'Les trois étapes du divide-and-conquer :', ['Divide, Conquer, Combine', 'Split, Sort, Merge', 'Pivot, Partition, Swap', 'Init, Loop, Return'], 'A', 'Slide 116.'],
+  [55, 'tri', 'Une « heuristique » (médiane-de-trois) est…', ['une méthode qui donne vite une solution assez bonne, sans garantie d\'être la meilleure', 'un algorithme exact optimal', 'un tri en O(1)', 'une structure de données'], 'A', 'TP6, exo 2.3.2.'],
+  [104, 'tri', 'Recherche binaire : prérequis et complexité', ['tableau trié', 'O(log n)', 'O(n)', 'liste chaînée obligatoire'], 'AB', 'Division par 2 à chaque appel.'],
+  [105, 'tri', 'Quicksort : complexité moyenne et pire cas', ['moyenne O(n log n)', 'pire O(n²)', 'pire O(n log n)', 'moyenne O(n)'], 'AB', 'Pire cas : pivot toujours extrême.'],
+  [106, 'tri', 'Pour éviter le pire cas du quicksort sur une liste triée :', ['pivot aléatoire', 'médiane-de-trois', 'pivot = dernier élément', 'tri à bulles préalable'], 'AB', 'TP6, exo 2.3.'],
+  [79, 'tri', 'StackOverflowError pour le quicksort classique sur 50 000 éléments triés car…', ['la récursion fait un appel par élément (pire cas)', 'la liste est trop grande pour la mémoire', 'le pivot est aléatoire', 'nanoTime déborde'], 'A', 'Profondeur de récursion = n au pire cas.'],
+  ['X16', 'tri', 'Pourquoi mid = (end − start)/2 + start plutôt que (start + end)/2 ?', ['éviter le débordement d\'entier', 'c\'est plus rapide', 'pour trier en place', 'pour avoir 2 conditions d\'arrêt'], 'A', 'start + end peut dépasser Integer.MAX_VALUE.'],
+  ['X17', 'tri', 'Récursivité et récurrence…', ['ne sont pas la même chose', 'sont synonymes', 'désignent toutes deux une boucle', 'sont propres au quicksort'], 'A', 'Piège du cours : récursivité ≠ récurrence.'],
+
+  // ---------------------------------------------------------------- Java efficace
+  [56, 'java', 'Avantages d\'une fabrique statique par rapport à un constructeur :', ['elle a un nom', 'elle peut ne pas créer de nouvel objet', 'elle peut renvoyer un sous-type', 'elle rend la classe plus facile à dériver'], 'ABC', 'Inconvénient : sans constructeur public/protégé, la classe ne peut pas être dérivée.'],
+  [57, 'java', 'equals redéfini sans hashCode : m.put(new P(1),"x"); m.get(new P(1)) sur une HashMap renvoie…', ['null', '"x"', 'une exception', 'une erreur de compilation'], 'A', 'Deux objets égaux n\'ont pas le même hashCode (point 2 du contrat violé).'],
+  [58, 'java', 'Règles pour rendre une classe immuable :', ['aucun mutateur', 'classe final', 'attributs final et private', 'un setter par getter'], 'ABC', '+ accès exclusif aux composants mutables (5 règles).'],
+  [59, 'java', 'Object[] t = new Long[1]; t[0] = "x"; →', ['compile mais lève ArrayStoreException', 'erreur de compilation', 'fonctionne', 'NullPointerException'], 'A', 'Tableaux covariants : erreur seulement à l\'exécution.'],
+  [60, 'java', 'Pourquoi classify(c) affiche-t-il trois fois « Collection inconnue » ?', ['la surcharge est résolue à la compilation selon le type statique', 'la redéfinition est résolue à la compilation', 'HashSet n\'est pas un Set', 'un bug de la JVM'], 'A', 'Fiche 52. La redéfinition, elle, est dynamique.'],
+  [61, 'java', 'Concaténer n chaînes avec += dans une boucle coûte…', ['un temps quadratique', 'un temps linéaire', 'un temps constant', 'un temps logarithmique'], 'A', 'String immuable : copie à chaque fois ⇒ StringBuilder (fiche 63).'],
+  [62, 'java', 'Hériter d\'une classe concrète d\'un autre package est dangereux car…', ['cela viole l\'encapsulation', 'Java l\'interdit', 'c\'est plus lent', 'cela empêche le polymorphisme'], 'A', 'Fiche 18 : préférer la composition.'],
+  [63, 'java', 'Inconvénients du « int enum pattern » :', ['aucune vérification de type', 'valeurs compilées en dur chez les clients', 'pas de nom en chaîne facile', 'plus lent qu\'un enum en mémoire'], 'ABC', 'Fiche 34 ; le String enum pattern est pire encore.'],
+  [64, 'java', 'Pour les copies défensives (fiche 50), on…', ['copie avant de vérifier la validité', 'vérifie sur les copies', 'utilise toujours clone()', 'vérifie sur les originaux'], 'AB', 'Se méfier de clone si le type peut être dérivé.'],
+  [65, 'java', 'Long sum = 0L; for(…) sum += i; est lent à cause…', ['de l\'autoboxing qui crée un objet Long à chaque tour', 'du for', 'de Integer.MAX_VALUE', 'du garbage collector'], 'A', 'Fiche 6 : utiliser long.'],
+  [102, 'java', 'Contrat hashCode : si a.equals(b) alors…', ['a.hashCode() == b.hashCode() obligatoirement', 'a.hashCode() != b.hashCode()', 'rien n\'est imposé', 'a == b'], 'A', 'Point 2 du contrat.'],
+  [107, 'java', 'Classes immuables Java citées :', ['String', 'Integer', 'BigDecimal', 'ArrayList'], 'ABC', 'ArrayList est mutable.'],
+  [108, 'java', 'Préférer les interfaces aux classes abstraites car…', ['une classe peut implémenter plusieurs interfaces', 'Java n\'a pas d\'héritage multiple de classes', 'les interfaces sont plus rapides', 'elles permettent des types non hiérarchiques'], 'ABD', 'Fiche 20.'],
+  [109, 'java', 'Meilleure protection contre les failles de sérialisation selon Bloch :', ['ne pas utiliser la sérialisation', 'chiffrer les objets', 'utiliser clone()', 'désérialiser dans un thread séparé'], 'A', 'Fiche 85 (métro de San Francisco, 2016).'],
+  [75, 'java', 'PereNoel est un singleton. Caractéristiques :', ['constructeur privé', 'attribut statique instance', 'méthode statique getInstance()', 'classe abstraite'], 'ABC', 'getInstance() est aussi une fabrique statique (fiche 1).'],
+  ['X18', 'java', 'List<Object> l = new ArrayList<Long>(); →', ['ne compile pas', 'compile puis ArrayStoreException', 'fonctionne', 'ClassCastException'], 'A', 'Fiche 28 : génériques invariants, erreur détectée à la compilation.'],
+  ['X19', 'java', 'Cohérence (x.compareTo(y) == 0) == x.equals(y) (fiche 14) :', ['recommandée mais pas requise', 'obligatoire', 'interdite', 'impossible à respecter'], 'A', 'Le cours aime ces nuances : « recommandé mais pas requis ».'],
+  ['X20', 'java', 'Fiche 7 : comment éviter les fuites mémoire ?', ['donner aux variables la portée la plus courte', 'mettre à null les références obsolètes quand la classe gère sa mémoire', 'appeler System.gc()', 'tout déclarer static'], 'AB', 'Le GC n\'empêche pas les fuites : pile, cache, listeners.'],
+
+  // ---------------------------------------------------------------- Organisation
+  [80, 'org', 'Les deux ressources R3.02 et R3.03 donnent…', ['2 notes distinctes', 'une seule note commune', 'chacune une note moitié TD/TP, moitié examen', 'une note uniquement d\'examen'], 'AC', '(TD/TP coef 0,5 + examen coef 0,5) × 2.'],
+];
+
+const QUESTIONS = RAW.map(([id, ch, q, opts, ok, ex]) => ({ id: String(id), ch, q, opts, ok: ok.split('').map((l) => 'ABCD'.indexOf(l)), ex }));
+const byCh = (...chs) => QUESTIONS.filter((x) => chs.includes(x.ch)).map((x) => x.id);
+
+// ---------------------------------------------------------------- Le parcours
+const STEPS = [
+  {
+    id: 'carte', icon: '🗺️', title: 'La carte du territoire', min: 3, anchor: 'cours',
+    recap: [
+      '<b>2 ressources, 2 notes</b> : R3.03 Analyse (exigences + UML) et R3.02 Développement efficace (complexité, structures, tris, Java efficace). Chacune : TD/TP 0,5 + examen 0,5.',
+      'Le contrôle est un <b>QCM</b> où <b>plusieurs réponses peuvent être justes</b> : c\'est exactement le format de ce parcours.',
+      'Méfie-toi des mots absolus (« toujours », « jamais », « obligatoirement ») : le cours aime « recommandé mais pas requis », « en moyenne », « en pratique impossible ».',
+      'Ordre du parcours : UML et associations d\'abord (le plus rentable), puis on alterne R3.03 / R3.02, et les chapitres « par cœur » à la fin.',
+    ],
+    cards: [],
+    qs: ['80'],
+  },
+  {
+    id: 'uml', icon: '🧩', title: 'Modélisation objet & UML', min: 8, anchor: 'uml',
+    recap: [
+      'Classe = rectangle <b>nom / attributs / méthodes</b>. Visibilité : <b>+</b> public, <b>-</b> private, <b>#</b> protected, <b>~</b> package. <i>Italique</i> = abstrait. «interface».',
+      '<b>Généralisation</b> = héritage = trait plein + triangle vide, <b>de la fille vers la mère</b> (« vers le haut »).',
+      'Héritage multiple : 2 risques, <b>conflits sémantiques</b> et <b>réorganisation de la hiérarchie plus complexe</b>. Java l\'interdit pour les classes : on passe par les interfaces.',
+      'Identifier les classes est <b>difficile</b> et demande une <b>connaissance profonde du domaine</b> ; les entités abstraites sont les plus dures.',
+      'Modèle comportemental = diagrammes de <b>séquence</b> ou de <b>collaboration</b>.',
+      '<b>Piège</b> : la cheatsheet (slide 60) appelle « Generalization » la flèche pointillée. Retiens le sens : <b>plein = extends, pointillé = implements</b>.',
+    ],
+    cards: [
+      ['Que signifie # devant un attribut ?', 'protected'],
+      ['Dans quel sens va la flèche de généralisation ?', 'De la classe fille vers la classe mère (triangle vide côté mère).'],
+      ['Les 2 risques de l\'héritage multiple ?', 'Conflits sémantiques + réorganisation de la hiérarchie plus complexe.'],
+    ],
+    qs: byCh('uml'),
+  },
+  {
+    id: 'assoc', icon: '⭐', title: 'Toutes les associations UML', min: 18, anchor: 'associations', star: true,
+    recap: [
+      'De la plus faible à la plus forte : <b>dépendance</b> (pointillé →) · <b>association</b> (trait) · <b>navigable</b> (trait →) · <b>agrégation</b> (◇) · <b>composition</b> (◆) · <b>généralisation</b> (trait + ▷) · <b>réalisation</b> (pointillé + ▷).',
+      'Le <b>losange</b> est toujours <b>côté TOUT</b>. Le <b>triangle</b> pointe toujours vers le <b>plus général</b>. Les <b>pointillés</b> = dépendance et réalisation.',
+      'Agrégation ◇ : la partie <b>survit</b> et peut être <b>partagée</b>. Composition ◆ : la partie <b>meurt</b> avec le tout, <b>un seul propriétaire</b> (multiplicité côté tout ≤ 1), créée par le tout.',
+      'Multiplicités <b>1 · 0..1 · * = 0..* · 1..* · n..m</b>, lues <b>à l\'autre bout</b>. En Java : 0..1 → référence (null possible), * → List.',
+      'Réflexive (rôles indispensables, ex. chef/subordonné, DNode next/prev) · classe d\'association (la donnée appartient au lien : note d\'Inscription) · qualifiée (clé, → Map) · n-aire (losange <b>central</b>, ≠ agrégation).',
+      'Héritage et réalisation : <b>ni multiplicité ni rôle</b>. Le triangle plein <b>n\'existe pas</b>.',
+    ],
+    cards: [
+      ['Losange plein côté A sur A — B ?', 'Composition : B ne peut pas exister sans A, un seul propriétaire.'],
+      ['Quelles relations en pointillés ?', 'Dépendance (flèche ouverte) et réalisation (triangle vide).'],
+      ['La note d\'un étudiant dans un module ?', 'Classe d\'association Inscription (dépend du couple).'],
+      ['Village : Bâtiment — Personnage ?', 'Agrégation ◇ (le personnage change de bâtiment et survit).'],
+      ['Village — Bâtiment ?', 'Composition ◆ (le village crée et détruit ses bâtiments).'],
+    ],
+    widget: 'symbols',
+    qs: byCh('assoc'),
+  },
+  {
+    id: 'exig', icon: '📋', title: 'Analyse des exigences', min: 12, anchor: 'exigences',
+    recap: [
+      '<b>Fonctionnelle</b> = services, réactions aux entrées, comportement. <b>Non-fonctionnelle</b> = contraintes : propriétés (fiabilité, temps de réponse), contraintes (E/S), <b>processus</b> (AGL, langage, méthode). Les NF peuvent être <b>plus critiques</b> : non satisfaites ⇒ système inutile.',
+      'Utilisateur = énoncés de haut niveau ; système = services décrits <b>dans le détail</b>.',
+      '<b>Complètes</b> (tout couvert) + <b>consistantes</b> (pas de contradiction) : les deux à la fois, <b>impossible en pratique</b>.',
+      'Mesures : <b>fiabilité</b> = temps moyen d\'échec, disponibilité, taux d\'échec ; <b>robustesse</b> = temps de redémarrage, % d\'événements cause d\'échec, corruption de données.',
+      'IE : 4 activités <b>élicitation · analyse · validation · gestion</b>. Cycle d\'élicitation : <b>découverte → classification → priorisation/négociation → spécification</b>. Document : <b>SRS</b>.',
+      'Scénario, 5 éléments : <b>départ · flux normal · ce qui peut mal se passer · activités parallèles · état final</b>. Acteur = personne <b>ou composant</b>. Package = le système.',
+      'Séquence : « objet : Classe » souligné, ligne de vie pointillée, <b>appel = flèche pleine</b>, <b>retour = pointillée</b>, barre d\'activation. Un message reçu devient une méthode de la classe.',
+    ],
+    cards: [
+      ['Les 5 éléments d\'un scénario ?', 'Départ, flux normal, ce qui peut mal se passer, activités parallèles, état final.'],
+      ['Les 4 activités de l\'IE ?', 'Élicitation, analyse, validation, gestion.'],
+      ['Fiabilité ou robustesse : « temps de redémarrage » ?', 'Robustesse (après l\'échec).'],
+    ],
+    qs: byCh('exig'),
+  },
+  {
+    id: 'cplx', icon: '📈', title: 'Complexité algorithmique', min: 10, anchor: 'complexite',
+    recap: [
+      'Grand O : <b>indépendant du matériel et du langage</b>, <b>pas une durée</b>, un <b>ordre de grandeur</b> du nombre de calculs, <b>asymptotique</b> (3 cas : favorable, pire, moyen), pour de <b>très grandes entrées</b>.',
+      '<b>O(1) < log n < n < n log n < n² < n³ < 2ⁿ < n!</b>',
+      '1 boucle = O(n) ; 2 boucles imbriquées = O(n²) ; 3 = O(n³) ; entrée <b>divisée par 2</b> à chaque étape = O(log n).',
+      'Quand n double : O(n) ×2, O(n²) <b>×4</b> (les avions), O(n³) ×8, O(log n) +1 étape.',
+      'On garde le terme dominant, sans constante : 3n² + 5n + 2 ⇒ O(n²) ; n/2 ⇒ O(n).',
+      'Exponentiel : <b>voyageur de commerce, force brute, factorisation</b> (base de la cryptographie).',
+    ],
+    cards: [
+      ['n ×2 en O(n²) : temps × ?', '×4'],
+      ['Recherche linéaire, cible présente : tours en moyenne ?', 'x.length / 2 (toujours O(n)).'],
+    ],
+    widget: 'bigo',
+    qs: byCh('cplx'),
+  },
+  {
+    id: 'struct', icon: '🔗', title: 'Structures de données', min: 14, anchor: 'structures',
+    recap: [
+      'TAD = <b>ce que</b> la structure fait, pas comment. Pile = <b>LIFO</b>, file = <b>FIFO</b>.',
+      'Liste simple : tête, <b>queue.next = null</b>, <b>pas d\'index</b>, taille indéfinie. Insertion en tête O(1) ; suppression en queue O(n).',
+      'Liste double : next + prev, <b>sentinelles</b> header/trailer <b>sans élément</b> (header.prev = trailer.next = null, pas dans size) qui simplifient le code ; insertion = <b>4 pointeurs</b>.',
+      'Arbre : racine sans parent, <b>parent unique</b>, <b>peut être vide</b> ; feuille = externe. <b>Préfixe</b> R-G-D, <b>infixe</b> G-R-D (binaire seulement ; ABR ⇒ trié), <b>postfixe</b> G-D-R.',
+      'Map : <b>clés uniques</b>. Avec une liste : O(n). Table de hachage = alvéoles + fonction de hachage ⇒ <b>O(1) en moyenne</b>, risque de <b>collision</b>. hashCode puis <b>modulo N</b> ; N premier (évite les diviseurs communs) ou puissance de 2 (décalages).',
+    ],
+    cards: [
+      ['Préfixe de F(B(A, D(C, E)), G(-, I(H, -))) ?', 'F B A D C E G I H'],
+      ['Postfixe de 10 → (20, 30 → (40, 50)) ?', '20 40 50 30 10'],
+      ['Insertion au milieu d\'une liste double : combien de références ?', '4 : u.next, v.prev, v.next, w.prev.'],
+    ],
+    widget: 'tree',
+    qs: byCh('struct'),
+  },
+  {
+    id: 'tri', icon: '🔀', title: 'Algorithmes de tri', min: 12, anchor: 'tris',
+    recap: [
+      'Tri à bulles : on échange les voisins mal ordonnés, le plus grand « remonte » ; <b>O(n²)</b>. Un tri ne peut pas être efficace dans toutes les situations.',
+      'Récursivité = <b>condition(s) d\'arrêt + appel(s) récursif(s)</b>. Récursivité ≠ récurrence.',
+      'Divide-and-conquer : <b>Divide, Conquer, Combine</b>. Recherche binaire : tableau <b>trié</b>, <b>2 conditions d\'arrêt</b> (trouvé / start > end), <b>O(log n)</b> ; mid = (end−start)/2 + start évite le débordement.',
+      'Quicksort (<b>Hoare</b>) : récursif, D&C ; Lomuto, pivot = dernier, <b>en place</b>. Moyen <b>O(n log n)</b>, pire <b>O(n²)</b> sur liste déjà triée (une partition vide à chaque appel ⇒ StackOverflowError à 50 000 dans ton TP).',
+      'Remèdes : pivot <b>aléatoire</b>, <b>médiane-de-trois</b> (heuristique : vite et assez bon, sans garantie). Intersection triée : O(n log n).',
+    ],
+    cards: [
+      ['Complexités du quicksort ?', 'Moyen O(n log n), pire O(n²).'],
+      ['Les 2 conditions d\'arrêt de la recherche binaire ?', 'array[mid] == x (trouvé) et start > end (absent).'],
+    ],
+    widget: 'quick',
+    qs: byCh('tri'),
+  },
+  {
+    id: 'java', icon: '☕', title: 'Java efficace (Effective Java)', min: 12, anchor: 'java',
+    recap: [
+      '<b>F1</b> fabrique statique : a un nom, peut ne pas créer d\'objet, renvoie un sous-type… mais sans constructeur public/protégé, pas de sous-classe, et difficile à trouver. ≠ pattern Factory Method.',
+      '<b>F6</b> pas de new String("bikini") ; <b>Long</b> sum = autoboxing horriblement lent. <b>F7</b> fuites mémoire : portée courte, null quand la classe gère sa mémoire.',
+      '<b>F11</b> equals ⇒ <b>toujours</b> hashCode : sinon HashMap.get renvoie <b>null</b> (PhoneNumber). Objets égaux ⇒ même hashCode, obligatoire ; différents ⇒ distincts non requis.',
+      '<b>F17</b> immuable, 5 règles : aucun mutateur, classe final, attributs final, attributs private, accès exclusif aux mutables. String, Integer, BigInteger, BigDecimal. <b>F18</b> composition > héritage. <b>F20</b> interfaces > classes abstraites.',
+      '<b>F28</b> tableaux <b>covariants</b> (ArrayStoreException à l\'exécution) / génériques <b>invariants</b> (erreur à la compilation). <b>F34</b> enum > constantes int.',
+      '<b>F50</b> copier <b>avant</b> de vérifier, vérifier sur les copies. <b>F52</b> surcharge résolue <b>à la compilation</b> (type statique). <b>F63</b> += en boucle = quadratique ⇒ StringBuilder. <b>F85</b> ne pas sérialiser.',
+    ],
+    cards: [
+      ['F11 : equals sans hashCode, que renvoie get ?', 'null (mauvaise alvéole).'],
+      ['F52 : la surcharge est résolue quand ?', 'À la compilation, selon le type statique.'],
+      ['Les 5 règles de l\'immuabilité ?', 'Aucun mutateur, final, attributs final, attributs private, accès exclusif aux mutables.'],
+    ],
+    qs: byCh('java'),
+  },
+  {
+    id: 'eco', icon: '🌍', title: 'Écoinformatique & écoconception web', min: 12, anchor: 'eco',
+    recap: [
+      '<b>J = B/E × 365</b> (hectares globaux). Monde 2026 : <b>30 juillet</b> ; France 2026 : <b>24 avril</b> (2023 : 5 mai). <b>7/9</b> limites dépassées en 2026 (6 en 2023), dernière : acidification des océans (2025).',
+      'Numérique : <b>4 % des eGES = ×1,5 l\'aérien</b> (GIEC 2022) ; 20 % de l\'énergie en 2030 ; page web <b>×155</b> ; cause n°1 : l\'<b>obésiciel</b>. Seul scénario 2050 en baisse : <b>Génération frugale</b>.',
+      'Écoconcevoir = <b>à qualité constante</b>, réduire l\'empreinte matérielle, <b>à chaque étape</b>. Gros des économies : <b>durée de vie</b> des équipements. Simplicité (<b>quali</b>) · Frugalité (<b>quanti</b>) · Pertinence = utilité <b>×</b> rapidité <b>×</b> accessibilité.',
+      '115 BP : <b>70 %</b> non essentielles, <b>45 %</b> jamais utilisées ; YAGNI, MoSCoW ; liste de <b>5</b> ; mobile first ; animations <b>opacity/transform</b> ; carrousel <b>≤ 1</b> ; saisie assistée ; cache ; <b>procédures stockées</b> ; pages statiques ; <b>HikariCP</b> ; &lt;link media&gt; pas @import ; Max-Age=0 ; TINYINT.',
+    ],
+    cards: [
+      ['Formule du jour de dépassement ?', 'J = (B / E) × 365'],
+      ['Simplicité / Frugalité : laquelle est quantitative ?', 'Frugalité.'],
+    ],
+    qs: byCh('eco', 'ecow'),
+  },
+  { id: 'exam', icon: '⏱️', title: 'Examen blanc', min: 15, exam: 25, recap: [], cards: [] },
+  { id: 'fin', icon: '🏁', title: 'Carnet d\'erreurs & demain matin', min: 4, final: true, recap: [], cards: [] },
+];
+
+const data = { QUESTIONS, STEPS };
+if (typeof module !== 'undefined' && module.exports) module.exports = data;
+else root.R323 = data;
+})(typeof window !== 'undefined' ? window : globalThis);

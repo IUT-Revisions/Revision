@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.02 · R3.03 Interactive : cours, parcours guidé et QCM corrigés (UML, complexité, tris, Java) · GabouLearn</title>
+<meta name="description" content="Réviser R3.02 Développement efficace et R3.03 Analyse (BUT informatique) : cours complet, parcours guidé interactif d'environ 2 h, 131 questions de QCM corrigées, associations UML, complexité Grand O, listes chaînées, arbres, hachage, quicksort, Effective Java, écoconception.">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.02 · R3.03 Interactive : cours + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Tout le cours R3.02 / R3.03 du BUT info et un parcours guidé de 2 h : UML, exigences, complexité, structures de données, tris, Effective Java, écoconception. 131 questions corrigées et un examen blanc.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-r3-02-r3-03.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="R3.02 · R3.03 Interactive : cours + parcours guidé + QCM corrigés">
+<meta name="twitter:description" content="UML, exigences, complexité, structures de données, tris, Effective Java, écoconception : cours, parcours guidé de 2 h et 131 questions corrigées.">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-r3-02-r3-03.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.02 Développement efficace et R3.03 Analyse : cours et parcours guidé interactif","url":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, semestre 3","timeRequired":"PT2H","teaches":["Analyse des exigences","Cas d'utilisation et diagrammes de séquence","Associations UML : agrégation, composition, généralisation, réalisation","Complexité algorithmique et notation Grand O","Listes chaînées, arbres, tables de hachage","Tri à bulles, recherche binaire, quicksort","Effective Java","Écoconception web"],"isAccessibleForFree":true,"dateModified":"2026-11-22","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.02 · R3.03 Interactive","item":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre agrégation et composition en UML ?","acceptedAnswer":{"@type":"Answer","text":"Les deux ont un losange côté tout. Agrégation (losange vide) : la partie survit au tout et peut être partagée. Composition (losange plein) : la partie n'a qu'un seul propriétaire et disparaît avec le tout."}},{"@type":"Question","name":"Quelle est la complexité du quicksort ?","acceptedAnswer":{"@type":"Answer","text":"O(n log n) en moyenne et au meilleur cas, O(n²) au pire cas, par exemple avec le dernier élément comme pivot sur une liste déjà triée."}},{"@type":"Question","name":"Pourquoi redéfinir hashCode quand on redéfinit equals ?","acceptedAnswer":{"@type":"Answer","text":"Deux objets égaux selon equals doivent avoir le même hashCode (fiche 11 d'Effective Java). Sinon HashMap et HashSet cherchent dans la mauvaise alvéole et get renvoie null."}},{"@type":"Question","name":"Quels sont les 5 éléments d'un scénario ?","acceptedAnswer":{"@type":"Answer","text":"La situation de départ, le flux normal des événements, ce qui peut mal se passer, les activités parallèles et l'état final."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+  .book { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; line-height: 1.6; }
+  .book h1 { font-size: 2.2rem; text-align: center; margin: .2em 0 0; }
+  .book .sub { text-align: center; color: var(--muted); margin-bottom: 1.4em; }
+  .book h2 { margin-top: 2.2em; border-bottom: 2px solid var(--accent); padding-bottom: .2em; scroll-margin-top: 12px; }
+  .book h3 { margin: 1.4em 0 .3em; }
+  .book table { width: 100%; border-collapse: collapse; margin: .8em 0; font-size: .95rem; }
+  .book td, .book th { border-bottom: 1px solid var(--line); padding: .45em .4em; text-align: left; vertical-align: top; }
+  .book th { color: var(--muted); font-weight: 700; }
+  .book td { overflow-wrap: anywhere; }
+  .tbl { overflow-x: auto; }
+  .box { background: var(--card); border-radius: 14px; padding: 1em 1.3em; box-shadow: var(--shadow); margin: 1em 0; }
+  .keep { border-left: 4px solid var(--good); }
+  .warn { border-left: 4px solid var(--bad); }
+  .tp { border-left: 4px solid #8b5cc7; }
+  .box > h4 { margin: 0 0 .3em; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  pre { background: var(--soft); border-radius: 10px; padding: 10px 12px; overflow-x: auto; font-size: .88rem; line-height: 1.45; }
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .92em; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .hero-cta { text-align: center; margin: 1em 0 1.6em; }
+  .chap-cta { text-align: right; margin: 1em 0 0; }
+  .launch { text-align: center; margin: 3em 0 1em; padding: 1.6em 1.2em; border: 2px solid var(--accent); }
+  .launch .btn { font-size: 1.2rem; padding: 16px 26px; }
+  .launch .time { font-size: 1.05rem; margin: .6em 0 0; }
+  .fab { position: fixed; right: 16px; bottom: 16px; z-index: 5; border-radius: 999px; box-shadow: var(--shadow); text-decoration: none; }
+  .flash { columns: 2 300px; column-gap: 18px; }
+  .flash .box { break-inside: avoid; margin: 0 0 12px; padding: .7em 1em; }
+  .flash h3 { margin: 0 0 .2em; font-size: 1rem; color: var(--accent); }
+  .flash p { margin: 0; font-size: .93rem; }
+  td.sym { width: 230px; }
+  /* SVG relations */
+  svg.rel { max-width: 320px; display: block; }
+  .rel-box { fill: var(--card); stroke: var(--ink); stroke-width: 1.5; }
+  .rel-txt { fill: var(--ink); font: 700 14px system-ui, sans-serif; }
+  .rel-line { stroke: var(--ink); stroke-width: 2; }
+  .rel-hollow { fill: var(--card); stroke: var(--ink); stroke-width: 2; }
+  .rel-full { fill: var(--ink); stroke: var(--ink); stroke-width: 2; }
+  /* parcours */
+  #parcours-section { scroll-margin-top: 8px; }
+  .pc-head h2 { border: 0; margin: .3em 0 .2em; }
+  .pc-phase { font-size: 1rem; font-weight: 600; }
+  .pc-steps { list-style: none; padding: 0; margin: 1em 0; display: grid; gap: 8px; }
+  .pc-step { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 10px 14px; cursor: pointer; font-weight: 700; }
+  .pc-step:hover { border-color: var(--accent); }
+  .pc-steps li.done .pc-step { border-color: var(--good); }
+  .pc-steps li.done .pc-ic { background: var(--good); color: #fff; }
+  .pc-steps li.next .pc-step { border-color: var(--accent); background: var(--soft); }
+  .pc-ic { flex: none; width: 2em; height: 2em; display: grid; place-items: center; border-radius: 50%; background: var(--soft); }
+  .pc-t { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .pc-m { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pc-recap ul { margin: .3em 0; padding-left: 1.2em; }
+  .pc-recap li { margin: .35em 0; }
+  .pc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-bottom: 1em; }
+  .pc-card { min-height: 96px; border: 2px dashed var(--accent); background: var(--card); border-radius: 14px; padding: 12px; cursor: pointer; font-weight: 700; text-align: center; }
+  .pc-card .back { display: none; color: var(--good); }
+  .pc-card.flip { border-style: solid; border-color: var(--good); }
+  .pc-card.flip .front { display: none; }
+  .pc-card.flip .back { display: inline; }
+  .pc-qn { font-size: .9rem; }
+  .pc-checks { display: grid; gap: 8px; margin: 12px 0; }
+  .pc-check { display: flex; align-items: flex-start; gap: 10px; margin: 0; font-weight: 600; background: var(--soft); border: 2px solid transparent; border-radius: 12px; padding: 12px; cursor: pointer; }
+  .pc-check input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+  .pc-check .kbd { background: var(--card); flex: none; }
+  .pc-check.right { border-color: var(--good); }
+  .pc-check.wrong { border-color: var(--bad); }
+  .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; margin: 10px 0; }
+  .pc-opt { border: 2px solid var(--line); background: var(--card); border-radius: 12px; padding: 12px; font-weight: 700; cursor: pointer; }
+  .pc-opt:hover:not(:disabled) { border-color: var(--accent); }
+  .pc-opt.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 15%, var(--card)); }
+  .pc-opt.wrong { border-color: var(--bad); }
+  .pc-seq { display: flex; flex-wrap: wrap; gap: 6px; min-height: 2em; }
+  .pc-chip { background: var(--soft); border-radius: 999px; padding: 3px 12px; font-weight: 800; }
+  .pc-chip.ok { background: var(--good); color: #fff; }
+  .pc-err li { margin: .4em 0; }
+  .shake { animation: shake .35s; }
+  @keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  @media (prefers-reduced-motion: reduce) { .shake { animation: none; } }
+  svg.tree { max-width: 460px; display: block; margin: 0 auto; }
+  .tree .node { cursor: pointer; }
+  .tree .node circle { fill: var(--card); stroke: var(--accent); stroke-width: 2.5; }
+  .tree .node text { fill: var(--ink); font: 800 17px system-ui, sans-serif; pointer-events: none; }
+  .tree .node.on circle { fill: var(--good); stroke: var(--good); }
+  .tree .node.on text { fill: #fff; }
+  .tree .node.wrong circle { fill: var(--bad); stroke: var(--bad); }
+  .qs-row { display: flex; gap: 6px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
+  .qs-cell { width: 2.4em; height: 2.4em; display: grid; place-items: center; border-radius: 10px; background: var(--soft); font-weight: 900; font-size: 1.15rem; }
+  .qs-cell.piv { background: var(--sun); color: #3a2a1a; }
+  .qs-cell.sw { background: var(--good); color: #fff; }
+  .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  @media print { .no-print, #parcours-section, .fab, .launch, .chap-cta, .hero-cta { display: none !important; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← Toutes les matières</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🧩</div>
+<h1>R3.02 · R3.03 Interactive</h1>
+<p class="sub">Développement efficace + Analyse · BUT informatique, semestre 3 · examen QCM, 2 parties, 2 notes</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>2 h</span> en moyenne</button>
+  <p class="muted">Ou lis d'abord le cours ci-dessous : le bouton du parcours t'attend à la fin.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire" id="cours">
+<b>Sommaire du cours</b>
+<ol>
+  <li><a href="#eco">Écoinformatique</a></li>
+  <li><a href="#exigences">Analyse des exigences</a></li>
+  <li><a href="#uml">Modélisation objet & UML</a></li>
+  <li><a href="#associations">⭐ Toutes les associations UML</a></li>
+  <li><a href="#complexite">Complexité algorithmique</a></li>
+  <li><a href="#structures">Structures de données</a></li>
+  <li><a href="#tris">Algorithmes de tri</a></li>
+  <li><a href="#java">Java efficace</a></li>
+  <li><a href="#ecoweb">Écoconception web</a></li>
+  <li><a href="#tps">Tes TPs en UML</a></li>
+  <li><a href="#flash">⚡ Fiche flash</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<!-- ============================================================ 1 -->
+<h2 id="eco">1. Écoinformatique <small class="muted">(slides 9-29)</small></h2>
+<p>Chaque octet se matérialise dans le monde réel : consommation d'énergie, de ressources physiques (métaux, silice, eau), émissions de gaz à effet de serre (eGES) et déchets. Matériel et logiciel ont un cycle de vie qui impacte l'environnement de leur création à leur destruction. Phénomène d'<b>obésiciel</b> (logiciel obèse).</p>
+<div class="tbl"><table>
+  <tr><th>Chiffre</th><th>Valeur à connaître</th></tr>
+  <tr><td>Empreinte carbone du numérique mondial</td><td><b>≈ 4 % des eGES = ×1,5 l'aérien mondial</b> (GIEC 2022)</td></tr>
+  <tr><td>Prévision GIEC 2030</td><td>numérique = 20 % de la consommation d'énergie mondiale</td></tr>
+  <tr><td>Transistors par processeur</td><td>2 300 (1971) → 19+ milliards (2017) : ×10⁷</td></tr>
+  <tr><td>Personnes connectées</td><td>2 Md (2010) → 5 Md (2020) → 6 Md (2025)</td></tr>
+  <tr><td>Objets connectés</td><td>1 Md (2010) → 75 Md (2025)</td></tr>
+  <tr><td>Poids d'une page web</td><td>14 Ko (1995) → 2 200 Ko (2022) : <b>×155</b>, inflation non justifiée</td></tr>
+</table></div>
+<div class="box keep"><h4>Définition · jour de dépassement</h4>Jour de l'année à partir duquel toutes les ressources naturelles renouvelables en 1 an ont été consommées. <b>J = (B / E) × 365</b>, B = biocapacité, E = empreinte écologique, tous deux en <b>hectares globaux</b>.<br>Monde 2026 : <b>30 juillet</b> · France 2026 : <b>24 avril</b> (2023 : 5 mai). Conso : 170 % du rythme mondial (≈ 1,7 planète), 300 % au rythme français. Qatar le plus tôt (6 fév. 2025), Uruguay le plus tard (17 déc.).</div>
+<div class="box keep"><h4>Limites planétaires</h4>9 limites : climat · biosphère · azote et phosphore · usage des sols · eau douce · acidification des océans · ozone · aérosols · nouvelles entités. <b>6/9 dépassées en 2023, 7/9 en 2026</b> ; la plus récente : l'<b>acidification des océans (2025)</b>. Cause n°1 côté numérique : l'<b>obsolescence par obésité logicielle</b>.</div>
+<p><b>Équipements (Arcep/ADEME)</b> : plus de 800 M d'équipements en France (2020), dont 245 M d'objets connectés ; smartphones ≈ 14 %, téléviseurs ≈ 13,7 %, datacenters + réseaux ≈ 21,6 %. Scénarios 2050 : <b>Génération frugale ÷2</b> (le seul qui baisse) · Coopérations territoriales ×1,6 · Technologies vertes ×5 · Pari réparateur ×14. Web (GreenIT) : 1 500 Mt éq. CO₂/an ; par Européen, 39 % du budget GES soutenable.</p>
+<h3>L'écoconception</h3>
+<p><b>Écoconcevoir</b> un service en ligne, c'est, <b>à niveau de qualité constant</b>, réduire la quantité de moyens informatiques nécessaires (son empreinte matérielle), <b>à chaque étape</b> du cycle de vie. 4 leviers : type de terminal, durée de vie du terminal, temps passé, type de connexion. Le gros des économies vient de l'<b>allongement de la durée de vie</b> des équipements ; la conception en amont pèse plus que l'optimisation des lignes de code.</p>
+<div class="cols">
+  <div class="box"><b>Simplicité</b> (qualitative) : chaque besoin couvert par un ensemble cohérent de fonctionnalités, une interface homogène. <b>Frugalité</b> (quantitative) : couverture et profondeur fonctionnelles au strict minimum.</div>
+  <div class="box warn"><h4>Piège QCM</h4><b>Pertinence = utilité × rapidité × accessibilité</b> : un produit, pas une somme. Un facteur faible ⇒ l'utilisateur change de service ⇒ 100 % d'impacts inutiles.</div>
+</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">🎯 Étape « Écoinformatique » du parcours</button></p>
+
+<!-- ============================================================ 2 -->
+<h2 id="exigences">2. Analyse des exigences <small class="muted">(slides 30-52)</small></h2>
+<p><b>Exigences logicielles</b> : description des propriétés et fonctionnalités du système cible, reflet des besoins de l'utilisateur. <b>Ingénierie des exigences (IE)</b> : collecter, analyser, puis présenter les exigences dans la <b>SRS</b> (System Requirements Specification). Référence : Sommerville.</p>
+<div class="tbl"><table>
+  <tr><th>Fonctionnelles</th><th>Non-fonctionnelles</th></tr>
+  <tr><td>Services que le système doit fournir, comment il réagit à des entrées, comment il se comporte dans certaines situations. <b>Utilisateur</b> = énoncés de haut niveau ; <b>système</b> = services décrits dans le détail.</td>
+  <td>Contraintes sur les services : <b>propriétés</b> (fiabilité, temps de réponse, stockage), <b>contraintes</b> (E/S, représentations), <b>processus</b> (AGL, langage, méthode). Peuvent être <b>plus critiques</b> : non satisfaites ⇒ système inutile.</td></tr>
+</table></div>
+<p>BIBSYS : « visionneuses adaptées » est ambigu (une par type de document ? une seule visionneuse texte ?). Une exigence ambiguë est interprétée différemment. <b>Complètes</b> = couvrent tout ; <b>consistantes</b> = sans contradiction ; les deux à la fois : <b>impossible en pratique</b>.</p>
+<div class="tbl"><table>
+  <tr><th>Propriété</th><th>Mesures</th></tr>
+  <tr><td>Vitesse</td><td>transactions/s, temps de réponse, rafraîchissement écran</td></tr>
+  <tr><td>Taille</td><td>Mo, nombre de puces ROM</td></tr>
+  <tr><td>Facilité d'utilisation</td><td>temps de formation, nombre d'écrans d'aide</td></tr>
+  <tr><td><b>Fiabilité</b></td><td>temps moyen d'échec, probabilité de non-disponibilité, taux d'échec, disponibilité</td></tr>
+  <tr><td><b>Robustesse</b></td><td>temps de redémarrage après échec, % d'événements cause d'échec, probabilité de corruption de données</td></tr>
+  <tr><td>Portabilité</td><td>% d'exigences dépendantes de la cible, nombre de systèmes cibles</td></tr>
+</table></div>
+<div class="box warn"><h4>Piège QCM</h4>Fiabilité = <b>avant</b> l'échec (temps moyen, disponibilité). Robustesse = <b>après</b> l'échec (redémarrage, corruption).</div>
+<h3>Processus d'ingénierie des exigences</h3>
+<p>Démarre si l'<b>étude de faisabilité</b> est concluante. <b>4 activités génériques : élicitation · analyse · validation · gestion</b>. Éliciter ≈ recueillir, découvrir, avec les <b>parties prenantes</b> (stakeholders : pour un DAB, clients, managers, guichet, sécurité, maintenance, régulateurs…). Cycle d'élicitation-analyse : <b>1. découverte → 2. classification & organisation → 3. priorisation & négociation → 4. spécification</b>.</p>
+<h3>Cas d'utilisation et scénarios</h3>
+<p>Technique à base de scénarios en UML qui identifie les <b>acteurs</b> (personne <b>ou composant</b> à l'origine d'une interaction) et décrit l'interaction. Un <b>cas d'utilisation</b> = objectif du système motivé par le besoin d'un ou plusieurs acteurs. Diagramme : <b>package</b> (rectangle = le système), acteurs (bonshommes), cas (ellipses), associations (traits), notes (coin corné).</p>
+<div class="box keep"><h4>Définition · scénario (5 éléments)</h4>1. situation de départ · 2. flux normal · 3. ce qui peut mal se passer · 4. activités parallèles · 5. état final.</div>
+<h3>Diagramme de séquence</h3>
+<p>Participants « <u>objet : Classe</u> » soulignés, <b>ligne de vie</b> verticale pointillée, <b>appel = flèche pleine</b>, <b>retour = flèche pointillée</b>, exécution = barre d'activation. Un message reçu par un objet devient une <b>méthode de sa classe</b>. Modélisations de système (§8.4) : contextuelles, comportementales, orientées données, orientées objet.</p>
+<div class="box tp"><h4>Dans ton TP</h4>Contrôle d'accès : clavier 4 chiffres, voyants rouge/vert (multiplicité <b>2</b>), minuteur 5 s / 20 s, porte, alarme, base de codes. saisirChiffre → chiffreSaisi → verifierCode → deverrouiller → ouvrir. Pas de message entre deux acteurs.</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="exig">🎯 Étape « Exigences » du parcours</button></p>
+
+<!-- ============================================================ 3 -->
+<h2 id="uml">3. Modélisation objet & UML <small class="muted">(slides 52-61)</small></h2>
+<p>Les modèles objet décrivent le système en <b>classes</b> (abstraction d'objets aux attributs et services communs) et associations. Ils reflètent naturellement le monde réel ; les entités abstraites sont plus difficiles. <b>Identifier les classes est difficile</b> et demande une <b>connaissance profonde du domaine</b> ; les classes du domaine sont réutilisables.</p>
+<p><b>Héritage</b> : hiérarchies où le sommet porte les propriétés communes. <b>Héritage multiple</b> : 2 risques, <b>conflits sémantiques</b> (même nom, sens différent) et <b>réorganisation plus complexe</b>. Java l'interdit pour les classes : une classe implémente plusieurs interfaces. <b>Agrégation</b> : classes-collections composées d'autres classes (losange côté ensemble). <b>Modèle comportemental</b> : diagrammes de <b>séquence</b> ou de <b>collaboration</b>.</p>
+<div class="tbl"><table>
+  <tr><th>Élément</th><th>Notation (cheatsheet)</th></tr>
+  <tr><td>Visibilité</td><td><b>+</b> public · <b>-</b> private · <b>#</b> protected · ~ package</td></tr>
+  <tr><td>Classe abstraite / interface</td><td>nom en <i>italique</i> / «interface» IFoo</td></tr>
+  <tr><td>Inheritance (is-a)</td><td>trait plein + triangle vide</td></tr>
+  <tr><td>Implémentation</td><td>pointillés + triangle vide (la slide 60 l'appelle « Generalization »)</td></tr>
+  <tr><td>Association / two-way</td><td>trait ou flèche ouverte (A peut appeler B) / &lt;——&gt;</td></tr>
+  <tr><td>Dependency</td><td>flèche ouverte pointillée : « uses but is not a field »</td></tr>
+  <tr><td>Aggregation / Composition</td><td>losange vide (B survit) / losange plein (B ne peut exister sans A)</td></tr>
+  <tr><td>Cardinality / Note</td><td>1..* / rectangle à coin plié</td></tr>
+</table></div>
+<div class="box warn"><h4>Piège QCM</h4>En UML standard, généralisation = héritage = <b>trait plein</b> ; la flèche pointillée s'appelle <b>réalisation</b>. Retiens : <b>plein = extends, pointillé = implements</b>.</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="uml">🎯 Étape « UML » du parcours</button></p>
+
+<!-- ============================================================ 4 -->
+<h2 id="associations">4. ⭐ Toutes les associations UML</h2>
+<p>Une relation exprime qu'un objet <b>connaît</b>, <b>contient</b>, <b>est une sorte de</b> ou <b>utilise</b> un autre. De la plus faible à la plus forte :</p>
+<div class="tbl"><table>
+  <tr><th>Relation</th><th>Symbole</th><th>Se lit</th><th>En Java</th></tr>
+  <tr><td><b>Dépendance</b></td><td class="sym" data-rel="dependance"></td><td>utilise temporairement</td><td>paramètre, variable locale, appel statique</td></tr>
+  <tr><td><b>Association</b></td><td class="sym" data-rel="association"></td><td>connaît</td><td>attribut référence</td></tr>
+  <tr><td><b>Navigable</b></td><td class="sym" data-rel="navigable"></td><td>connaît, dans un sens</td><td>seul A a un attribut vers B</td></tr>
+  <tr><td><b>Agrégation</b></td><td class="sym" data-rel="agregation"></td><td>a / regroupe (partagé)</td><td>collection d'objets qui vivent sans le tout</td></tr>
+  <tr><td><b>Composition</b></td><td class="sym" data-rel="composition"></td><td>est composé de (exclusif)</td><td>le tout crée et détruit ses parties</td></tr>
+  <tr><td><b>Généralisation</b></td><td class="sym" data-rel="generalisation"></td><td>est un</td><td><code>extends</code></td></tr>
+  <tr><td><b>Réalisation</b></td><td class="sym" data-rel="realisation"></td><td>respecte le contrat</td><td><code>implements</code></td></tr>
+</table></div>
+<div class="box keep"><h4>À retenir</h4>Le <b>losange</b> est toujours côté <b>TOUT</b>. Le <b>triangle</b> (vide) pointe vers le <b>plus général</b>. La flèche ouverte = sens de <b>navigabilité</b>. <b>Pointillés</b> = dépendance et réalisation.</div>
+<h3>Multiplicités, rôles, nom</h3>
+<p><code>1</code> exactement un · <code>0..1</code> optionnel · <code>*</code> = <code>0..*</code> · <code>1..*</code> au moins un · <code>n..m</code> · <code>2</code> (2 voyants). La multiplicité se lit <b>à l'autre bout</b> (« une Personne travaille pour 0..1 Entreprise » : on lit le 0..1 côté Entreprise). Le <b>rôle</b> nomme l'extrémité (souvent le nom de l'attribut Java). Le nom d'association est un verbe avec ▶. En Java : <b>0..1 → référence (null possible)</b>, <b>* → collection</b>.</p>
+<h3>Les 11 types, un par un</h3>
+<div class="tbl"><table>
+  <tr><th>Type</th><th>Quand l'utiliser</th><th>Exemple</th></tr>
+  <tr><td>1. Association simple</td><td>relation durable entre objets « égaux », parcourue dans les deux sens</td><td>Professeur ↔ Cours</td></tr>
+  <tr><td>2. Navigable</td><td>un seul sens utile : moins de couplage (× côté source = non navigable)</td><td>Commande → Client</td></tr>
+  <tr><td>3. Réflexive</td><td>classe liée à elle-même, <b>rôles indispensables</b></td><td>chef / subordonné, DNode next/prev</td></tr>
+  <tr><td>4. Classe d'association</td><td>la donnée appartient <b>au lien</b> (souvent * — *)</td><td>Inscription (note) entre Etudiant et Module</td></tr>
+  <tr><td>5. Qualifiée</td><td>une clé sélectionne un objet, réduit * à 0..1 ; en Java une <code>Map</code></td><td>Banque [numero] → Compte</td></tr>
+  <tr><td>6. N-aire</td><td><b>losange vide central</b> (≠ agrégation), rare</td><td>Professeur + Salle + Classe</td></tr>
+  <tr><td>7. Agrégation ◇</td><td>tout/partie faible : la partie survit, peut être partagée, reçue de l'extérieur</td><td>Équipe ◇ Joueur</td></tr>
+  <tr><td>8. Composition ◆</td><td>tout/partie forte : un seul tout (côté tout ≤ 1), créée par le tout, meurt avec lui</td><td>Maison ◆ Pièce, Commande ◆ LigneCommande</td></tr>
+  <tr><td>9. Généralisation</td><td>« B est une sorte de A » dans tous les cas (Liskov) ; sinon composition</td><td>Lutin → Personnage</td></tr>
+  <tr><td>10. Réalisation</td><td>capacité transversale ; lollipop ○— possible</td><td>Lutin ⇢ Travailleur</td></tr>
+  <tr><td>11. Dépendance</td><td>couplage ponctuel (stéréotypes «use», «create», «call»)</td><td>Imprimante ⇢ Document</td></tr>
+</table></div>
+<pre><code>class Banque  { private Map&lt;String, Compte&gt; comptes = new HashMap&lt;&gt;(); } // qualifiée
+class Maison  { private final List&lt;Piece&gt; pieces = new ArrayList&lt;&gt;();
+                Maison() { pieces.add(new Piece(20)); } }                 // composition : créées PAR le tout
+class Equipe  { private List&lt;Joueur&gt; joueurs = new ArrayList&lt;&gt;();
+                void ajouter(Joueur j) { joueurs.add(j); } }                // agrégation : reçu de l'extérieur
+class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 généralisation + 2 réalisations</code></pre>
+<div class="tbl"><table>
+  <tr><th>Trancher vite</th><th>Association</th><th>Agrégation ◇</th><th>Composition ◆</th></tr>
+  <tr><td>Tout / partie ?</td><td>Non</td><td>Oui (faible)</td><td>Oui (forte)</td></tr>
+  <tr><td>Partie partageable ?</td><td>—</td><td>Oui</td><td>Non</td></tr>
+  <tr><td>Partie survit au tout ?</td><td>Oui</td><td>Oui</td><td>Non</td></tr>
+  <tr><td>Multiplicité côté tout</td><td>libre</td><td>libre</td><td>1 ou 0..1</td></tr>
+  <tr><td>Qui crée la partie ?</td><td>n'importe qui</td><td>l'extérieur</td><td>le tout</td></tr>
+  <tr><td>Exemple</td><td>Personne — Voiture</td><td>Université ◇ Étudiant</td><td>Université ◆ Département</td></tr>
+</table></div>
+<div class="box warn"><h4>Piège QCM</h4>Losange vide à 3 branches = <b>n-aire</b>. En composition, multiplicité côté composite <b>≤ 1</b>. Héritage et réalisation : <b>ni multiplicité ni rôle</b>. Le <b>triangle plein n'existe pas</b>.</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="assoc">🎯 Étape « Associations » du parcours</button></p>
+
+<!-- ============================================================ 5 -->
+<h2 id="complexite">5. Complexité algorithmique <small class="muted">(slides 62-76)</small></h2>
+<p>« Ce qui ne se mesure pas ne s'améliore pas. » Exemple du trafic aérien : distances entre toutes les paires d'avions, deux boucles imbriquées, n(n−1) calculs ⇒ <b>O(n²)</b>. Mesures : 4 000 → 190 ms, 8 000 → 664 ms, 16 000 → 2 647 ms : taille ×2 ⇒ temps ×4.</p>
+<div class="box keep"><h4>Définition · Grand O</h4>Une <b>abstraction</b> de la performance, <b>indépendante du matériel et du langage</b> ; <b>pas une mesure en unité de temps</b> ; un <b>ordre de grandeur</b> du nombre de calculs élémentaires ; une <b>limite asymptotique</b>, 3 cas : favorable (limite basse), pire (limite haute), moyen ; seulement pour un <b>très grand nombre d'entrées</b>.</div>
+<p>Pourquoi pas chronométrer ? Dépendance au matériel, à la mémoire occupée, chargement de la JVM, comparaison et prédiction difficiles.</p>
+<div class="tbl"><table>
+  <tr><th>Grand O</th><th>Nom</th><th>Reconnaître</th></tr>
+  <tr><td>O(1)</td><td>constante</td><td>accès direct</td></tr>
+  <tr><td>O(log n)</td><td>logarithmique</td><td>entrée <b>divisée par 2</b> à chaque étape (recherche binaire)</td></tr>
+  <tr><td>O(n)</td><td>linéaire</td><td>une passe (countChars, recherche linéaire : n/2 tours en moyenne)</td></tr>
+  <tr><td>O(n log n)</td><td>log-linéaire</td><td>bons tris (quicksort moyen)</td></tr>
+  <tr><td>O(n²) / O(n³)</td><td>quadratique / cubique</td><td>2 / 3 boucles imbriquées (intersection naïve)</td></tr>
+  <tr><td>O(2ⁿ) / O(n!)</td><td>exponentielle / factorielle</td><td>voyageur de commerce, force brute, factorisation</td></tr>
+</table></div>
+<div class="box warn"><h4>Piège QCM</h4>Quand n double : O(n) ×2 · O(n²) <b>×4</b> · O(n³) <b>×8</b> · O(log n) +1 étape · O(n log n) un peu plus que ×2. On garde le terme dominant : 3n² + 5n + 2 ⇒ O(n²) ; n/2 ⇒ O(n). La cryptographie repose sur l'absence d'algorithme polynomial connu de factorisation.</div>
+<div class="box tp"><h4>Dans ton TP</h4>TP6 : <code>System.nanoTime()</code> avant/après, ÷ 1 000 000 pour des ms (sert à mesurer une durée, pas l'heure). Taille ×10 ⇒ temps un peu plus que ×10 ⇒ n log n. Petites tailles peu fiables (JVM pas encore « chauffée »).</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="cplx">🎯 Étape « Complexité » du parcours</button></p>
+
+<!-- ============================================================ 6 -->
+<h2 id="structures">6. Structures de données <small class="muted">(slides 77-106)</small></h2>
+<p><b>Structure de données abstraite (TAD)</b> : ce que la structure doit faire, pas comment. Tableaux, structures chaînées (listes, arbres, graphes), <b>piles LIFO</b>, <b>files FIFO</b>, tables associatives.</p>
+<h3>Liste simplement chaînée</h3>
+<p>Nœuds (élément + <code>next</code>) dans un ordre linéaire ; tête, queue ; <b>queue.next == null</b> ; taille indéfinie ; <b>position non indexée</b>. Insertion en tête : <code>v.next = head; head = v; size++</code> (O(1)). Insertion en queue : <code>v.setNext(null); tail.setNext(v); tail = v</code>. Suppression en tête : <code>head = head.getNext()</code>. Suppression en queue : parcours pour trouver l'avant-dernier, <b>O(n)</b>. Toujours se demander « et si la liste est vide ? ».</p>
+<h3>Liste doublement chaînée & sentinelles</h3>
+<p>Chaque DNode a <code>next</code> et <code>prev</code>. <b>Sentinelles</b> header/trailer : nœuds factices <b>sans élément</b> (header.prev == null, trailer.next == null, non comptés dans size) qui <b>simplifient la programmation</b> (plus de cas particuliers). Insertion de v entre u et w : <b>4 pointeurs</b> (u.next, v.prev, v.next, w.prev). Suppression : on court-circuite (prev.next = next, next.prev = prev).</p>
+<pre><code>private void addAfter(DNode u, String e) {      // ton TP
+  DNode w = u.getNext();
+  DNode v = new DNode(e, u, w);
+  u.setNext(v); w.setPrev(v); size++;
+}</code></pre>
+<h3>Arbres et parcours</h3>
+<p>Structure hiérarchique, racine en haut ; frères = même parent ; <b>externe = feuille</b> (aucun enfant), interne = au moins un enfant. Formel : racine sans parent, tout autre nœud a un <b>parent unique</b>. Récursif : un arbre est <b>vide</b> ou une racine + des sous-arbres ⇒ il <b>peut être vide</b>. TAD : element(), root(), parent(v), children(v).</p>
+<div class="tbl"><table>
+  <tr><th>Parcours de F(B(A, D(C, E)), G(-, I(H, -)))</th><th>Règle</th><th>Résultat</th></tr>
+  <tr><td>Préfixe</td><td>racine d'abord (R, G, D)</td><td><b>F B A D C E G I H</b></td></tr>
+  <tr><td>Infixe</td><td>racine au milieu (G, R, D), binaire seulement</td><td><b>A B C D E F G H I</b></td></tr>
+  <tr><td>Postfixe</td><td>racine en dernier (G, D, R)</td><td><b>A C E D B H I G F</b></td></tr>
+</table></div>
+<p>Infixe d'un arbre binaire de recherche ⇒ ordre croissant. Exemple du cours (postfixe) : 10 → (20, 30 → (40, 50)) donne <b>20 40 50 30 10</b>.</p>
+<h3>Tables associatives et hachage</h3>
+<p><b>Map</b> : paires (clé, valeur), <b>clés uniques</b>, valeurs répétables. Avec une liste : chaque opération en <b>O(n)</b>. <b>Table de hachage</b> = tableau d'alvéoles + fonction de hachage : valeurs indexées par la <b>valeur de hachage</b> (pas par la clé), <b>O(1) en moyenne</b>, risque de <b>collision</b> (2 clés distinctes, même valeur). En Java, 2 temps : <b>hashCode</b> puis <b>compression modulo N</b>. Bonne fonction = uniformité + rapidité + taille. Taille <b>première</b> (évite les diviseurs communs) ou <b>puissance de 2</b> (modulo par décalages).</p>
+<div class="tbl"><table>
+  <tr><th>Structure</th><th>Avantages</th><th>Inconvénients</th></tr>
+  <tr><td>Tableau</td><td>insertion rapide, accès très rapide par index</td><td>recherche et suppression lentes, taille fixe</td></tr>
+  <tr><td>Tableau trié</td><td>recherche plus rapide</td><td>insertion et suppression lentes</td></tr>
+  <tr><td>Pile / File</td><td>accès LIFO / FIFO</td><td>accès lent aux autres éléments</td></tr>
+  <tr><td>Liste chaînée</td><td>insertion et suppression rapides</td><td>recherche lente</td></tr>
+  <tr><td>Arbre binaire</td><td>tout rapide si équilibré</td><td>suppression complexe</td></tr>
+  <tr><td>Table de hachage</td><td>O(1) en moyenne par clé</td><td>collisions, pas d'ordre</td></tr>
+</table></div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="struct">🎯 Étape « Structures » du parcours</button></p>
+
+<!-- ============================================================ 7 -->
+<h2 id="tris">7. Algorithmes de tri <small class="muted">(slides 107-118)</small></h2>
+<p><b>Intersection</b> naïve de 2 tableaux : O(n²). En triant (O(n log n)) : trier un tableau + recherche binaire pour chaque valeur ⇒ O(n log n) ; ou trier les deux + deux pointeurs ⇒ 2·n log n + n = <b>O(n log n)</b>. Un tri ne peut pas être efficace dans <b>toutes</b> les situations (aléatoires, presque triées, inversées, doublons).</p>
+<p><b>Tri à bulles</b> : plusieurs passages en intervertissant les voisins mal ordonnés ; le plus grand « remonte » à la fin. Simple mais <b>O(n²)</b>. Exemple : 5 1 4 2 → 1 4 2 5 → 1 2 4 5.</p>
+<div class="box keep"><h4>Récursivité & divide-and-conquer</h4>Récursivité : une fonction s'appelle jusqu'à la condition d'arrêt ; contient <b>une ou plusieurs conditions d'arrêt + un ou plusieurs appels récursifs</b>. Récursivité ≠ récurrence. Patron : <b>Divide</b> (sous le seuil, résoudre ; sinon découper) · <b>Conquer</b> (résoudre récursivement) · <b>Combine</b> (fusionner).</div>
+<pre><code>binarySearch(x, array, start, end)          // tableau TRIÉ, O(log n)
+  if (start &lt;= end) then
+    mid &lt;- (end - start)/2 + start           // évite le débordement de (start+end)/2
+    if (array[mid] = x) then return true      // arrêt 1 : trouvé
+    if (array[mid] &gt; x) then return binarySearch(x, array, start, mid - 1)
+    return binarySearch(x, array, mid + 1, end)
+  return false                                // arrêt 2 : start &gt; end</code></pre>
+<h3>Quicksort</h3>
+<p>Algorithme de <b>Tony Hoare</b>, récursif, divide-and-conquer. <b>Lomuto</b> : pivot = dernier ; on cherche le 1er élément supérieur au pivot, on l'échange avec chaque élément inférieur rencontré ensuite, puis le 1er supérieur avec le pivot ⇒ L (gauche) et G (droite). Tri <b>en place</b>.</p>
+<pre><code>int partition(ArrayList&lt;Integer&gt; s, int debut, int fin) {   // ton TP6
+  Integer pivot = s.get(fin);
+  int a = debut;
+  while (a &lt; fin &amp;&amp; s.get(a) &lt;= pivot) a++;
+  for (int b = a + 1; b &lt; fin; b++)
+    if (s.get(b) &lt; pivot) { swap(s, a, b); a++; }
+  swap(s, a, fin);                 // pivot à sa place
+  return a;
+}</code></pre>
+<div class="box warn"><h4>Complexité du quicksort</h4>Meilleur et moyen : <b>O(n log n)</b>. Pire : <b>O(n²)</b>, quand le pivot est toujours le min ou le max (pivot = dernier sur une liste <b>déjà triée</b> ou inversée : une partition vide à chaque appel) ⇒ récursion de profondeur n ⇒ <b>StackOverflowError</b> dès 50 000 éléments dans ton TP. Remèdes : pivot <b>aléatoire</b>, <b>médiane-de-trois</b> (heuristique : vite et assez bon, sans garantie), médiane-de-9 (meilleur pivot, plus lent).</div>
+<div class="tbl"><table>
+  <tr><th>Liste (taille)</th><th>classique</th><th>randomisé</th><th>médiane-de-3</th><th>médiane-de-9</th></tr>
+  <tr><td>aléatoire 1 000 000</td><td>245 ms</td><td>256 ms</td><td>254 ms</td><td>347 ms</td></tr>
+  <tr><td>triée 10 000</td><td>142 ms</td><td>0,94 ms</td><td>0,52 ms</td><td>1,5 ms</td></tr>
+  <tr><td>triée 50 000</td><td>StackOverflow</td><td>5,8 ms</td><td>3,3 ms</td><td>8,5 ms</td></tr>
+</table></div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="tri">🎯 Étape « Tris » du parcours</button></p>
+
+<!-- ============================================================ 8 -->
+<h2 id="java">8. Java efficace <small class="muted">(Effective Java, J. Bloch, 3e éd.)</small></h2>
+<div class="tbl"><table>
+  <tr><th>Fiche</th><th>À retenir</th></tr>
+  <tr><td><b>1</b> Fabrique statique</td><td>+ a un nom, pas obligée de créer un objet, renvoie n'importe quel sous-type, classe variable selon les paramètres ou inexistante à l'écriture. − sans constructeur public/protégé, pas de sous-classe ; difficile à trouver. ≠ pattern Factory Method. Ex. <code>Boolean.valueOf</code>.</td></tr>
+  <tr><td><b>2</b> Builder</td><td>quand un constructeur a beaucoup de paramètres.</td></tr>
+  <tr><td><b>6</b> Objets inutiles</td><td><code>new String("bikini")</code> : NON. <code>Long sum = 0L</code> : autoboxing, un Long par tour, horriblement lent.</td></tr>
+  <tr><td><b>7</b> Références obsolètes</td><td>le GC n'empêche pas les fuites : portée la plus courte ; null quand la classe gère sa mémoire (pile, cache, listeners).</td></tr>
+  <tr><td><b>10</b> equals</td><td>inutile si instances uniques, pas d'égalité logique, déjà fait par la superclasse, classe privée.</td></tr>
+  <tr><td><b>11</b> hashCode</td><td><b>Toujours</b> avec equals. Contrat : stable ; <b>égaux ⇒ même hashCode (obligatoire)</b> ; différents ⇒ distincts non requis. Sinon <code>m.get(new PhoneNumber(…))</code> renvoie <b>null</b>.</td></tr>
+  <tr><td><b>12 / 14</b></td><td>toujours redéfinir toString ; Comparable : (compareTo == 0) == equals <b>recommandé mais pas requis</b>.</td></tr>
+  <tr><td><b>15 / 16</b></td><td>minimiser l'accessibilité (un tableau public static final reste modifiable) ; accesseurs plutôt qu'attributs publics.</td></tr>
+  <tr><td><b>17</b> Immuabilité</td><td>5 règles : aucun mutateur, classe <code>final</code>, attributs <code>final</code>, attributs <code>private</code>, accès exclusif aux composants mutables. String, Integer, BigInteger, BigDecimal. Inconvénient : un objet par valeur.</td></tr>
+  <tr><td><b>18</b> Composition &gt; héritage</td><td>hériter d'une classe concrète d'un autre package <b>viole l'encapsulation</b>.</td></tr>
+  <tr><td><b>20</b> Interfaces &gt; classes abstraites</td><td>plusieurs interfaces possibles (pas d'héritage multiple), mixins, types non hiérarchiques.</td></tr>
+  <tr><td><b>28</b> Listes &gt; tableaux</td><td>tableaux <b>covariants</b> : <code>Object[] t = new Long[1]; t[0] = "x";</code> compile puis <b>ArrayStoreException</b>. Génériques <b>invariants</b> : <code>List&lt;Object&gt; l = new ArrayList&lt;Long&gt;();</code> ne compile pas.</td></tr>
+  <tr><td><b>29 / 34</b></td><td>types génériques ; enum plutôt que constantes int (pas de vérification de type, valeurs compilées en dur, pas de nom en chaîne).</td></tr>
+  <tr><td><b>49 / 50</b></td><td>vérifier les paramètres (<code>Objects.requireNonNull</code>) ; copies défensives : copier <b>avant</b> de vérifier, vérifier sur les copies, méfiance avec clone.</td></tr>
+  <tr><td><b>52</b> Surcharge</td><td>résolue <b>à la compilation</b> selon le type statique : classify affiche 3 fois « Collection inconnue ». La redéfinition est dynamique.</td></tr>
+  <tr><td><b>57-59, 64</b></td><td>portée minimale des variables ; for-each ; connaître java.lang, java.util, java.io ; référencer par l'interface (<code>List&lt;X&gt; l = new ArrayList&lt;&gt;()</code>).</td></tr>
+  <tr><td><b>63</b> Concaténation</td><td><code>+=</code> en boucle = temps <b>quadratique</b> ⇒ <code>StringBuilder</code> (6,5× plus rapide).</td></tr>
+  <tr><td><b>85</b> Sérialisation</td><td>très risquée (ransomware du métro de San Francisco, 2016) : ne pas l'utiliser, ne jamais désérialiser des données non fiables.</td></tr>
+</table></div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="java">🎯 Étape « Java efficace » du parcours</button></p>
+
+<!-- ============================================================ 9 -->
+<h2 id="ecoweb">9. Écoconception web <small class="muted">(115 bonnes pratiques, F. Bordage)</small></h2>
+<div class="box keep"><h4>Constat</h4><b>70 %</b> des fonctionnalités demandées ne sont pas essentielles, <b>45 %</b> ne sont jamais utilisées. Outils : Ecoindex, GreenIT-analysis, websitecarbon.com.</div>
+<div class="tbl"><table>
+  <tr><th>BP</th><th>À retenir</th><th>Test</th></tr>
+  <tr><td>1 Fonctionnalités essentielles</td><td>MoSCoW, wireframes, <b>YAGNI</b> (You Ain't Gonna Need It)</td><td>non vérifiées = 0 %</td></tr>
+  <tr><td>2 Quantifier le besoin</td><td>sans précision : liste de <b>5</b> éléments ; Bing −80 % de serveurs ; vidéo 480p</td><td></td></tr>
+  <tr><td>3 Supprimer l'inutilisé</td><td>feature flipping ou suppression du code</td><td>≤ 10 %</td></tr>
+  <tr><td>4 Mobile first</td><td>sinon chargement adaptatif (srcset, &lt;picture&gt;)</td><td></td></tr>
+  <tr><td>5 Parcours utilisateur</td><td>le temps passé est le 2e poste d'impact</td><td>frictions = 0</td></tr>
+  <tr><td>9 Animations</td><td>se limiter à <b>opacity</b> et <b>transform</b> (GPU), prefers-reduced-motion</td><td>≤ 2 / page</td></tr>
+  <tr><td>10 Carrousels</td><td>lourds, peu accessibles</td><td><b>≤ 1</b> / page</td></tr>
+  <tr><td>11 Titre + metadescription</td><td>&lt;title&gt; et &lt;h1&gt; cohérents</td><td></td></tr>
+  <tr><td>14 Saisie assistée</td><td>l'autocomplétion envoie <b>une requête par caractère</b> ; &lt;datalist&gt;</td><td>≤ 20 %</td></tr>
+  <tr><td>16 / 17</td><td>cache clé-valeur en RAM ; traiter au plus près de la donnée : <b>procédures stockées</b></td><td></td></tr>
+  <tr><td>18 / 20</td><td>pages statiques (bfcache : pagehide, rel="noopener") ; pages d'erreur statiques</td><td>dynamiques ≤ 25 %</td></tr>
+  <tr><td>24 Connexion BDD</td><td>pool de connexions : <b>HikariCP</b> (Spring Boot)</td><td></td></tr>
+  <tr><td>28 / 29</td><td>architecture modulaire ; version la plus récente du langage (JIT PHP 8)</td><td></td></tr>
+  <tr><td>30 Alternative textuelle</td><td>30 min : vidéo ≈ 500 Mo, podcast ≈ 30 Mo, texte &lt; 1 Mo</td><td></td></tr>
+  <tr><td>31-36</td><td>CSS print ; polices système ; lien plutôt que document intégré ; CSS via <b>&lt;link media&gt;</b>, pas @import</td><td>CSS ≤ 10</td></tr>
+  <tr><td>59 / 61 / 62</td><td>liens de partage HTML ; valider au W3C ; cookies petits, <code>Set-Cookie: x=; Max-Age=0</code></td><td></td></tr>
+  <tr><td>63 / 64 / 69</td><td>TINYINT &lt; SMALLINT &lt; INT &lt; BIGINT ; IndexedDB, localStorage ; thème CMS simple</td><td>extensions ≤ 10</td></tr>
+</table></div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">🎯 Étape « Écoinformatique & écoconception » du parcours</button></p>
+
+<!-- ============================================================ 10 -->
+<h2 id="tps">10. Tes TPs en UML</h2>
+<p><b>Village du Père Noël</b> : classe abstraite <i>Personnage</i> (italique) ; héritage à 3 niveaux Personnage ← Humanoide ← Lutin ← LutinFarceur ; <code>Lutin extends Humanoide implements Travailleur, Divertissable, EtreFantastique</code> ; <b>Village ◆ Bâtiment</b> (composition) ; <b>Bâtiment ◇ Personnage</b> (agrégation : le personnage change de bâtiment) ; <b>PereNoel</b> singleton (constructeur privé, attribut statique instance, <code>getInstance()</code> = fabrique statique) ; <b>enum</b> Proprete et Nourriture(valeurNutritive) + EnumMap ; template method <code>accueillir()</code> → <code>peutAccueillir()</code> ; pattern matching instanceof ; itérer sur une copie quand on modifie la liste.</p>
+<p>TP2 threads : MyJobAlphabet et MyJobNumber implémentent <code>Runnable</code> (réalisation), <code>new Thread(job).start()</code>, affichage entrelacé non déterministe. TP6 : bulles sur DLinkedList en échangeant les <b>éléments</b> (pas les nœuds).</p>
+
+<!-- ============================================================ flash -->
+<h2 id="flash">⚡ Fiche flash (veille et matin de l'examen)</h2>
+<div class="flash">
+  <div class="box"><h3>Organisation</h3><p>2 ressources, 2 notes : (TD/TP 0,5 + examen 0,5) × 2. StarUML, Eclipse, GitHub, Ametice.</p></div>
+  <div class="box"><h3>Jour de dépassement</h3><p>J = B/E × 365 (hectares globaux). Monde 2026 : 30 juillet. France 2026 : 24 avril (2023 : 5 mai).</p></div>
+  <div class="box"><h3>Limites & chiffres</h3><p>9 limites, 7 dépassées en 2026 (océans 2025). 4 % eGES = ×1,5 aérien ; 20 % énergie 2030 ; page ×155 ; 75 Md objets.</p></div>
+  <div class="box"><h3>Écoconception</h3><p>Qualité constante. Simplicité quali, Frugalité quanti, Pertinence = utilité × rapidité × accessibilité.</p></div>
+  <div class="box"><h3>Exigences</h3><p>F = services. NF = propriétés, contraintes, processus, parfois plus critiques. Complètes + consistantes : impossible.</p></div>
+  <div class="box"><h3>IE</h3><p>Élicitation, analyse, validation, gestion. Découverte → classification → priorisation → spécification. SRS.</p></div>
+  <div class="box"><h3>Scénario & séquence</h3><p>Départ, normal, anomalies, parallèle, final. Appel = plein, retour = pointillé, message reçu ⇒ méthode.</p></div>
+  <div class="box"><h3>Relations UML</h3><p>Généralisation plein ▷ vers la mère ; réalisation pointillé ▷ ; dépendance pointillé → ; ◇ partie survit ; ◆ partie meurt. Losange côté tout.</p></div>
+  <div class="box"><h3>Multiplicités</h3><p>1 · 0..1 · * = 0..* · 1..* · n..m, à l'autre bout. 0..1 ⇒ référence ; * ⇒ collection.</p></div>
+  <div class="box"><h3>Grand O</h3><p>1 &lt; log n &lt; n &lt; n log n &lt; n² &lt; n³ &lt; 2ⁿ &lt; n!. 1 boucle n, 2 imbriquées n², ÷2 log n.</p></div>
+  <div class="box"><h3>Listes & arbres</h3><p>Simple : queue.next = null, pas d'index. Double : sentinelles sans élément, 4 pointeurs. Préfixe R-G-D, infixe G-R-D, postfixe G-D-R.</p></div>
+  <div class="box"><h3>Hachage</h3><p>Clés uniques. Liste O(n), hash O(1) moyen, collisions. hashCode puis mod N. N premier ou 2^k.</p></div>
+  <div class="box"><h3>Tris</h3><p>Bulles O(n²). Quicksort Hoare, Lomuto en place, moyen n log n, pire n² (liste triée). Binaire : trié, 2 arrêts, log n.</p></div>
+  <div class="box"><h3>Effective Java</h3><p>F1 fabrique · F6 Long · F7 fuites · F11 hashCode · F17 5 règles · F18 composition · F20 interfaces · F28 covariants · F34 enum · F52 compilation · F63 StringBuilder · F85 sérialisation.</p></div>
+  <div class="box"><h3>115 BP</h3><p>70 % / 45 % ; YAGNI ; liste 5 ; opacity/transform ; carrousel ≤ 1 ; saisie assistée ; procédures stockées ; HikariCP ; pas @import ; Max-Age=0.</p></div>
+</div>
+
+<!-- ============================================================ parcours -->
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">Prêt pour le contrôle ?</h2>
+  <p>Le parcours guidé reprend tout le cours en <b>11 étapes</b> : l'essentiel, des cartes à réciter, des exercices interactifs (symboles UML, ordre des complexités, parcours d'arbre, partition du quicksort), des quiz corrigés, un examen blanc et ton carnet d'erreurs.</p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+  <p class="time">⏱ Temps moyen : <b data-total-time>2 h</b> · ta progression est enregistrée dans ce navigateur</p>
+</section>
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+
+<p class="muted" style="text-align:center;margin-top:2em">Fiche établie à partir du CM de J.-P. Prost (199 slides) et des TPs de R3.02 / R3.03. En cas de doute, la version de l'enseignant fait foi pour l'examen.</p>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="parcours.js"></script>
+</body>
+</html>
