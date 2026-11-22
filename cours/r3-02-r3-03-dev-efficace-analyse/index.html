@@ -21,7 +21,7 @@
 <meta name="twitter:title" content="R3.02 · R3.03 Interactive : cours + parcours guidé + QCM corrigés">
 <meta name="twitter:description" content="UML, exigences, complexité, structures de données, tris, Effective Java, écoconception : cours, parcours guidé de 2 h et 131 questions corrigées.">
 <meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-r3-02-r3-03.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.02 Développement efficace et R3.03 Analyse : cours et parcours guidé interactif","url":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, semestre 3","timeRequired":"PT2H10M","teaches":["Analyse des exigences","Cas d'utilisation et diagrammes de séquence","Associations UML : agrégation, composition, généralisation, réalisation","Complexité algorithmique et notation Grand O","Listes chaînées, arbres, tables de hachage","Tri à bulles, recherche binaire, quicksort","Effective Java","Écoconception web"],"isAccessibleForFree":true,"dateModified":"2026-11-22","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.02 · R3.03 Interactive","item":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre agrégation et composition en UML ?","acceptedAnswer":{"@type":"Answer","text":"Les deux ont un losange côté tout. Agrégation (losange vide) : la partie survit au tout et peut être partagée. Composition (losange plein) : la partie n'a qu'un seul propriétaire et disparaît avec le tout."}},{"@type":"Question","name":"Quelle est la complexité du quicksort ?","acceptedAnswer":{"@type":"Answer","text":"O(n log n) en moyenne et au meilleur cas, O(n²) au pire cas, par exemple avec le dernier élément comme pivot sur une liste déjà triée."}},{"@type":"Question","name":"Pourquoi redéfinir hashCode quand on redéfinit equals ?","acceptedAnswer":{"@type":"Answer","text":"Deux objets égaux selon equals doivent avoir le même hashCode (fiche 11 d'Effective Java). Sinon HashMap et HashSet cherchent dans la mauvaise alvéole et get renvoie null."}},{"@type":"Question","name":"Quels sont les 5 éléments d'un scénario ?","acceptedAnswer":{"@type":"Answer","text":"La situation de départ, le flux normal des événements, ce qui peut mal se passer, les activités parallèles et l'état final."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.02 Développement efficace et R3.03 Analyse : cours et parcours guidé interactif","url":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, semestre 3","timeRequired":"PT2H30M","teaches":["Analyse des exigences","Cas d'utilisation et diagrammes de séquence","Associations UML : agrégation, composition, généralisation, réalisation","Complexité algorithmique et notation Grand O","Listes chaînées, arbres, tables de hachage","Tri à bulles, recherche binaire, quicksort","Effective Java","Écoconception web"],"isAccessibleForFree":true,"dateModified":"2026-11-22","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.02 · R3.03 Interactive","item":"https://gaboulearn.fr/cours/r3-02-r3-03-dev-efficace-analyse/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre agrégation et composition en UML ?","acceptedAnswer":{"@type":"Answer","text":"Les deux ont un losange côté tout. Agrégation (losange vide) : la partie survit au tout et peut être partagée. Composition (losange plein) : la partie n'a qu'un seul propriétaire et disparaît avec le tout."}},{"@type":"Question","name":"Quelle est la complexité du quicksort ?","acceptedAnswer":{"@type":"Answer","text":"O(n log n) en moyenne et au meilleur cas, O(n²) au pire cas, par exemple avec le dernier élément comme pivot sur une liste déjà triée."}},{"@type":"Question","name":"Pourquoi redéfinir hashCode quand on redéfinit equals ?","acceptedAnswer":{"@type":"Answer","text":"Deux objets égaux selon equals doivent avoir le même hashCode (fiche 11 d'Effective Java). Sinon HashMap et HashSet cherchent dans la mauvaise alvéole et get renvoie null."}},{"@type":"Question","name":"Quels sont les 5 éléments d'un scénario ?","acceptedAnswer":{"@type":"Answer","text":"La situation de départ, le flux normal des événements, ce qui peut mal se passer, les activités parallèles et l'état final."}}]}]}</script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
 <link rel="stylesheet" href="../../assets/css/style.css">
@@ -31,6 +31,7 @@
   .book .sub { text-align: center; color: var(--muted); margin-bottom: 1.4em; }
   .book h2 { margin-top: 2.2em; border-bottom: 2px solid var(--accent); padding-bottom: .2em; scroll-margin-top: 12px; }
   .book h3 { margin: 1.4em 0 .3em; }
+  .book h4.tdh { margin: 1.3em 0 .3em; font-size: 1.05rem; }
   .book table { width: 100%; border-collapse: collapse; margin: .8em 0; font-size: .95rem; }
   .book td, .book th { border-bottom: 1px solid var(--line); padding: .45em .4em; text-align: left; vertical-align: top; }
   .book th { color: var(--muted); font-weight: 700; }
@@ -187,7 +188,7 @@
   <li><a href="#tris">Algorithmes de tri</a></li>
   <li><a href="#java">Java efficace</a></li>
   <li><a href="#ecoweb">Écoconception web</a></li>
-  <li><a href="#tps">Tes TD/TP, énoncé par énoncé</a></li>
+  <li><a href="#tps">⭐ Tes TPs, sujet par sujet</a></li>
   <li><a href="#entrainement">🏋️ Entraînement UML ↔ Java</a></li>
   <li><a href="#flash">⚡ Fiche flash</a></li>
   <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
@@ -448,10 +449,31 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
 <p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">🎯 Étape « Écoinformatique & écoconception » du parcours</button></p>
 
 <!-- ============================================================ 10 -->
-<h2 id="tps">10. Tes TD/TP, énoncé par énoncé</h2>
-<p class="muted">D'après les énoncés de M. Martin-Nevot (« Qualité de développement », TD1-1 à TD4 et le projet) et tes TPs. Les TD1 à TD3 peuvent tomber au contrôle ; le TD4 et le projet servent surtout pour la suite. Pour chaque TD : ce qu'on te demandait, puis ce que le QCM peut en tirer.</p>
+<h2 id="tps">10. Tes TPs, sujet par sujet</h2>
+<div class="box keep"><h4>Le contrôle</h4>Un <b>questionnaire Ametice (Moodle)</b> qui mélange des questions d'<b>Analyse</b> (R3.03) et de <b>Dév. efficace</b> (R3.02). Les rendus git de chaque TP comptent aussi (assiduité + qualité par échantillonnage). Au total, 4 notes, 2 par ressource. Les 8 TPs de J.-P. Prost ci-dessous sont la priorité.</div>
 
-<h3>TD1-1 · Gestion d'une bibliothèque</h3>
+<h3 id="tp-analyse">📐 Analyse : TP1, TP3, TP5, TP7</h3>
+<div class="tbl"><table>
+  <tr><th>TP</th><th>Ce que dit le sujet</th><th>Les exercices et leurs réponses clés</th></tr>
+  <tr><td><b>TP1</b> · Cas d'utilisation</td><td>Objectif : <b>recueillir, analyser, organiser les besoins</b> et recenser les grandes fonctionnalités. <b>Acteur</b> = rôle joué par une entité <b>externe</b> (humain, dispositif matériel, autre système) qui interagit <b>directement</b> ; frontière du système : dehors = acteur, dedans = fonctionnalité ; non humain ⇒ rectangle «actor». <b>Cas</b> = séquence d'actions au résultat observable pour un acteur, nommé <b>verbe à l'infinitif + complément</b> ; l'ensemble décrit <b>exhaustivement</b> les exigences fonctionnelles. Relations entre cas : secondaires. Interdit d'ajouter une fonctionnalité sans le client. Pas une approche objet (analyse fonctionnelle).</td><td><b>Train</b> : Voyageur ; acteur secondaire <b>machine centrale</b> (met à jour les tarifs) ; erreurs (temps trop long, annulation, plus de papier) greffées sur « Acheter un billet ». <b>Ascenseur</b> : Passager ; « Choisir étage » à décrire en texte. <b>Repas</b> : individus, groupes (choix aussi par e-mail), organismes subventionneurs, cuisine industrielle, service de livraison. <b>GAB</b> : Porteur de carte, Client banque, Opérateur de maintenance ; secondaires : système d'autorisation, SI de la banque.</td></tr>
+  <tr><td><b>TP3</b> · Diagrammes de classes</td><td>Le diagramme de classes est le <b>point central</b> (« QUI » réalise les cas). Visibilités + - # ~. Nommage : classes en <b>Majuscule</b>, attributs, rôles et opérations en <b>minuscule</b>, sans accents. Agrégation = contenance <b>conceptuelle</b>, sans contrainte de durée de vie (« composition faible »). Composition = <b>un seul</b> composite + <b>destruction en cascade</b>. Classe abstraite en <i>italique</i> ou «abstract». Dépendance = « utilise », la plus faible ; toute relation est une dépendance.</td><td>Livre, CD <i>extends</i> Article ; Client * — * Article ; Compagnie * — * Vol ; mariage : association <b>réflexive</b> Personne 0..1 — 0..1 ; <code>Document::imprimer(Imprimante&amp;)</code> ⇒ <b>Document ⇢ Imprimante</b> ; Répertoire ◆ Fichier ; Pièce ◇ Mur (1..2 côté Pièce). <b>Bibliothèque</b> : <i>Adherent</i> ← Etudiant, Professeur ; <i>Document</i> ← Journal, <i>Volume</i> ← Dictionnaire, Livre, Manuel ; emprunt de <b>0..4 volumes</b> avec classe d'association Emprunt (dateRestitution, prolonger). <b>Hockey</b> : Championnat ◇ 4..* Equipe (change de championnat), Equipe 6..12 Joueur + 1 capitaine, Entraineur 0..1 par équipe et * équipes par entraîneur. <b>Dessins</b> : pattern <b>Composite</b>.</td></tr>
+  <tr><td><b>TP5</b> · Cas + classes</td><td>Trois études complètes : passer du texte aux classes (attributs, pas de méthodes pour les bungalows).</td><td><b>Ferroviaire</b> : Ligne — Gare avec <b>2..* côté Gare</b> et <b>1..* côté Ligne</b> ; Train → Gare deux fois (<b>origine</b>, <b>arrivee</b>) ; Train → Ligne ; Ligne ◆ Capteur, Ligne ◆ Barriere (ouverte : boolean), Barriere — Capteur 1–1. <b>Bungalows</b> : location à la semaine, prix selon la date de début, réservation numérotée automatiquement, état des lieux, réparations hors saison. <b>Inscription IUT</b> : cas « Traiter le résultat de l'examen d'une candidature » (refus, entretien, admission directe, délai d'inscription).</td></tr>
+  <tr><td><b>TP7</b> · Séquence</td><td>Vue <b>temporelle</b> des interactions ; un diagramme par scénario. Lignes de vie ; barre = entité <b>active</b> ; X = destruction ; « xxx:A » = instance xxx de A. Message <b>synchrone</b> : bloque l'expéditeur. <b>Asynchrone</b> : l'expéditeur continue, le message peut être ignoré. <b>Pas de message entre deux acteurs.</b> Message reçu par un objet de A ⇒ <b>méthode de A</b> (cohérence, on complète le diagramme de classes).</td><td><b>Accès bâtiment</b> : code à 4 chiffres en <b>5 s</b>, voyant rouge en attente, vert dès le 1<sup>er</sup> chiffre, vérification en base, <b>20 s</b> pour ouvrir, entrer et refermer, sinon <b>alarme</b> et redémarrage manuel ; archivage de <b>toutes</b> les tentatives (code, jour, heure) dans un fichier. Scénarios : nominal, saisie &gt; 5 s, entrée &gt; 20 s, code faux.</td></tr>
+</table></div>
+
+<h3 id="tp-dev">🧮 Dév. efficace : TP2, TP4, TP6, TP8</h3>
+<div class="tbl"><table>
+  <tr><th>TP</th><th>Ce que dit le sujet</th><th>Les réponses à connaître</th></tr>
+  <tr><td><b>TP2</b> · Listes chaînées</td><td>Structures <b>sans sentinelles</b>. SinglyListClass récursive d'Integer : size, isEmpty, first, last, addFirst, addLast, removeFirst. Sur liste vide : <b>retourner null</b> sans modifier. <code>private static class Node</code> imbriquée. Puis liste double, equals(), comptage d'une liste circulaire, <code>MyLinkedList&lt;T&gt; implements List&lt;T&gt;</code> testée avec les 10 meilleurs scores.</td><td>Sans <code>static</code>, Node serait une classe <b>interne</b> liée à une instance de la liste (référence cachée). Avant-dernier : avancer tant que <code>cur.next.next != null</code>, O(n). <b>Inverser</b> en espace O(1) sans récursivité : 3 pointeurs prev / cur / next. Liste circulaire : compter jusqu'à revenir au nœud de départ. Milieu sans compteur : deux pointeurs (tête + queue qui se rejoignent, ou lent + rapide). Concaténer 2 listes à sentinelles : O(1).</td></tr>
+  <tr><td><b>TP4</b> · Arbres et piles</td><td>Arbre binaire générique (sur le modèle de SinglyListClass), parcours, <code>toString()</code> préfixe, test « (5 + 2) * 8 ». Arbre <b>n-aire</b> testé sur le DOM d'une page HTML. Pile <code>MaPile&lt;T&gt;</code> sur une structure chaînée. Évaluation de la <b>NPI</b>.</td><td>Préfixe = commence par la racine ; <b>infixe impossible en n-aire</b>. (2 + 3) * 5 − (9 − (1 + (3 + 4)) * 3) ⇒ postfixe <code>2 3 + 5 * 9 1 3 4 + + 3 * − −</code> = <b>40</b>. ((5 + 2) * (8 − 3)) / 4 ⇒ <code>5 2 + 8 3 − * 4 /</code>. Algorithme : opérande ⇒ empiler ; opérateur ⇒ <b>y ← dépiler, x ← dépiler, empiler x op y</b>.</td></tr>
+  <tr><td><b>TP6</b> · Tris</td><td>Tri à bulles du CM (écrit pour un tableau) <b>adapté à une liste doublement chaînée</b>. Quicksort sur <code>ArrayList&lt;&gt;</code> après un déroulé pas à pas de la partition. Passage à l'échelle : <code>randomInit(Integer[] input, int size)</code>, mesures avec <code>System.nanoTime()</code>, relevés en CSV.</td><td>nanoTime = <b>nanosecondes</b>, par différence (÷ 10⁶ ⇒ ms). Pire cas du quicksort : <b>O(n²)</b>. <b>Randomisé</b> : position du pivot tirée au hasard, le reste inchangé. <b>Médiane-de-trois</b> (tête, milieu, queue) : {27, 4, 15} ⇒ 15 ; c'est une <b>heuristique</b> (rapide, assez bonne, sans garantie), généralisable à plus de 3 valeurs. Bulles sur liste : échanger les <b>éléments</b>, pas les nœuds.</td></tr>
+  <tr><td><b>TP8</b> · Collections et Maps</td><td>Choisir la collection la plus adaptée et apprendre à se documenter (javadoc, tutoriel Oracle, Guava). Compétition : Participant, Amateur (score, non classés), Competiteur (classés par score). Annuaire : numéro (long) indexé par nom.</td><td>Amateurs ⇒ <code>HashSet</code> (ou List). Compétiteurs toujours triés ⇒ <b><code>TreeSet</code></b> + <code>Competiteur implements Comparable&lt;Competiteur&gt;</code> (ou Comparator). <b>Piège</b> : même score ⇒ compareTo = 0 ⇒ le TreeSet n'ajoute pas le second, il faut départager. Annuaire ⇒ <code>Map&lt;String, Long&gt;</code> : HashMap O(1) en moyenne, TreeMap pour l'ordre alphabétique en O(log n).</td></tr>
+</table></div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="tpa">📐 Étape « TPs Analyse »</button> <button class="btn alt" type="button" data-parcours="tpd">🧮 Étape « TPs Dév. efficace »</button></p>
+
+<h3 id="r304">🎄 Bonus R3.04 (M. Martin-Nevot) : TD1 à TD3, peuvent aussi tomber</h3>
+<p class="muted">D'après les énoncés de « Qualité de développement » (R3.04) sur le site de M. Martin-Nevot.</p>
+<h4 class="tdh">TD1-1 · Gestion d'une bibliothèque</h4>
 <div class="tbl"><table>
   <tr><th>Classe</th><th>Contenu demandé</th><th>Ce qu'il faut savoir</th></tr>
   <tr><td><b>Book</b></td><td>title, author, editor, pageNb ; constructeur ; accesseurs/mutateurs ; affichage ; test d'égalité</td><td>Égalité = redéfinir <code>equals</code> <b>et</b> <code>hashCode</code> (F11), sinon un HashSet garde les doublons</td></tr>
@@ -459,7 +481,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td><b>LibraryUI</b></td><td>menu (pas forcément graphique)</td><td>LibraryUI → Library : l'IHM connaît le modèle, pas l'inverse</td></tr>
 </table></div>
 
-<h3>TD1-2 · Impôts locaux d'une mairie (héritage)</h3>
+<h4 class="tdh">TD1-2 · Impôts locaux d'une mairie (héritage)</h4>
 <pre><code>class Home {                          // owner, address, surface
     public double tax() { return 2 * surface; }          // 2 €/m²
 }
@@ -471,7 +493,7 @@ class ProHome extends Home {          // + employeeNb
 }</code></pre>
 <p>Deux généralisations vers Home (trait plein ▷). <code>for (Home h : homes) h.tax()</code> appelle la version de la <b>classe réelle</b> (liaison dynamique). « 150 € par dizaine d'employés » : la division entière ci-dessus arrondit à la dizaine inférieure ; vérifie la convention de ton groupe.</p>
 
-<h3>TD2 · Java « avancé » : les threads</h3>
+<h4 class="tdh">TD2 · Java « avancé » : les threads</h4>
 <div class="tbl"><table>
   <tr><th>Exercice</th><th>À retenir</th></tr>
   <tr><td>2 façons de créer un thread</td><td><code>MyThread extends Thread</code> + <code>t1.start()</code>, ou <code>MyJob implements Runnable</code> + <code>new Thread(job).start()</code>. Runnable : la classe peut encore hériter (héritage simple), et la tâche est séparée du thread</td></tr>
@@ -481,7 +503,7 @@ class ProHome extends Home {          // + employeeNb
 </table></div>
 <p><code>start()</code> crée un fil d'exécution qui appelle <code>run()</code> ; appeler <code>run()</code> directement reste dans le thread courant ; un 2<sup>e</sup> <code>start()</code> lève IllegalThreadStateException.</p>
 
-<h3>TD3 · Simulation du village du Père Noël (cas pratique)</h3>
+<h4 class="tdh">TD3 · Simulation du village du Père Noël (cas pratique)</h4>
 <div class="tbl"><table>
   <tr><th>Élément de l'énoncé</th><th>Modélisation attendue</th></tr>
   <tr><td>Humanoïdes : lutins, elfes postiers, fées de Noël, enfants visiteurs. Créatures : rennes, lycanthropes, bonshommes de neige vivants, esprits du Nord</td><td><i>Personnage</i> abstraite ← <i>Humanoide</i> / <i>Creature</i> abstraites ← classes concrètes. Lutin ← LutinFarceur (farces illimitées, pas stockées)</td></tr>
@@ -493,20 +515,7 @@ class ProHome extends Home {          // + employeeNb
   <tr><td>Village : Père Noël, superficie et capacité max, bâtiments ; <code>main</code> = boucle temporelle aléatoire</td><td><b>Village ◆ Bâtiment</b> (composition) ; <b>Bâtiment ◇ Personnage</b> (agrégation : transfert possible) ; itérer sur une <b>copie</b> quand on modifie la liste (sinon ConcurrentModificationException)</td></tr>
 </table></div>
 
-<h3>TD4 · Algorithmique « avancée » : colonie de lycanthropes</h3>
-<div class="tbl"><table>
-  <tr><th>Élément de l'énoncé</th><th>Modélisation attendue</th></tr>
-  <tr><td>Lycanthrope : sexe, catégorie d'âge (jeune / adulte / vieux), force, facteur de domination, rang, niveau, impétuosité, meute</td><td>enums <code>CategorieAge</code> et <code>Rang</code> (α, β, γ … ω, ordre de déclaration ⇒ <code>compareTo</code>). Niveau = valeur <b>calculée</b> (méthode, pas attribut stocké). Lycanthrope → Meute <b>0..1</b> (solitaire = null, sans rang)</td></tr>
-  <tr><td>Meute : couple α + lycanthropes ; hiérarchie, reproduction (1 à 7 jeunes γ), déclarer les ω, ajouter / enlever</td><td>Meute ◇ Lycanthrope (un lycanthrope peut partir ou devenir solitaire). Couple α : 1 mâle + 1 femelle, reconstitué si le mâle α est dominé</td></tr>
-  <tr><td>Mâle α = plus forte force parmi les mâles adultes</td><td>Un seul parcours <b>O(n)</b>, pas un tri O(n log n) : l'énoncé demande la complexité minimale</td></tr>
-  <tr><td>Domination : si niveau agresseur &gt; cible ou cible ω ⇒ échange des rangs</td><td>Tri de la meute par rang avec un <code>Comparator</code> ; échange de rangs en O(1)</td></tr>
-  <tr><td>Hurlements : appartenance, domination, soumission, agressivité ; chacun émis par un lycanthrope, perçus de partout</td><td>enum ou hiérarchie <b>scellée</b> (<code>sealed</code>) de Hurlement → Lycanthrope émetteur (1) ; diffusion = pattern <b>Observateur</b></td></tr>
-  <tr><td>Colonie = meutes au même endroit ; main temporel</td><td>Colonie ◇ Meute ; boucle : nouvelles meutes, saison des amours, vieillissement, hurlements, transformations en humain</td></tr>
-</table></div>
-
-<div class="box tp"><h4>Projet (trinôme, rendu le 10/12/2026 à 23 h, oral le 11/12 à 13 h 30)</h4>Il porte sur le TD3 + le TD4. Le code doit contenir : héritage, classes abstraites, interfaces, <b>généricité</b>, <b>types scellés</b>, collections (ArrayList + au moins une autre avec itérateurs), exceptions, modèles de conception, <b>threads</b> et au moins un <b>algorithme de tri</b>. Nommage en anglais, commentaires, interface en ligne de commande acceptée.</div>
-<p><b>Autres TPs</b> : TP6, tri à bulles sur DLinkedList en échangeant les <b>éléments</b> (pas les nœuds) ; contrôle d'accès en diagramme de séquence (voir <a href="#exigences">Exigences</a>).</p>
-<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">🏋️ S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="tp">🎯 Étape « Tes TD/TP » du parcours</button></p>
+<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">🏋️ S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="r304">🎄 Étape « Bonus R3.04 »</button></p>
 
 <!-- ============================================================ entraînement -->
 <h2 id="entrainement">🏋️ Entraînement UML ↔ Java</h2>
@@ -539,7 +548,7 @@ class ProHome extends Home {          // + employeeNb
 <!-- ============================================================ parcours -->
 <section class="box launch no-print">
   <h2 style="border:0;margin-top:0">Prêt pour le contrôle ?</h2>
-  <p>Le parcours guidé reprend tout le cours en <b>12 étapes</b> : l'essentiel, des cartes à réciter, des exercices interactifs (symboles UML, ordre des complexités, parcours d'arbre, partition du quicksort), des quiz corrigés, un examen blanc et ton carnet d'erreurs.</p>
+  <p>Le parcours guidé reprend tout le cours en <b>14 étapes</b> : l'essentiel, des cartes à réciter, des exercices interactifs (symboles UML, ordre des complexités, parcours d'arbre, partition du quicksort, évaluation NPI), des quiz corrigés, un examen blanc et ton carnet d'erreurs.</p>
   <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
   <p class="time">⏱ Temps moyen : <b data-total-time>2 h</b> · ta progression est enregistrée dans ce navigateur</p>
 </section>

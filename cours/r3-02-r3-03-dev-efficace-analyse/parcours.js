@@ -134,7 +134,7 @@
     const next = h('button', { class: 'btn block', type: 'button', onclick: () => quiz(i) }, `Quiz de l'étape (${s.qs.length} questions) →`);
     put(root, stepHeader(i, 'exercice'), box, next);
     setKeys(null);
-    ({ symbols: wSymbols, bigo: wBigO, tree: wTree, quick: wQuick })[s.widget](box);
+    ({ symbols: wSymbols, bigo: wBigO, tree: wTree, quick: wQuick, npi: wNpi })[s.widget](box);
     root.scrollIntoView({ block: 'start' });
   }
 
@@ -267,6 +267,52 @@
         k === STEPS_Q.length - 1 ? h('p', { class: 'muted' }, 'Pire cas : sur une liste déjà triée, le pivot (dernier) est toujours le max ⇒ une partition vide à chaque appel ⇒ O(n²) et récursion de profondeur n (StackOverflowError à 50 000 dans ton TP).') : null);
     };
     draw();
+  }
+
+  // Évaluation d'une NPI avec une pile (TP4) : à chaque opérateur, on demande ce qu'on empile.
+  function wNpi(box) {
+    const EXPRS = ['7 2 3 * - 4 +', '5 2 + 8 3 - *', '2 3 + 5 * 9 1 3 4 + + 3 * - -'];
+    const OPS = { '+': (x, y) => x + y, '-': (x, y) => x - y, '*': (x, y) => x * y };
+    let e = 0, ok = 0, asked = 0;
+    const run = () => {
+      const toks = EXPRS[e].split(' ');
+      const stack = [];
+      let t = 0;
+      const step = (msg) => {
+        while (t < toks.length && !OPS[toks[t]]) { stack.push(Number(toks[t])); t++; }
+        const done = t >= toks.length;
+        const head = [
+          h('h3', {}, `🧮 Évalue la NPI (${e + 1}/${EXPRS.length})`),
+          h('div', { class: 'qs-row' }, toks.map((x, j) => h('span', { class: 'qs-cell' + (j === t ? ' piv' : j < t ? ' sw' : '') }, x.replace('-', '−')))),
+          h('p', { class: 'muted center' }, 'Pile (bas → sommet) :'),
+          h('div', { class: 'qs-row' }, stack.length ? stack.map((v) => h('span', { class: 'qs-cell' }, v)) : h('span', { class: 'muted' }, 'vide')),
+          msg || null,
+        ];
+        if (done) {
+          return put(box, ...head,
+            h('p', { class: 'ok' }, `Résultat : ${stack[0]} (dernière valeur de la pile).`),
+            h('div', { class: 'row' }, e + 1 < EXPRS.length
+              ? h('button', { class: 'btn', type: 'button', onclick: () => { e++; run(); } }, 'Expression suivante →')
+              : h('p', {}, `Bilan : ${ok}/${asked} opérations justes. Retiens : y = dépiler(), x = dépiler(), empiler x op y.`)));
+        }
+        const op = toks[t];
+        const y = stack[stack.length - 1], x = stack[stack.length - 2];
+        const good = OPS[op](x, y);
+        const cands = [good, OPS[op](y, x), op === '+' ? x * y : x + y, y, good + 1, good - 1];
+        const opts = shuffle([...new Set(cands)].slice(0, 4));
+        const sym = op.replace('-', '−').replace('*', '×');
+        const btns = opts.map((v) => h('button', { class: 'pc-opt', type: 'button', onclick: () => {
+          asked++;
+          const right = v === good;
+          if (right) ok++;
+          stack.pop(); stack.pop(); stack.push(good); t++;
+          step(h('p', { class: right ? 'ok' : 'bad' }, right ? `✓ ${x} ${sym} ${y} = ${good}` : `✗ On dépile y = ${y} puis x = ${x} : x ${sym} y = ${x} ${sym} ${y} = ${good}`));
+        } }, String(v)));
+        put(box, ...head, h('p', {}, h('b', {}, `Opérateur ${sym}`), ' : que va-t-on empiler ?'), h('div', { class: 'pc-grid' }, btns));
+      };
+      step();
+    };
+    run();
   }
 
   // ------------------------------------------------------------ le quiz

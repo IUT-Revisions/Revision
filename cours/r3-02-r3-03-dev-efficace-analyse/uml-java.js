@@ -61,15 +61,87 @@
       ],
     },
     {
-      title: 'Imprimante et document',
-      pos: { Imprimante: [0, 0], Document: [1, 0] },
-      classes: [{ n: 'Imprimante', ops: [O('+', 'imprimer', [['d', 'Document']])] }, { n: 'Document', attrs: [A('-', 'titre', 'String')] }],
-      rels: [{ t: 'dep', a: 'Imprimante', b: 'Document' }],
-      why: 'Flèche <b>pointillée</b> ouverte = <b>dépendance</b> : Imprimante utilise Document ponctuellement (paramètre de méthode), <b>sans attribut</b>.',
+      title: 'TP3 · Document et imprimante',
+      pos: { Document: [0, 0], Imprimante: [1, 0] },
+      classes: [{ n: 'Document', ops: [O('+', 'imprimer', [['out', 'Imprimante']])] }, { n: 'Imprimante', attrs: [A('-', 'nom', 'String')], ops: [O('+', 'getNom', [], 'String', { b: 'return nom;' })] }],
+      rels: [{ t: 'dep', a: 'Document', b: 'Imprimante' }],
+      why: 'L\'exemple C++ du TP3 : <code>imprimer(Imprimante &amp;out)</code>. Imprimante n\'est qu\'un <b>paramètre</b> ⇒ flèche <b>pointillée</b> = <b>dépendance</b>, sans attribut.',
       muts: [
-        { msg: 'Trait plein = association : Imprimante garderait un attribut <code>document</code>.', ch: [['rel', 0, { t: 'nav', m: '1', role: 'document' }]] },
-        { msg: 'Pointillés + triangle = réalisation : Imprimante implémenterait une interface Document.', ch: [['rel', 0, { t: 'real' }], ['cls', 'Document', { k: 'interface', attrs: [] }]] },
-        { msg: 'Dépendance inversée : c\'est Document qui utiliserait Imprimante.', ch: [['opdel', 'Imprimante', 'imprimer'], ['opadd', 'Document', O('+', 'imprimerSur', [['i', 'Imprimante']])], ['flip', 0]] },
+        { msg: 'Trait plein = association : Document garderait un attribut <code>imprimante</code>.', ch: [['rel', 0, { t: 'nav', m: '1', role: 'imprimante' }]] },
+        { msg: 'Pointillés + triangle = réalisation : Document implémenterait une interface Imprimante.', ch: [['rel', 0, { t: 'real' }], ['cls', 'Imprimante', { k: 'interface', attrs: [] }]] },
+        { msg: 'Dépendance inversée : c\'est Imprimante qui utiliserait Document.', ch: [['opdel', 'Document', 'imprimer'], ['opadd', 'Imprimante', O('+', 'imprimer', [['d', 'Document']])], ['flip', 0]] },
+      ],
+    },
+    {
+      title: 'TP3 · Répertoire et fichiers',
+      pos: { Repertoire: [0, 0], Fichier: [1, 0] },
+      classes: [{ n: 'Repertoire', attrs: [A('-', 'nom', 'String')] }, { n: 'Fichier', attrs: [A('-', 'nom', 'String'), A('-', 'taille', 'int')] }],
+      rels: [{ t: 'compo', a: 'Repertoire', b: 'Fichier', m: '*', role: 'fichiers' }],
+      why: '« La suppression du répertoire implique la suppression de ses fichiers » ⇒ <b>composition</b> ◆ : le répertoire gère le cycle de vie de ses fichiers (créés par lui, <code>final</code>).',
+      muts: [
+        { msg: 'Agrégation ◇ : les fichiers survivraient à la suppression du répertoire.', ch: [['rel', 0, { t: 'agreg' }]] },
+        { msg: 'Losange côté Fichier : un fichier contiendrait des répertoires.', ch: [['flip', 0]] },
+        { msg: 'Multiplicité 1 : un répertoire ne contiendrait qu\'un seul fichier.', ch: [['rel', 0, { m: '1', role: 'fichier' }]] },
+      ],
+    },
+    {
+      title: 'TP3 · Pièces et murs',
+      pos: { Piece: [0, 0], Mur: [1, 0] }, gap: 170,
+      classes: [{ n: 'Piece', attrs: [A('-', 'surface', 'double')] }, { n: 'Mur', attrs: [A('-', 'longueur', 'double')] }],
+      rels: [{ t: 'agreg', a: 'Piece', b: 'Mur', m: '*', role: 'murs', ma: '1..2' }],
+      why: '« Un mur peut appartenir à deux pièces contiguës » ⇒ partie <b>partagée</b> ⇒ <b>agrégation</b> ◇ (une composition n\'a qu\'un seul composite), avec <code>1..2</code> côté Piece.',
+      muts: [
+        { msg: 'Composition ◆ : impossible, un mur partagé par deux pièces aurait deux composites.', ch: [['rel', 0, { t: 'compo' }]] },
+        { msg: 'Losange côté Mur : le mur regrouperait des pièces.', ch: [['flip', 0]] },
+        { msg: 'Multiplicité 1 côté Mur : une pièce n\'aurait qu\'un seul mur.', ch: [['rel', 0, { m: '1', role: 'mur' }]] },
+      ],
+    },
+    {
+      title: 'TP3 · Adhérents et emprunts',
+      pos: { Adherent: [0, 0], Volume: [1, 0], Etudiant: [0, 1] },
+      classes: [
+        { n: 'Adherent', k: 'abstract', attrs: [A('#', 'nom', 'String')] },
+        { n: 'Volume', attrs: [A('-', 'auteur', 'String')] },
+        { n: 'Etudiant', attrs: [A('-', 'numEtudiant', 'String')] },
+      ],
+      rels: [{ t: 'nav', a: 'Adherent', b: 'Volume', m: '0..4', role: 'emprunts' }, { t: 'gen', a: 'Etudiant', b: 'Adherent' }],
+      why: 'Un adhérent emprunte <b>au plus 4 volumes</b> ⇒ <code>0..4</code> ⇒ une collection. Adherent en <i>italique</i> = abstraite, Etudiant (et Professeur) en héritent.',
+      muts: [
+        { msg: 'Multiplicité 1 : un seul emprunt possible, simple référence.', ch: [['rel', 0, { m: '1', role: 'emprunt' }]] },
+        { msg: 'Composition : les volumes seraient détruits avec l\'adhérent !', ch: [['rel', 0, { t: 'compo' }]] },
+        { msg: 'Adherent concrète (nom en droit) : on pourrait créer un adhérent ni étudiant ni professeur.', ch: [['cls', 'Adherent', { k: 'class' }]] },
+      ],
+    },
+    {
+      title: 'TP3 · Formes composées (Composite)',
+      pos: { Forme: [0.5, 0], Cercle: [0, 1], FormeComplexe: [1, 1] }, gap: 60,
+      classes: [
+        { n: 'Forme', k: 'abstract', attrs: [A('#', 'couleur', 'int')], ops: [O('+', 'deplacer', [], 'void', { ab: true })] },
+        { n: 'Cercle', attrs: [A('-', 'rayon', 'double')], ops: [O('+', 'deplacer')] },
+        { n: 'FormeComplexe', ops: [O('+', 'deplacer')] },
+      ],
+      rels: [{ t: 'gen', a: 'Cercle', b: 'Forme' }, { t: 'gen', a: 'FormeComplexe', b: 'Forme', off: -14 }, { t: 'agreg', a: 'FormeComplexe', b: 'Forme', m: '2..*', role: 'formes', off: 14 }],
+      why: 'Pattern <b>Composite</b> : FormeComplexe <b>est une</b> Forme ET <b>agrège</b> des Forme (2..*). <code>deplacer()</code> d\'une forme complexe déplace récursivement chacune de ses formes.',
+      muts: [
+        { msg: 'FormeComplexe n\'hérite plus de Forme : impossible d\'imbriquer une forme complexe dans une autre.', ch: [['delrel', 1]] },
+        { msg: 'Elle n\'agrège que des Cercle : pas de rectangles ni de formes complexes imbriquées.', ch: [['rel', 2, { b: 'Cercle', off: 0, role: 'cercles' }]] },
+        { msg: 'Forme concrète : son nom et deplacer() ne seraient plus en italique.', ch: [['cls', 'Forme', { k: 'class' }], ['op', 'Forme', 'deplacer', { ab: false }]] },
+      ],
+    },
+    {
+      title: 'TP8 · Compétiteurs classés',
+      pos: { 'Comparable<Competiteur>': [1, 0], Competition: [0, 1], Competiteur: [1, 1] }, gap: 120,
+      classes: [
+        { n: 'Comparable<Competiteur>', k: 'interface', ext: true, ops: [O('+', 'compareTo', [['c', 'Competiteur']], 'int')] },
+        { n: 'Competition' },
+        { n: 'Competiteur', attrs: [A('-', 'score', 'int')], ops: [O('+', 'compareTo', [['c', 'Competiteur']], 'int', { b: 'return Integer.compare(score, c.score);' })] },
+      ],
+      rels: [{ t: 'nav', a: 'Competition', b: 'Competiteur', m: '*', role: 'competiteurs', coll: 'TreeSet', c: '{trié}' }, { t: 'real', a: 'Competiteur', b: 'Comparable<Competiteur>' }],
+      why: 'Compétiteurs <b>toujours triés</b> ⇒ <code>TreeSet</code> (contrainte <code>{trié}</code>), et Competiteur <code>implements Comparable</code> pour que le TreeSet sache les comparer. Attention : même score ⇒ compareTo = 0 ⇒ le second n\'est pas ajouté.',
+      muts: [
+        { msg: 'Sans {trié} : une simple List, qu\'il faudrait retrier après chaque ajout.', ch: [['rel', 0, { coll: null, c: null }]] },
+        { msg: 'Sans Comparable : le TreeSet ne sait pas comparer, ClassCastException au premier ajout.', ch: [['delrel', 1], ['opdel', 'Competiteur', 'compareTo']] },
+        { msg: 'HashSet {unique} : pas de doublon, mais aucun ordre. C\'est le bon choix pour les amateurs, pas pour les compétiteurs.', ch: [['rel', 0, { coll: 'HashSet', c: '{unique}' }]] },
       ],
     },
     {
@@ -293,7 +365,7 @@
   ];
 
   // ------------------------------------------------------------ outils
-  const many = (m) => !!m && m.includes('*');
+  const many = (m) => !!m && (m.includes('*') || (/..(d+)$/.test(m) && Number(m.split('..')[1]) > 1) || (/^d+$/.test(m) && Number(m) > 1));
   const lc = (s) => s[0].toLowerCase() + s.slice(1);
   const clone = (o) => JSON.parse(JSON.stringify(o));
   const cls = (sp, n) => sp.classes.find((c) => c.n === n);
@@ -323,14 +395,15 @@
     const out = [];
     for (const r of sp.rels) {
       const ends = [];
-      if (['nav', 'bi', 'agreg', 'compo'].includes(r.t) && r.a === c.n) ends.push([r.b, r.m, r.role, r.t, r.q]);
+      if (['nav', 'bi', 'agreg', 'compo'].includes(r.t) && r.a === c.n) ends.push([r.b, r.m, r.role, r.t, r.q, r.coll]);
       if (r.t === 'bi' && r.b === c.n) ends.push([r.a, r.ma, r.rolea, 'bi', null]);
-      for (const [T, m, role, t, q] of ends) {
+      for (const [T, m, role, t, q, coll] of ends) {
         if (q) {
           const k = boxed(q.split(':')[1].trim());
           out.push(`private ${t === 'compo' ? 'final ' : ''}Map<${k}, ${T}> ${role} = new HashMap<>();`);
         } else if (many(m)) {
-          out.push(`private ${t === 'compo' ? 'final ' : ''}List<${T}> ${role} = new ArrayList<>();`);
+          const [I, C] = coll ? [/Set$/.test(coll) ? 'Set' : 'List', coll] : ['List', 'ArrayList'];
+          out.push(`private ${t === 'compo' ? 'final ' : ''}${I}<${T}> ${role} = new ${C}<>();`);
         } else {
           out.push(t === 'compo' ? `private final ${T} ${role} = new ${T}();` : `private ${T} ${role};`);
         }
@@ -350,6 +423,7 @@
   function java(sp) {
     const blocks = [];
     for (const c of sp.classes) {
+      if (c.ext) continue;
       const k = c.k || 'class';
       const sup = sp.rels.filter((r) => r.t === 'gen' && r.a === c.n).map((r) => r.b);
       const imp = sp.rels.filter((r) => r.t === 'real' && r.a === c.n).map((r) => r.b);
@@ -376,7 +450,7 @@
   function umlSig(sp) {
     return JSON.stringify([
       sp.classes.map((c) => [c.n, c.k || 'class', (c.attrs || []).map((a) => [a.v, a.n, a.t, !!a.s, !!a.f]), (c.ops || []).map((o) => [o.v, o.n, o.p, o.r, !!o.s, !!o.ab]), c.lit || []]),
-      sp.rels.map((r) => [r.t, r.a, r.b, r.m || '', r.role || '', r.ma || '', r.rolea || '', r.q || '']),
+      sp.rels.map((r) => [r.t, r.a, r.b, r.m || '', r.role || '', r.ma || '', r.rolea || '', r.q || '', r.c || '']),
     ]);
   }
 
@@ -483,7 +557,8 @@
       const len = Math.hypot(dx, dy); dx /= len; dy /= len;
       const d = { x: dx, y: dy }, n = { x: -dy, y: dx };
       let pa = border(A0, d);
-      const pb = border(B0, { x: -dx, y: -dy });
+      let pb = border(B0, { x: -dx, y: -dy });
+      if (r.off) { pa = { x: pa.x + n.x * r.off, y: pa.y + n.y * r.off }; pb = { x: pb.x + n.x * r.off, y: pb.y + n.y * r.off }; }
       if (r.q) { // qualificatif collé au bord de a
         const qw = r.q.length * CW + 12;
         const horiz = Math.abs(dx) >= Math.abs(dy);
@@ -502,8 +577,8 @@
       if (tri) gl.append(S('polygon', { points: `${pb.x},${pb.y} ${pb.x - dx * 15 + n.x * 9},${pb.y - dy * 15 + n.y * 9} ${pb.x - dx * 15 - n.x * 9},${pb.y - dy * 15 - n.y * 9}`, class: 'u-hollow' }));
       if (r.t === 'nav' || r.t === 'dep') gl.append(S('polyline', { points: `${pb.x - dx * 12 + n.x * 7},${pb.y - dy * 12 + n.y * 7} ${pb.x},${pb.y} ${pb.x - dx * 12 - n.x * 7},${pb.y - dy * 12 - n.y * 7}`, class: 'u-line', fill: 'none' }));
       if (!tri && r.t !== 'dep') {
-        label(gl, pb, d, `${r.role || ''} ${r.m || ''}`.trim(), 4);
-        if (r.t === 'bi') label(gl, pa, { x: -dx, y: -dy }, `${r.ma || ''} ${r.rolea || ''}`.trim(), 4);
+        label(gl, pb, d, `${r.role || ''} ${r.m || ''}${r.c ? ' ' + r.c : ''}`.trim(), 4);
+        if (r.t === 'bi' || r.ma) label(gl, pa, { x: -dx, y: -dy }, `${r.ma || ''} ${r.rolea || ''}`.trim(), 4);
       }
     }
     for (const c of sp.classes) drawClass(gb, c, M[c.n], B[c.n].x, B[c.n].y);
@@ -512,7 +587,7 @@
   }
 
   // ------------------------------------------------------------ coloration Java
-  const KW = /\b(class|interface|enum|extends|implements|private|public|protected|static|final|abstract|new|void|return|int|double|char|boolean|null)\b|\b(List|ArrayList|Map|HashMap|String|Integer|Double|Character|LocalDate)\b/g;
+  const KW = /\b(class|interface|enum|extends|implements|private|public|protected|static|final|abstract|new|void|return|int|double|char|boolean|null)\b|\b(List|ArrayList|Map|HashMap|Set|TreeSet|HashSet|Comparable|String|Integer|Double|Character|LocalDate)\b/g;
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const hl = (code) => esc(code).replace(KW, (m, kw, ty) => (kw ? `<span class="kw">${m}</span>` : `<span class="ty">${m}</span>`));
 
