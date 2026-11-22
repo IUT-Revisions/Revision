@@ -1,0 +1,16 @@
+{
+  "name": "GabouLearn · Révisions BUT informatique",
+  "short_name": "GabouLearn",
+  "description": "Révisions gratuites pour le BUT informatique : cours, parcours guidés, QCM corrigés.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#fff8ec",
+  "theme_color": "#2f5fb3",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
