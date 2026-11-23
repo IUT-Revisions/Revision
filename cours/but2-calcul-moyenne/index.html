@@ -42,6 +42,17 @@
   .imp-out h4 { margin: 1em 0 .2em; }
   b.big { font-size: 1.5rem; color: var(--accent); }
   details summary { cursor: pointer; }
+  .goal h4 { margin-bottom: .2em; }
+  .goal ul { margin: .3em 0 0; padding-left: 1.2em; }
+  .seg.mini { gap: 3px; flex-wrap: nowrap; }
+  .seg.mini button { padding: 3px 8px; font-size: .8rem; white-space: nowrap; }
+  .goal .note-in, #plan td .note-in, #calc .note-in { width: 5.5em; display: inline-block; }
+  .seg.mini button.on.faible { background: var(--bad); border-color: var(--bad); }
+  .seg.mini button.on.fort { background: var(--good); border-color: var(--good); }
+  .note-in.locked { border-color: var(--accent); }
+  .note-in.wide { width: 12em; }
+  .txt { display: block; width: 100%; margin-top: .4em; border-radius: 10px; border: 2px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; padding: 8px; resize: vertical; box-sizing: border-box; }
+  .prio li { margin: .4em 0; }
 </style>
 </head>
 <body>
@@ -58,12 +69,18 @@
 <h2 id="calcul">2. Calcule ou simule tes moyennes (BUT2)</h2>
 <div class="box" id="calc"><p class="muted">Chargement du calculateur…</p></div>
 
+<h2 id="mon-plan">3. Mon plan : une cible par ressource</h2>
+<p>Choisis ta moyenne visée pour le semestre : GabouLearn donne une cible à chaque ressource pas encore notée. Change une cible, les autres s'ajustent pour que l'objectif tienne. Indique tes points forts et tes points faibles, puis garde ton plan en PDF.</p>
+<div id="plan"><p class="muted">Chargement du plan…</p></div>
+
 <h2 id="comment">Comment c'est calculé</h2>
 <ul>
   <li>Chaque <b>UE</b> est la moyenne pondérée des éléments qui y contribuent : la <b>SAÉ</b>, l'<b>alternance</b> ou le <b>stage</b>, le portfolio et les <b>ressources</b>. Une même ressource compte dans plusieurs UE, avec un coefficient différent dans chacune.</li>
   <li>Les coefficients changent selon le <b>parcours</b> et le <b>régime</b> : en alternance, l'alternance remplace la moitié du poids de la SAÉ (par exemple, en parcours B au S3 : SAÉ 20 + alternance 20 à 26, contre SAÉ 40 en formation initiale).</li>
   <li>« Il te faut, sur le reste » = la moyenne à obtenir sur les éléments pas encore notés de l'UE pour atteindre ta moyenne visée.</li>
   <li>Une UE est acquise à <b>10</b>. Sinon, elle peut être compensée sur l'année par son <b>RCUE</b> (moyenne de l'UE du S3 et de l'UE du S4 de la même compétence). Le règlement des examens de l'IUT fait foi.</li>
+  <li><b>Poids d'une ressource dans le semestre</b> = somme, sur les UE où elle compte, de (ECTS de l'UE / 30) × (son coefficient / total des coefficients de l'UE). La moyenne du semestre est la moyenne des UE pondérée par les ECTS.</li>
+  <li><b>Mon plan</b> : les cibles « auto » sont toutes décalées du même écart (avec +1,5 pour un point fort et −1,5 pour un point faible) jusqu'à ce que la moyenne du semestre atteigne ton objectif. Une cible que tu modifies devient fixe. Le PDF porte un sceau GabouLearn (empreinte SHA-256 du plan) : c'est une marque d'origine, pas une signature officielle.</li>
   <li><b>Import du relevé</b> : le PDF est décodé dans ton navigateur (aucun envoi). Les moyennes sont recalculées avec les coefficients imprimés sur le relevé, comme ScoDoc : un élément pas encore noté ne compte pas.</li>
   <li><b>Classement estimé</b> : ScoDoc donne ton rang dans chaque UE, pas au semestre. L'estimation combine tes rangs, ta moyenne et les statistiques de la promo (min, moyenne, max) de chaque UE. En <b>alternance</b>, les groupes sont trop petits : le classement n'est pas représentatif.</li>
   <li>Source des coefficients du calculateur : fichier des coefficients BUT2 / BUT3 publié par le département informatique sur AMeTICE. Tes notes restent dans ton navigateur.</li>
@@ -74,5 +91,7 @@
 <script src="calc.js"></script>
 <script src="releve.js"></script>
 <script src="import.js"></script>
+<script src="pdfgen.js"></script>
+<script src="plan.js"></script>
 </body>
 </html>

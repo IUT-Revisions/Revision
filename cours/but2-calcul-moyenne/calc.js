@@ -8,7 +8,10 @@
   const KEY = 'gaboulearn-calc-but2-v1';
   let st = { parcours: 'B', regime: 'FA', sem: 'S3', but: 10, notes: {} };
   try { st = Object.assign(st, JSON.parse(localStorage.getItem(KEY)) || {}); } catch { /* ignore */ }
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch { /* navigation privée */ } };
+  const save = () => {
+    try { localStorage.setItem(KEY, JSON.stringify(st)); } catch { /* navigation privée */ }
+    document.dispatchEvent(new CustomEvent('gabou:calc'));
+  };
   const fr = (x, d = 2) => x.toFixed(d).replace('.', ',');
   const parse = (v) => { const x = parseFloat(String(v).replace(',', '.')); return Number.isFinite(x) && x >= 0 && x <= 20 ? x : null; };
   const cfg = () => `${st.parcours}-${st.regime}`;
@@ -102,7 +105,13 @@
         seg('Semestre', [['S3', 'S3'], ['S4', 'S4']], st.sem, (v) => { st.sem = v; })),
       h('p', { class: 'muted small' }, `BUT2 · parcours ${st.parcours} · ${st.regime === 'FA' ? 'alternance' : 'formation initiale'} · ${sem}. Tes notes sont gardées séparément pour chaque combinaison.`),
       inputs,
-      h('p', {}, 'Moyenne visée par UE : ', butIn, h('span', { class: 'muted small' }, ' (10 pour valider, ou ton propre objectif)')),
+      h('div', { class: 'box keep goal' },
+        h('h4', {}, '🎯 Ce que tu vises dans chaque UE'),
+        h('p', {}, 'Moyenne visée dans chaque UE : ', butIn, ' / 20'),
+        h('ul', { class: 'small' },
+          h('li', {}, h('b', {}, '10'), ' = valider l\'UE (le minimum pour obtenir ses ECTS sans compensation).'),
+          h('li', {}, 'Mets plus (12, 14, 16…) si tu vises un dossier de poursuite d\'études.'),
+          h('li', {}, 'La dernière colonne du tableau ci-dessous donne alors la ', h('b', {}, 'moyenne à obtenir sur tout ce qui n\'est pas encore noté'), ' dans l\'UE pour atteindre ce chiffre. Pour un objectif sur la moyenne du semestre et des cibles ressource par ressource, descends à « Mon plan ».'))),
       out,
       h('p', { class: 'center' }, h('button', { type: 'button', class: 'linkish', onclick: () => { if (confirm(`Effacer les notes du ${sem} (parcours ${st.parcours}, ${st.regime}) ?`)) { st.notes[`${cfg()}-${sem}`] = {}; save(); render(); } } }, `Effacer mes notes du ${sem}`)));
     results();
@@ -111,6 +120,7 @@
 
   // utilisé par l'import du relevé : charge une configuration et des notes, puis redessine
   window.GabouCalc = {
+    state: () => ({ parcours: st.parcours, regime: st.regime, sem: st.sem, key: `${cfg()}-${st.sem}`, ues: C[cfg()][st.sem], items: items(st.sem), notes: Object.assign({}, notesOf(st.sem)), lib: LIB }),
     has: (parcours, regime, sem) => !!(C[`${parcours}-${regime}`] && C[`${parcours}-${regime}`][sem]),
     load({ parcours, regime, sem, notes }) {
       st.parcours = parcours; st.regime = regime; st.sem = sem;
