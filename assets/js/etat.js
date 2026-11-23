@@ -65,7 +65,8 @@
     const admin = s.profile && s.profile.role === 'admin' && !s.profile.blocked;
     const items = [];
     if (u) {
-      items.push(h('div', { class: 'gl-head' }, h('b', {}, u.email), h('span', { class: 'gl-badge' + (admin ? ' adm' : '') }, admin ? 'Administrateur' : 'Étudiant AMU')));
+      items.push(h('div', { class: 'gl-head' }, h('b', {}, u.email), h('span', { class: 'gl-badge' + (admin ? ' adm' : '') }, (admin ? 'Administrateur' : 'Étudiant AMU') + (s.profile && s.profile.groupe && A.groupLabel ? ' · ' + A.groupLabel(s.profile.groupe, s.profile.sous_groupe) : ''))));
+      items.push(h('a', { class: 'gl-item', role: 'menuitem', href: base + 'compte/' }, s.profile && s.profile.groupe ? 'Changer de groupe' : 'Choisir mon groupe'));
       items.push(h('a', { class: 'gl-item', role: 'menuitem', href: base + 'compte/' }, 'Mon compte'));
       items.push(h('a', { class: 'gl-item', role: 'menuitem', href: base + 'compte/#mdp' }, 'Changer mon mot de passe'));
       if (admin) items.push(h('a', { class: 'gl-item', role: 'menuitem', href: base + 'admin/' }, 'Administration'));
@@ -104,19 +105,31 @@
   }
   // évaluations importées d'ADE → « Examen le 4 déc. », « Soutenances le 11 déc. »
   let EXAMS = {};
+  let ME = null; // { groupe: 'GA1'|'GA2'|'GB'|'FA', sous_groupe: 1|2 }
+  // l'évaluation concerne-t-elle le groupe de l'étudiant ?
+  function concerns(x, me) {
+    const g = x.groupe || '';
+    if (/2[èe]me ann[ée]e/i.test(g)) return true;
+    const sub = [...g.matchAll(/\bG([AB]\d?)-(\d)\b/g)];
+    if (sub.length) return sub.some((m) => 'G' + m[1] === me.groupe && +m[2] === me.sous_groupe);
+    const grp = [...g.matchAll(/Groupe ([AB]\d?) an2/gi)].map((m) => 'G' + m[1].toUpperCase());
+    if (grp.length) return grp.includes(me.groupe);
+    if (/\bFA\b/.test(g)) return me.groupe === 'FA';
+    return true;
+  }
   function examItems(slug) {
-    const list = EXAMS[slug] || [];
+    const list = ME ? (EXAMS[slug] || []).filter((x) => concerns(x, ME)) : [];
     if (!list.length) return [];
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const day = (d) => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', timeZone: 'Europe/Paris' });
+    const hour = (d) => new Date(d).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' }).replace(':', ' h ').replace(/ h 00$/, ' h');
     const key = (x) => x.kind + '|' + day(x.starts_at);
     const groups = [];
     list.forEach((x) => { const g = groups.find((y) => y.key === key(x)); if (g) g.n++; else groups.push({ key: key(x), x, n: 1 }); });
     const label = (g) => {
       const k = g.x.kind === 'soutenance' ? (g.n > 1 ? 'Soutenances' : 'Soutenance') : g.x.kind === 'examen' ? 'Examen' : 'Contrôle';
-      const pb = /groupe b/i.test(g.x.groupe || '') ? ' (parcours B)' : /groupe a/i.test(g.x.groupe || '') ? ' (parcours A)' : '';
       const d = day(g.x.starts_at);
-      return `${k} ${d === day(Date.now()) ? 'aujourd\'hui' : 'le ' + d}${pb}`;
+      return `${k} ${d === day(Date.now()) ? 'aujourd\'hui' : 'le ' + d} à ${hour(g.x.starts_at)}`;
     };
     const next = groups.filter((g) => new Date(g.x.starts_at) >= today).slice(0, 2);
     if (next.length) return next.map((g) => [label(g), 'exam', g.x.starts_at]);
@@ -174,6 +187,18 @@
     });
   }
 
+  // invitation à se connecter / à choisir son groupe pour voir ses dates d'évaluation
+  function examHint(kind) {
+    if (!kind) return;
+    const txt = kind === 'anon'
+      ? ['Connecte-toi pour voir les dates de tes examens et soutenances', 'Se connecter', base + 'compte/']
+      : ['Choisis ton groupe pour voir les dates de tes examens et soutenances', 'Choisir mon groupe', base + 'compte/'];
+    const el = h('div', { class: 'gl-hint' }, h('span', {}, txt[0]), h('a', { class: 'btn alt', href: txt[2] }, txt[1]));
+    const home = document.getElementById('cours');
+    if (home) home.before(el);
+    else if (slug) { const anchor = document.querySelector('main .sub'); if (anchor && !document.querySelector('.gl-flag-page')) anchor.after(el); }
+  }
+
   // ------------------------------------------------------------------ profil + cours fermés
   (async () => {
     if (A.session) {
@@ -186,11 +211,20 @@
     try { courses = await A.publicRest('courses?select=slug,open,message,tags,note,exam_date'); } catch {
       try { courses = await A.publicRest('courses?select=slug,open,message'); } catch { return; }
     }
-    try {
-      const ex = await A.publicRest('course_exams?select=slug,kind,title,groupe,starts_at&order=starts_at');
-      EXAMS = {}; ex.forEach((x) => (EXAMS[x.slug] = EXAMS[x.slug] || []).push(x));
-    } catch { /* pas d'agenda importé */ }
+    // dates d'évaluation : réservées aux comptes connectés (la base les refuse aux visiteurs)
+    const prof = state.profile;
+    if (A.session && prof && prof.groupe) {
+      ME = { groupe: prof.groupe, sous_groupe: prof.sous_groupe };
+      try {
+        const ex = await A.rest('course_exams?select=slug,kind,title,groupe,starts_at&order=starts_at');
+        EXAMS = {}; ex.forEach((x) => (EXAMS[x.slug] = EXAMS[x.slug] || []).push(x));
+      } catch { /* pas d'agenda importé */ }
+    }
+    if (!ME) courses.forEach((c) => { // sans groupe connu : pas de date de contrôle affichée
+      c.exam_date = null; c.tags = (c.tags || []).filter((t) => t !== 'controle-bientot' && t !== 'controle-passe');
+    });
     annotate(courses);
+    examHint(!A.session ? 'anon' : !(prof && prof.groupe) ? 'nogroup' : null);
     const closed = Object.fromEntries(courses.filter((c) => !c.open).map((c) => [c.slug, c.message || '']));
     const admin = state.profile && state.profile.role === 'admin' && !state.profile.blocked;
     if (slug && slug in closed) {

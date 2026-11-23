@@ -56,11 +56,13 @@
     AMU,
     get session() { return ses; },
     get user() { return ses && ses.user; },
-    async signUp(email, password) {
+    async signUp(email, password, data = {}) {
       email = String(email).trim().toLowerCase();
       if (!AMU.test(email)) throw new Error('Inscription réservée aux adresses étudiantes @etu.univ-amu.fr.');
-      return call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE + '/compte/'), { method: 'POST', body: { email, password } });
+      return call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE + '/compte/'), { method: 'POST', body: { email, password, data } });
     },
+    GROUPES: [['GA1', 'GA1 · parcours A'], ['GA2', 'GA2 · parcours A'], ['GB', 'GB · parcours B'], ['FA', 'FA · alternance']],
+    groupLabel: (g, s) => (g ? (g === 'FA' ? 'FA · alternance' : `${g}-${s || '?'}`) : null),
     async signIn(email, password) {
       const j = await call('/auth/v1/token?grant_type=password', { method: 'POST', body: { email: String(email).trim().toLowerCase(), password } });
       store(fromToken(j));

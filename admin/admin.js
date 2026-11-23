@@ -118,6 +118,7 @@
         return h('tr', {}, h('td', {}, p.email), h('td', {}, p.role === 'admin' ? h('b', {}, 'admin') : 'étudiant'),
           h('td', {}, h('span', { class: 'pill ' + (/@etu\.univ-amu\.fr$/.test(p.email) ? 'on' : 'off') }, /@etu\.univ-amu\.fr$/.test(p.email) ? 'IUT / AMU ✓' : 'hors AMU')),
           h('td', {}, p.confirmed_at ? h('span', { class: 'pill on' }, 'confirmé') : h('span', { class: 'pill off' }, 'en attente')),
+          h('td', { class: 'small' }, A.groupLabel(p.groupe, p.sous_groupe) || h('span', { class: 'muted' }, '—')),
           h('td', { class: 'small' }, date(p.created_at)), h('td', { class: 'small' }, date(p.last_login_at)),
           h('td', {}, p.blocked ? h('span', { class: 'pill off' }, 'bloqué') : ''), h('td', {}, b));
       }));
@@ -126,9 +127,9 @@
     const conf = rows.filter((p) => p.confirmed_at).length;
     return h('div', {},
       h('div', { class: 'kpis' }, h('div', { class: 'kpi' }, h('b', {}, rows.length), h('span', {}, 'comptes')), h('div', { class: 'kpi' }, h('b', {}, conf), h('span', {}, 'adresses confirmées')), h('div', { class: 'kpi' }, h('b', {}, rows.filter((p) => p.blocked).length), h('span', {}, 'bloqués'))),
-      h('div', { class: 'toolbar' }, q, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('comptes', rows.map((p) => ({ email: p.email, role: p.role, confirme: p.confirmed_at || '', cree: p.created_at, derniere_connexion: p.last_login_at || '', bloque: p.blocked }))) }, 'Export CSV')),
+      h('div', { class: 'toolbar' }, q, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('comptes', rows.map((p) => ({ email: p.email, role: p.role, groupe: A.groupLabel(p.groupe, p.sous_groupe) || '', confirme: p.confirmed_at || '', cree: p.created_at, derniere_connexion: p.last_login_at || '', bloque: p.blocked }))) }, 'Export CSV')),
       h('p', { class: 'small muted' }, 'Bloquer retire l\'accès aux fonctions du compte sur le site. Pour empêcher toute connexion, bannis aussi le compte dans Supabase (Authentication → Users).'),
-      h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' }, h('thead', {}, h('tr', {}, ['Adresse', 'Rôle', 'IUT', 'E-mail', 'Créé', 'Dernière connexion', '', ''].map((t) => h('th', {}, t)))), tbody)));
+      h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' }, h('thead', {}, h('tr', {}, ['Adresse', 'Rôle', 'IUT', 'E-mail', 'Groupe', 'Créé', 'Dernière connexion', '', ''].map((t) => h('th', {}, t)))), tbody)));
   }
 
   // ------------------------------------------------------------------ journal

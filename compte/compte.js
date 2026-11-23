@@ -43,6 +43,20 @@
     app.replaceChildren(form);
   }
 
+  // ------------------------------------------------------------------ choix du groupe (GA1 / GA2 / GB / FA + sous-groupe 1 ou 2)
+  function groupPicker(g, s) {
+    const gs = h('select', { 'aria-label': 'Groupe', required: true },
+      h('option', { value: '' }, 'Choisis…'), A.GROUPES.map(([v, l]) => h('option', { value: v }, l)));
+    const ss = h('select', { 'aria-label': 'Sous-groupe' }, h('option', { value: '1' }, '1'), h('option', { value: '2' }, '2'));
+    gs.value = g || ''; ss.value = String(s || 1);
+    const sync = () => { ss.disabled = gs.value === 'FA' || !gs.value; };
+    gs.addEventListener('change', sync); sync();
+    const el = h('div', { class: 'grp-pick' },
+      h('label', { class: 'fld' }, h('span', {}, 'Mon groupe (emploi du temps ADE)'), gs),
+      h('label', { class: 'fld' }, h('span', {}, 'Sous-groupe de TP'), ss));
+    return { el, value: () => ({ groupe: gs.value || null, sous_groupe: gs.value && gs.value !== 'FA' ? +ss.value : null }) };
+  }
+
   // ------------------------------------------------------------------ non connecté
   function guest(tab = 'login') {
     const tabs = h('div', { class: 'seg' }, [['login', 'Connexion'], ['signup', 'Créer un compte'], ['forgot', 'Mot de passe oublié']].map(([k, l]) => h('button', { type: 'button', class: k === tab ? 'on' : '', onclick: () => guest(k) }, l)));
@@ -59,7 +73,8 @@
       const p2 = field('Confirme le mot de passe', { type: 'password', autocomplete: 'new-password', required: true });
       const ok = h('label', { class: 'chk' }, h('input', { type: 'checkbox', required: true }), ' J\'ai lu la ', h('a', { href: '../confidentialite/' }, 'politique de confidentialité'), '.');
       const btn = h('button', { class: 'btn block', type: 'submit' }, 'Créer mon compte');
-      form = h('form', { class: 'box' }, h('p', { class: 'small' }, 'Réservé aux étudiants d\'Aix-Marseille Université : seules les adresses ', h('b', {}, '@etu.univ-amu.fr'), ' sont acceptées. Un lien de confirmation t\'est envoyé.'), em, p1, p2, h('p', { class: 'muted small' }, PWRULE), ok, btn);
+      const gp = groupPicker();
+      form = h('form', { class: 'box' }, h('p', { class: 'small' }, 'Réservé aux étudiants d\'Aix-Marseille Université : seules les adresses ', h('b', {}, '@etu.univ-amu.fr'), ' sont acceptées. Un lien de confirmation t\'est envoyé.'), em, gp.el, h('p', { class: 'muted small' }, 'Ton groupe sert à t\'afficher les dates de tes examens et soutenances. Tu pourras le changer dans Mon compte.'), p1, p2, h('p', { class: 'muted small' }, PWRULE), ok, btn);
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const mail = em.querySelector('input').value.trim();
@@ -67,7 +82,9 @@
         if (!A.AMU.test(mail)) return say('Inscription réservée aux adresses étudiantes @etu.univ-amu.fr.');
         if (a !== b) return say('Les deux mots de passe ne sont pas identiques.');
         if (!pwOk(a)) return say(PWRULE);
-        busy(btn, async () => { await A.signUp(mail, a); form.replaceChildren(h('h3', {}, 'Vérifie ta boîte mail'), h('p', {}, `Un lien de confirmation a été envoyé à ${mail}. Clique dessus pour activer ton compte (pense aux courriers indésirables).`)); });
+        const grp = gp.value();
+        if (!grp.groupe) return say('Choisis ton groupe.');
+        busy(btn, async () => { await A.signUp(mail, a, grp); form.replaceChildren(h('h3', {}, 'Vérifie ta boîte mail'), h('p', {}, `Un lien de confirmation a été envoyé à ${mail}. Clique dessus pour activer ton compte (pense aux courriers indésirables).`)); });
       });
     } else {
       const em = field('Adresse e-mail étudiante', { type: 'email', autocomplete: 'username', required: true });
@@ -92,7 +109,18 @@
       if (t !== 'SUPPRIMER') return;
       busy(del, async () => { await A.rpc('delete_my_account'); await A.signOut(); app.replaceChildren(h('div', { class: 'box keep' }, h('p', {}, 'Ton compte a été supprimé.'))); });
     } }, 'Supprimer mon compte');
+    const gp = groupPicker(p && p.groupe, p && p.sous_groupe);
+    const gSave = h('button', { class: 'btn', type: 'button', onclick: () => {
+      const v = gp.value();
+      if (!v.groupe) return say('Choisis ton groupe.');
+      busy(gSave, async () => { await A.rpc('set_my_group', { p_groupe: v.groupe, p_sous: v.sous_groupe }); say('Groupe enregistré : tes dates d\'évaluation sont à jour.', true); setTimeout(account, 600); });
+    } }, 'Enregistrer mon groupe');
+    const noGroup = !(p && p.groupe);
     app.replaceChildren(
+      h('div', { class: 'box ' + (noGroup ? 'warn' : '') },
+        h('h2', {}, 'Mon groupe'),
+        noGroup ? h('p', {}, h('b', {}, 'Choisis ton groupe'), ' pour voir les dates de tes examens et soutenances sur les cours.') : h('p', { class: 'small' }, 'Actuel : ', h('b', {}, A.groupLabel(p.groupe, p.sous_groupe))),
+        gp.el, gSave),
       h('div', { class: 'box keep' },
         h('h2', {}, 'Mon compte'),
         h('p', {}, h('b', {}, (p && p.email) || (A.user && A.user.email) || '')),

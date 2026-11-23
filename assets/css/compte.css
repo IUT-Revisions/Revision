@@ -28,3 +28,6 @@
 .adm-row label { margin: 0; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
 .adm-row .note-in[type=date] { width: auto; }
 details summary { cursor: pointer; color: var(--ink-2, inherit); }
+.grp-pick { display: grid; grid-template-columns: 2fr 1fr; gap: 0 12px; }
+.grp-pick select, .fld select { width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; }
+.grp-pick select:disabled { opacity: .5; }
