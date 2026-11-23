@@ -48,3 +48,6 @@ ehthumbs.db
 tmp/
 temp/
 *.tmp
+
+# Supabase : fichiers locaux (adresse admin, secrets)
+*.local.sql

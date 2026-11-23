@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /jeu/
+Disallow: /admin/
+Disallow: /compte/
 Disallow: /cours/_modele/
 
 Sitemap: https://gaboulearn.fr/sitemap.xml

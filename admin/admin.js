@@ -1,0 +1,114 @@
+// GabouLearn — administration : cours (ouvrir / fermer), comptes (bloquer), journal (inscriptions, connexions, actions).
+// Toutes les lectures et actions sont autorisées par la base (RLS + fonctions is_admin) : la page seule ne donne aucun droit.
+(() => {
+  'use strict';
+  const A = window.GabouAuth;
+  const app = document.getElementById('app');
+  if (!app) return;
+  function h(tag, props, ...kids) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (v == null || v === false) continue;
+      if (k === 'class') el.className = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v === true ? '' : v);
+    }
+    for (const c of kids.flat()) if (c != null && c !== false) el.append(c.nodeType ? c : document.createTextNode(String(c)));
+    return el;
+  }
+  const date = (d) => (d ? new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : '—');
+  const msg = h('p', { class: 'gl-msg', role: 'status', 'aria-live': 'polite' });
+  const say = (t, ok) => { msg.textContent = t || ''; msg.className = 'gl-msg ' + (ok ? 'ok' : t ? 'bad' : ''); };
+  let tab = 'cours';
+  let me = null;
+
+  async function boot() {
+    if (!A || !A.enabled) { app.replaceChildren(h('p', { class: 'box warn' }, 'Les comptes ne sont pas encore activés (assets/js/config.js).')); return; }
+    if (!A.session) { location.href = '../compte/'; return; }
+    try { me = await A.me(); } catch (e) { say(e.message); }
+    if (!me || me.role !== 'admin' || me.blocked) { app.replaceChildren(h('div', { class: 'box warn' }, h('p', {}, 'Accès réservé à l\'administrateur.'), h('p', {}, h('a', { href: '../compte/' }, 'Mon compte')))); return; }
+    render();
+  }
+
+  function shell(body) {
+    const tabs = h('div', { class: 'seg' }, [['cours', '📚 Cours'], ['comptes', '👥 Comptes'], ['journal', '📜 Journal']].map(([k, l]) => h('button', { type: 'button', class: k === tab ? 'on' : '', onclick: () => { tab = k; say(''); render(); } }, l)));
+    app.replaceChildren(h('p', { class: 'muted small' }, `Connecté : ${me.email} (admin)`), tabs, msg, body);
+  }
+  async function render() {
+    const body = h('div', {}, h('p', { class: 'muted' }, 'Chargement…'));
+    shell(body);
+    try { body.replaceChildren(await ({ cours, comptes, journal })[tab]()); } catch (e) { body.replaceChildren(h('p', { class: 'bad' }, e.message)); }
+  }
+
+  // ------------------------------------------------------------------ cours
+  async function cours() {
+    const rows = await A.rest('courses?select=*&order=slug');
+    return h('div', { class: 'tbl' }, h('p', { class: 'small muted' }, 'Fermer un cours masque sa page et son parcours pour les visiteurs (toi, tu le vois encore). Les fichiers restent techniquement publics sur GitHub : c\'est une fermeture de façade, pas une protection.'),
+      h('table', { class: 'calc-tbl adm-tbl' },
+        h('tr', {}, h('th', {}, 'Cours'), h('th', {}, 'État'), h('th', {}, 'Message affiché'), h('th', {}, 'Modifié'), h('th', {}, '')),
+        rows.map((c) => {
+          const inp = h('input', { type: 'text', maxlength: '300', value: c.message || '', placeholder: 'ex. en maintenance jusqu\'au 2 décembre', class: 'note-in', style: 'width:100%' });
+          const btn = h('button', { class: 'btn ' + (c.open ? 'alt' : ''), type: 'button', onclick: async () => {
+            btn.disabled = true;
+            try { await A.rpc('admin_set_course', { p_slug: c.slug, p_open: !c.open, p_message: inp.value }); say(c.open ? `« ${c.titre} » fermé.` : `« ${c.titre} » rouvert.`, true); render(); } catch (e) { say(e.message); btn.disabled = false; }
+          } }, c.open ? 'Fermer' : 'Rouvrir');
+          return h('tr', {}, h('td', {}, h('a', { href: `../cours/${c.slug}/` }, c.titre)), h('td', {}, h('span', { class: 'pill ' + (c.open ? 'on' : 'off') }, c.open ? 'ouvert' : 'fermé')), h('td', {}, inp), h('td', { class: 'small' }, date(c.updated_at)), h('td', {}, btn));
+        })));
+  }
+
+  // ------------------------------------------------------------------ comptes
+  async function comptes() {
+    const rows = await A.rest('profiles?select=*&order=created_at.desc');
+    const q = h('input', { type: 'search', placeholder: 'Filtrer par adresse…' });
+    const tbody = h('tbody');
+    const draw = () => {
+      const f = q.value.trim().toLowerCase();
+      tbody.replaceChildren(...rows.filter((p) => !f || p.email.includes(f)).map((p) => {
+        const b = p.id === me.id ? h('span', { class: 'muted small' }, 'toi') : h('button', { class: 'linkish', type: 'button', onclick: async () => {
+          if (!confirm(`${p.blocked ? 'Débloquer' : 'Bloquer'} ${p.email} ?`)) return;
+          try { await A.rpc('admin_set_blocked', { p_user: p.id, p_blocked: !p.blocked }); say('Fait.', true); render(); } catch (e) { say(e.message); }
+        } }, p.blocked ? 'Débloquer' : 'Bloquer');
+        return h('tr', {}, h('td', {}, p.email), h('td', {}, p.role === 'admin' ? h('b', {}, 'admin') : 'étudiant'),
+          h('td', {}, h('span', { class: 'pill ' + (/@etu\.univ-amu\.fr$/.test(p.email) ? 'on' : 'off') }, /@etu\.univ-amu\.fr$/.test(p.email) ? 'IUT / AMU ✓' : 'hors AMU')),
+          h('td', {}, p.confirmed_at ? h('span', { class: 'pill on' }, 'confirmé') : h('span', { class: 'pill off' }, 'en attente')),
+          h('td', { class: 'small' }, date(p.created_at)), h('td', { class: 'small' }, date(p.last_login_at)),
+          h('td', {}, p.blocked ? h('span', { class: 'pill off' }, 'bloqué') : ''), h('td', {}, b));
+      }));
+    };
+    q.addEventListener('input', draw); draw();
+    const conf = rows.filter((p) => p.confirmed_at).length;
+    return h('div', {},
+      h('div', { class: 'kpis' }, h('div', { class: 'kpi' }, h('b', {}, rows.length), h('span', {}, 'comptes')), h('div', { class: 'kpi' }, h('b', {}, conf), h('span', {}, 'adresses confirmées')), h('div', { class: 'kpi' }, h('b', {}, rows.filter((p) => p.blocked).length), h('span', {}, 'bloqués'))),
+      h('div', { class: 'toolbar' }, q, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('comptes', rows.map((p) => ({ email: p.email, role: p.role, confirme: p.confirmed_at || '', cree: p.created_at, derniere_connexion: p.last_login_at || '', bloque: p.blocked }))) }, '⬇ Export CSV')),
+      h('p', { class: 'small muted' }, 'Bloquer retire l\'accès aux fonctions du compte sur le site. Pour empêcher toute connexion, bannis aussi le compte dans Supabase (Authentication → Users).'),
+      h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' }, h('thead', {}, h('tr', {}, ['Adresse', 'Rôle', 'IUT', 'E-mail', 'Créé', 'Dernière connexion', '', ''].map((t) => h('th', {}, t)))), tbody)));
+  }
+
+  // ------------------------------------------------------------------ journal
+  async function journal() {
+    const kind = h('select', {}, ['', 'inscription', 'confirmation e-mail', 'connexion', 'suppression de compte', 'admin : cours fermé', 'admin : cours rouvert', 'admin : compte bloqué', 'admin : compte débloqué'].map((k) => h('option', { value: k }, k || 'Tous les événements')));
+    const tbody = h('tbody');
+    let rows = [];
+    const load = async () => {
+      const f = kind.value ? `&kind=eq.${encodeURIComponent(kind.value)}` : '';
+      rows = await A.rest(`events?select=*&order=at.desc&limit=500${f}`);
+      tbody.replaceChildren(...rows.map((e) => h('tr', {}, h('td', { class: 'small' }, date(e.at)), h('td', {}, h('b', {}, e.kind)), h('td', {}, e.email || h('span', { class: 'muted' }, '—')), h('td', { class: 'small muted' }, Object.keys(e.detail || {}).length ? JSON.stringify(e.detail) : ''))));
+    };
+    kind.addEventListener('change', () => load().catch((e) => say(e.message)));
+    await load();
+    return h('div', {},
+      h('div', { class: 'toolbar' }, kind, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('journal', rows.map((e) => ({ date: e.at, evenement: e.kind, email: e.email || '', detail: JSON.stringify(e.detail || {}) }))) }, '⬇ Export CSV')),
+      h('p', { class: 'small muted' }, 'Inscriptions, confirmations d\'adresse et connexions sont enregistrées par la base elle-même. Seules les adresses @etu.univ-amu.fr peuvent s\'inscrire. Le journal est conservé 12 mois.'),
+      h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' }, h('thead', {}, h('tr', {}, ['Date', 'Événement', 'Compte', 'Détail'].map((t) => h('th', {}, t)))), tbody)));
+  }
+
+  function csv(name, rows) {
+    if (!rows.length) return;
+    const cols = Object.keys(rows[0]);
+    const cell = (v) => `"${String(v).replace(/"/g, '""')}"`;
+    const txt = '﻿' + [cols.join(';'), ...rows.map((r) => cols.map((c) => cell(r[c])).join(';'))].join('\r\n');
+    const url = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+    const a = h('a', { href: url, download: `gaboulearn-${name}-${new Date().toISOString().slice(0, 10)}.csv` }); document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  boot();
+})();

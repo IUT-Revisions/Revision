@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.06 Réseaux : DHCP, NAT, IPv6 : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-06-reseaux/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.06 Réseaux : DHCP, NAT, IPv6","item":"https://gaboulearn.fr/cours/r3-06-reseaux/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre SLAAC et DHCPv6 sans état ?","acceptedAnswer":{"@type":"Answer","text":"En SLAAC, seul le routeur intervient : il annonce le préfixe dans un RA et l'hôte fabrique son adresse. En SLAAC + DHCPv6 sans état, l'adresse vient toujours de SLAAC et le serveur DHCPv6 fournit seulement les serveurs DNS."}},{"@type":"Question","name":"Dans quel ordre se fait l'échange DHCP ?","acceptedAnswer":{"@type":"Answer","text":"DORA : Discover, Offer, Request, Ack."}}]}]}</script>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
@@ -113,5 +113,8 @@
 <a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
 <script src="data.js"></script>
 <script src="../../assets/js/parcours.js"></script>
+<script src="../../assets/js/config.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/etat.js"></script>
 </body>
 </html>
