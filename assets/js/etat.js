@@ -102,8 +102,29 @@
     if (examTxt) out.push([examTxt, examKind]);
     return out;
   }
+  // évaluations importées d'ADE → « Examen le 4 déc. », « Soutenances le 11 déc. »
+  let EXAMS = {};
+  function examItems(slug) {
+    const list = EXAMS[slug] || [];
+    if (!list.length) return [];
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const day = (d) => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', timeZone: 'Europe/Paris' });
+    const key = (x) => x.kind + '|' + day(x.starts_at);
+    const groups = [];
+    list.forEach((x) => { const g = groups.find((y) => y.key === key(x)); if (g) g.n++; else groups.push({ key: key(x), x, n: 1 }); });
+    const label = (g) => {
+      const k = g.x.kind === 'soutenance' ? (g.n > 1 ? 'Soutenances' : 'Soutenance') : g.x.kind === 'examen' ? 'Examen' : 'Contrôle';
+      const pb = /groupe b/i.test(g.x.groupe || '') ? ' (parcours B)' : /groupe a/i.test(g.x.groupe || '') ? ' (parcours A)' : '';
+      const d = day(g.x.starts_at);
+      return `${k} ${d === day(Date.now()) ? 'aujourd\'hui' : 'le ' + d}${pb}`;
+    };
+    const next = groups.filter((g) => new Date(g.x.starts_at) >= today).slice(0, 2);
+    if (next.length) return next.map((g) => [label(g), 'exam']);
+    const last = groups[groups.length - 1];
+    return [[label(last).replace(/^(Examen|Soutenances?|Contrôle) le/, (m, k) => `${k} passé${k === 'Soutenances' ? 'es' : k === 'Soutenance' ? 'e' : ''} le`), 'past']];
+  }
   function annLine(c, withNote) {
-    const items = annItems(c);
+    const items = [...annItems(c), ...examItems(c.slug)];
     if (!items.length && !(withNote && c.note)) return null;
     return h('div', { class: 'gl-ann' },
       items.map(([t, k]) => h('span', { class: 'gl-ann-i gl-k-' + k }, h('span', { class: 'gl-dot', 'aria-hidden': 'true' }), t)),
@@ -136,6 +157,10 @@
     try { courses = await A.publicRest('courses?select=slug,open,message,tags,note,exam_date'); } catch {
       try { courses = await A.publicRest('courses?select=slug,open,message'); } catch { return; }
     }
+    try {
+      const ex = await A.publicRest('course_exams?select=slug,kind,title,groupe,starts_at&order=starts_at');
+      EXAMS = {}; ex.forEach((x) => (EXAMS[x.slug] = EXAMS[x.slug] || []).push(x));
+    } catch { /* pas d'agenda importé */ }
     annotate(courses);
     const closed = Object.fromEntries(courses.filter((c) => !c.open).map((c) => [c.slug, c.message || '']));
     const admin = state.profile && state.profile.role === 'admin' && !state.profile.blocked;

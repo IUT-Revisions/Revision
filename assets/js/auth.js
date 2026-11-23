@@ -85,6 +85,7 @@
     rest: (path, opts = {}) => call('/rest/v1/' + path, { ...opts, auth: true }),
     rpc: (name, args = {}) => call('/rest/v1/rpc/' + name, { method: 'POST', body: args, auth: true }),
     publicRest: (path) => call('/rest/v1/' + path),
+    fn: (name, body = {}) => call('/functions/v1/' + name, { method: 'POST', body, auth: true }),
   };
   root.GabouAuth = api;
 })(window);

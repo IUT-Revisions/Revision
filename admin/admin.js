@@ -40,9 +40,44 @@
 
   // ------------------------------------------------------------------ cours
   const TAGS = [['incomplet', 'Incomplet'], ['en-redaction', 'En cours de rédaction'], ['a-jour', 'À jour'], ['verifie', 'Vérifié avec le cours'], ['controle-bientot', 'Contrôle bientôt'], ['controle-passe', 'Contrôle passé']];
+  async function agenda() {
+    let url = '';
+    try { url = (await A.rpc('admin_get_ade_url')) || ''; } catch { /* pas encore configuré */ }
+    let exams = [];
+    try { exams = await A.rest('course_exams?select=slug,kind,title,groupe,starts_at&order=starts_at'); } catch { /* table absente */ }
+    const inp = h('input', { type: 'url', class: 'note-in', style: 'width:100%', value: url, placeholder: 'https://agenda-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?…', 'aria-label': 'Lien iCal ADE' });
+    const saveB = h('button', { class: 'btn alt', type: 'button', onclick: async () => {
+      saveB.disabled = true;
+      try { await A.rpc('admin_set_ade_url', { p_url: inp.value.trim() }); say('Lien ADE enregistré.', true); } catch (e) { say(e.message); }
+      saveB.disabled = false;
+    } }, 'Enregistrer le lien');
+    const syncB = h('button', { class: 'btn', type: 'button', onclick: async () => {
+      syncB.disabled = true; syncB.textContent = 'Synchronisation…';
+      try {
+        if (inp.value.trim() && inp.value.trim() !== url) await A.rpc('admin_set_ade_url', { p_url: inp.value.trim() });
+        const r = await A.fn('sync-ade');
+        say(`Agenda synchronisé : ${r.count} évaluation${r.count > 1 ? 's' : ''} importée${r.count > 1 ? 's' : ''}.`, true);
+        render();
+      } catch (e) { say(e.message); syncB.disabled = false; syncB.textContent = 'Synchroniser maintenant'; }
+    } }, 'Synchroniser maintenant');
+    const fmt = (d) => new Date(d).toLocaleString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' });
+    const now = Date.now();
+    const next = exams.filter((x) => new Date(x.starts_at).getTime() >= now - 864e5);
+    return h('div', { class: 'box adm-course' },
+      h('div', { class: 'adm-head' }, h('b', {}, 'Agenda ADE'), h('span', { class: 'small muted' }, `${exams.length} évaluation${exams.length > 1 ? 's' : ''} importée${exams.length > 1 ? 's' : ''}`)),
+      h('p', { class: 'small muted' }, 'Dans ADE (ENT → Planning étudiant), sélectionne « Info › 2ème année », puis Export (deuxième icône en bas à gauche) → iCalendar → « Générer URL ». Colle le lien ici : les examens et soutenances sont rattachés aux cours par leur code (R3.05, R3.02-R3.03…).'),
+      inp,
+      h('div', { class: 'adm-row' }, syncB, saveB),
+      next.length ? h('details', {}, h('summary', { class: 'small' }, `Prochaines évaluations (${next.length})`),
+        h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' },
+          h('tr', {}, h('th', {}, 'Date'), h('th', {}, 'Évaluation'), h('th', {}, 'Groupe')),
+          next.map((x) => h('tr', {}, h('td', { class: 'small' }, fmt(x.starts_at)), h('td', {}, x.title), h('td', { class: 'small' }, x.groupe || '—')))))) : null);
+  }
+
   async function cours() {
     const rows = await A.rest('courses?select=*&order=slug');
-    return h('div', {},
+    const ag = await agenda();
+    return h('div', {}, ag,
       h('p', { class: 'small muted' }, 'Les étiquettes, la date de contrôle et la note s\'affichent sur l\'accueil et en haut de la page du cours, pour tout le monde. Fermer un cours masque sa page pour les visiteurs (toi, tu le vois encore) ; ses fichiers restent publics sur GitHub.'),
       rows.map((c) => {
         const tags = new Set(c.tags || []);

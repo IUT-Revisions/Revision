@@ -32,3 +32,9 @@ Toutes les règles de sécurité sont **dans la base** (`schema.sql`) :
 
 - Fermer un cours le masque sur le site, mais ses fichiers restent publics sur GitHub.
 - « Bloquer » retire l'accès aux fonctions du compte sur le site ; pour empêcher toute connexion, bannir aussi le compte dans Supabase.
+
+## Agenda ADE (dates des évaluations)
+
+- `migration-annotations.sql` puis `migration-ade.sql` : étiquettes de cours, table `course_exams` (lecture publique), lien ADE privé (`gl_config.ade_url`).
+- `functions/sync-ade/index.ts` : Edge Function (déployée depuis le tableau de bord, « Verify JWT with legacy secret » désactivé : la fonction vérifie elle-même `is_admin()`). Elle lit le lien iCal ADE, repère les évaluations (Examen, Soutenance, Partiel, Contrôle, DS, CC, QCM) et les rattache aux cours par leur code R3.xx. `parse.js` est l'analyseur testé en Node, recopié dans `index.ts`.
+- Admin → onglet Cours → « Agenda ADE » : coller le lien « Générer URL » d'ADE (Info › 2ème année), puis « Synchroniser maintenant ».
