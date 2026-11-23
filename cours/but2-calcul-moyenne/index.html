@@ -35,6 +35,13 @@
   .seg button.on { border-color: var(--accent); background: var(--accent); color: #fff; }
   .small { font-size: .85rem; }
   .rc { display: inline-block; margin: 2px 8px 2px 0; }
+  .drop { display: block; text-align: center; border: 2px dashed var(--accent); border-radius: 14px; padding: 1.4em 1em; cursor: pointer; background: var(--soft); }
+  .drop.over { background: color-mix(in srgb, var(--accent) 15%, var(--card)); }
+  .file-in { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .imp-out { margin-top: 1em; }
+  .imp-out h4 { margin: 1em 0 .2em; }
+  b.big { font-size: 1.5rem; color: var(--accent); }
+  details summary { cursor: pointer; }
 </style>
 </head>
 <body>
@@ -44,6 +51,11 @@
 <h1>Calcul de moyenne BUT2</h1>
 <p class="sub">BUT informatique, IUT d'Aix · coefficients officiels 2026-2027 · parcours A ou B · formation initiale (FI) ou alternance (FA) · S3 et S4</p>
 
+<h2 id="releve">1. Importe ton relevé de notes</h2>
+<p>Le PDF du bulletin ScoDoc (S1 à S4) : les notes, les coefficients et les rangs sont lus automatiquement, les moyennes recalculées et ton classement au semestre estimé.</p>
+<div class="box" id="import"></div>
+
+<h2 id="calcul">2. Calcule ou simule tes moyennes (BUT2)</h2>
 <div class="box" id="calc"><p class="muted">Chargement du calculateur…</p></div>
 
 <h2 id="comment">Comment c'est calculé</h2>
@@ -52,11 +64,15 @@
   <li>Les coefficients changent selon le <b>parcours</b> et le <b>régime</b> : en alternance, l'alternance remplace la moitié du poids de la SAÉ (par exemple, en parcours B au S3 : SAÉ 20 + alternance 20 à 26, contre SAÉ 40 en formation initiale).</li>
   <li>« Il te faut, sur le reste » = la moyenne à obtenir sur les éléments pas encore notés de l'UE pour atteindre ta moyenne visée.</li>
   <li>Une UE est acquise à <b>10</b>. Sinon, elle peut être compensée sur l'année par son <b>RCUE</b> (moyenne de l'UE du S3 et de l'UE du S4 de la même compétence). Le règlement des examens de l'IUT fait foi.</li>
-  <li>Source : fichier des coefficients BUT2 / BUT3 publié par le département informatique sur AMeTICE. Tes notes restent dans ton navigateur.</li>
+  <li><b>Import du relevé</b> : le PDF est décodé dans ton navigateur (aucun envoi). Les moyennes sont recalculées avec les coefficients imprimés sur le relevé, comme ScoDoc : un élément pas encore noté ne compte pas.</li>
+  <li><b>Classement estimé</b> : ScoDoc donne ton rang dans chaque UE, pas au semestre. L'estimation combine tes rangs, ta moyenne et les statistiques de la promo (min, moyenne, max) de chaque UE. En <b>alternance</b>, les groupes sont trop petits : le classement n'est pas représentatif.</li>
+  <li>Source des coefficients du calculateur : fichier des coefficients BUT2 / BUT3 publié par le département informatique sur AMeTICE. Tes notes restent dans ton navigateur.</li>
 </ul>
 <p class="center muted">Réviser les ressources : <a href="../r3-06-reseaux/">Réseaux</a> · <a href="../r3-05-programmation-systeme/">R3.05</a> · <a href="../r3-09-cryptographie/">R3.09</a> · <a href="../r3-04-qualite-dev/">R3.04</a> · <a href="../r3-02-r3-03-dev-efficace-analyse/">R3.02 · R3.03</a> · <a href="../r3-11-droit-du-numerique/">R3.11</a></p>
 </main>
 <script src="coef.js"></script>
 <script src="calc.js"></script>
+<script src="releve.js"></script>
+<script src="import.js"></script>
 </body>
 </html>

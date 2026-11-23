@@ -49,7 +49,7 @@
     const list = items(sem);
 
     const inputs = h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl' },
-      h('tr', {}, h('th', {}, 'Élément'), h('th', {}, 'UE concernées (coef)'), h('th', {}, 'Ta note /20')),
+      h('tr', {}, h('th', {}, 'Élément'), h('th', {}, 'Coefficient dans chaque UE'), h('th', {}, 'Ta note /20')),
       list.map((k) => {
         const where = ues.filter(([, , co]) => co[k]).map(([n, , co]) => `${n.split(' ')[0]} (${co[k]})`).join(' · ');
         const inp = h('input', { type: 'text', inputmode: 'decimal', class: 'note-in', placeholder: '—', 'aria-label': `Note ${k}`, value: notes[k] != null ? String(notes[k]).replace('.', ',') : '' });
@@ -108,4 +108,17 @@
     results();
   }
   render();
+
+  // utilisé par l'import du relevé : charge une configuration et des notes, puis redessine
+  window.GabouCalc = {
+    has: (parcours, regime, sem) => !!(C[`${parcours}-${regime}`] && C[`${parcours}-${regime}`][sem]),
+    load({ parcours, regime, sem, notes }) {
+      st.parcours = parcours; st.regime = regime; st.sem = sem;
+      const known = new Set(items(sem));
+      const target = notesOf(sem);
+      for (const [k, v] of Object.entries(notes)) if (known.has(k) && v != null) target[k] = v;
+      save(); render();
+      app.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    },
+  };
 })();
