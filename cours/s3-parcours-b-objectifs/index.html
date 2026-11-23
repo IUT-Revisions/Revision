@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S3 parcours B : notes à viser et parcours guidé (Réseaux, R3.05, R3.09…) · GabouLearn</title>
+<meta name="description" content="BUT informatique semestre 3, parcours B (déploiement d'applications communicantes et sécurisées) : les notes à viser dans chaque ressource R3, un calculateur de moyennes d'UE et un parcours guidé de 2 h avec 85 QCM corrigés : DHCP, NAT, IPv6, processus, signaux, sockets, cryptographie, RSA, patrons de conception.">
+<meta name="keywords" content="BUT informatique semestre 3, parcours B, déploiement d'applications communicantes et sécurisées, notes à viser BUT, calcul moyenne UE BUT, école d'ingénieur après BUT, DHCP NAT, IPv6 SLAAC, R3.05 programmation système, R3.06 architecture des réseaux, R3.09 cryptographie, RSA, QCM BUT info">
+<link rel="canonical" href="https://gaboulearn.fr/cours/s3-parcours-b-objectifs/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="S3 parcours B : les notes à viser + parcours guidé (Réseaux, système, crypto)">
+<meta property="og:description" content="Notes à viser dans chaque ressource R3, calculateur de moyennes d'UE et parcours guidé de 2 h : DHCP, NAT, IPv6, processus, sockets, cryptographie, RSA. 85 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/s3-parcours-b-objectifs/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"S3 parcours B : notes à viser et parcours guidé interactif","url":"https://gaboulearn.fr/cours/s3-parcours-b-objectifs/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc","Calculateur"],"educationalLevel":"BUT informatique, semestre 3, parcours B","timeRequired":"PT2H10M","teaches":["DHCP et NAT","Adressage IPv6, SLAAC, NDP, DHCPv6","Fichiers Unix et Makefiles","Processus et signaux","Sockets TCP en C","Arithmétique modulaire","Chiffrements classiques","RSA, Diffie-Hellman, Hamming","SOLID et patrons de conception","Sécurité web","PL/pgSQL et triggers","Probabilités"],"isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"S3 parcours B : objectifs","item":"https://gaboulearn.fr/cours/s3-parcours-b-objectifs/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre SLAAC et DHCPv6 sans état ?","acceptedAnswer":{"@type":"Answer","text":"En SLAAC, seul le routeur intervient : il annonce le préfixe dans un RA et l'hôte fabrique son adresse. En SLAAC + DHCPv6 sans état, l'adresse vient toujours de SLAAC, et le serveur DHCPv6 fournit seulement les serveurs DNS. La passerelle vient toujours du RA."}},{"@type":"Question","name":"Que renvoie fork() ?","acceptedAnswer":{"@type":"Answer","text":"0 dans le processus fils, le PID du fils dans le processus père, et -1 en cas d'échec."}},{"@type":"Question","name":"Combien pèsent la SAÉ et l'alternance dans une UE du S3 ?","acceptedAnswer":{"@type":"Answer","text":"Avec les coefficients de l'IUT d'Aix (parcours B, alternance), la SAÉ et l'alternance représentent 40 à 46 % du coefficient de chaque UE."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+  .book { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; line-height: 1.6; }
+  .book h1 { font-size: 2.2rem; text-align: center; margin: .2em 0 0; }
+  .book .sub { text-align: center; color: var(--muted); margin-bottom: 1.4em; }
+  .book h2 { margin-top: 2.2em; border-bottom: 2px solid var(--accent); padding-bottom: .2em; scroll-margin-top: 12px; }
+  .book h3 { margin: 1.4em 0 .3em; }
+  .book table { width: 100%; border-collapse: collapse; margin: .8em 0; font-size: .95rem; }
+  .book td, .book th { border-bottom: 1px solid var(--line); padding: .45em .4em; text-align: left; vertical-align: top; }
+  .book th { color: var(--muted); font-weight: 700; }
+  .book td { overflow-wrap: anywhere; }
+  .book td:first-child { overflow-wrap: normal; word-break: normal; }
+  .tbl { overflow-x: auto; }
+  .box { background: var(--card); border-radius: 14px; padding: 1em 1.3em; box-shadow: var(--shadow); margin: 1em 0; }
+  .keep { border-left: 4px solid var(--good); }
+  .warn { border-left: 4px solid var(--bad); }
+  .box > h4 { margin: 0 0 .3em; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .92em; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .hero-cta { text-align: center; margin: 1em 0 1.6em; }
+  .chap-cta { text-align: right; margin: 1em 0 0; }
+  .launch { text-align: center; margin: 3em 0 1em; padding: 1.6em 1.2em; border: 2px solid var(--accent); }
+  .launch .btn { font-size: 1.2rem; padding: 16px 26px; }
+  .fab { position: fixed; right: 16px; bottom: 16px; z-index: 5; border-radius: 999px; box-shadow: var(--shadow); text-decoration: none; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 1em 0; }
+  .kpi { background: var(--card); border-radius: 14px; box-shadow: var(--shadow); padding: .8em 1em; }
+  .kpi b { display: block; font-size: 1.7rem; color: var(--accent); line-height: 1.1; }
+  .kpi span { color: var(--muted); font-size: .9rem; }
+  .lv { display: inline-block; font-size: .75rem; font-weight: 800; border-radius: 999px; padding: 1px 9px; color: #fff; text-transform: uppercase; }
+  .lv-core { background: var(--bad); } .lv-fort { background: var(--sun); color: #3a2a1a; } .lv-solide { background: var(--good); }
+  td.tgt { font-weight: 900; color: var(--accent); font-size: 1.1rem; }
+  .note-in { width: 5.5em; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; font-weight: 700; }
+  .note-in:focus { outline: none; border-color: var(--accent); }
+  .note-in.bad-in { border-color: var(--bad); }
+  .calc-tbl tr.sum td { font-weight: 900; background: var(--soft); }
+  td.ok { color: var(--good); font-weight: 800; } td.bad, p.bad { color: var(--bad); font-weight: 700; }
+  @media (max-width: 640px) {
+    .book table.stack, .book table.stack tbody, .book table.stack tr, .book table.stack td { display: block; width: auto; }
+    .book table.stack tr:first-child { display: none; }
+    .book table.stack tr { border-bottom: 1px solid var(--line); padding: .55em 0; }
+    .book table.stack td { border: 0; padding: .12em 0; }
+    .book table.stack td[data-label]::before { content: attr(data-label) " : "; font-weight: 700; color: var(--muted); font-size: .85em; }
+    .book table.stack td:first-child { font-weight: 700; }
+  }
+  /* parcours */
+  #parcours-section { scroll-margin-top: 8px; }
+  .pc-head h2 { border: 0; margin: .3em 0 .2em; }
+  .pc-phase { font-size: 1rem; font-weight: 600; }
+  .pc-steps { list-style: none; padding: 0; margin: 1em 0; display: grid; gap: 8px; }
+  .pc-step { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 10px 14px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 1rem; }
+  .pc-step:hover { border-color: var(--accent); }
+  .pc-steps li.done .pc-step { border-color: var(--good); }
+  .pc-steps li.done .pc-ic { background: var(--good); color: #fff; }
+  .pc-steps li.next .pc-step { border-color: var(--accent); background: var(--soft); }
+  .pc-ic { flex: none; width: 2em; height: 2em; display: grid; place-items: center; border-radius: 50%; background: var(--soft); }
+  .pc-t { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .pc-m { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pc-recap ul { margin: .3em 0; padding-left: 1.2em; }
+  .pc-recap li { margin: .35em 0; }
+  .pc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-bottom: 1em; }
+  .pc-card { min-height: 96px; border: 2px dashed var(--accent); background: var(--card); color: var(--ink); border-radius: 14px; padding: 12px; cursor: pointer; font-weight: 700; text-align: center; font-size: 1rem; }
+  .pc-card .back { display: none; color: var(--good); }
+  .pc-card.flip { border-style: solid; border-color: var(--good); }
+  .pc-card.flip .front { display: none; }
+  .pc-card.flip .back { display: inline; }
+  .pc-qn { font-size: .9rem; }
+  .pc-checks { display: grid; gap: 8px; margin: 12px 0; }
+  .pc-check { display: flex; align-items: flex-start; gap: 10px; margin: 0; font-weight: 600; background: var(--soft); border: 2px solid transparent; border-radius: 12px; padding: 12px; cursor: pointer; }
+  .pc-check input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+  .pc-check .kbd { background: var(--card); flex: none; }
+  .pc-check.right { border-color: var(--good); }
+  .pc-check.wrong { border-color: var(--bad); }
+  .pc-err li { margin: .4em 0; }
+  .top-line { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  @media print { .no-print, #parcours-section, .fab, .launch, .chap-cta, .hero-cta { display: none !important; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← Toutes les matières</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🎯</div>
+<h1>S3 parcours B · Objectifs</h1>
+<p class="sub">BUT informatique, semestre 3 · ressources R3.xx + cours Réseaux · les notes à viser pour un dossier d'école d'ingénieur, puis le parcours pour les obtenir</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>2 h</span> en moyenne</button>
+  <p class="muted">85 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord les cibles et les fiches ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#cibles">⭐ Les notes à viser, ressource par ressource</a></li>
+  <li><a href="#calcul">🧮 Calcule tes moyennes d'UE</a></li>
+  <li><a href="#reseaux">Réseaux : DHCP, NAT, IPv6</a></li>
+  <li><a href="#r305">R3.05 Programmation système</a></li>
+  <li><a href="#r309">R3.09 Cryptographie et sécurité</a></li>
+  <li><a href="#r304">R3.04 Qualité de développement</a></li>
+  <li><a href="#autres">R3.01, R3.07, R3.08 et les autres</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<!-- ============================================================ cibles -->
+<h2 id="cibles">1. Les notes à viser</h2>
+<p>Objectif : un S3 autour de <b>16 de moyenne</b>, le niveau qui place un dossier dans le haut de la pile pour une école d'ingénieur en <b>informatique et réseaux</b> (par exemple les formations d'ingénieur par apprentissage, qui lisent les relevés de BUT2 puis du S5). Les cibles ci-dessous donnent ≈ 15,9 avec les coefficients de l'IUT d'Aix.</p>
+<div class="kpis">
+  <div class="kpi"><b>≈ 16</b><span>moyenne S3 visée</span></div>
+  <div class="kpi"><b>40-46 %</b><span>poids SAÉ + alternance dans chaque UE</span></div>
+  <div class="kpi"><b>3</b><span>ressources « cœur » : R3.05, R3.06, R3.09</span></div>
+  <div class="kpi"><b>785+</b><span>TOEIC demandé par de nombreuses écoles (vise 850)</span></div>
+</div>
+<div class="tbl"><table class="stack">
+  <tr><th>Ressource</th><th>Cible</th><th>Niveau</th><th>Le levier</th></tr>
+  <tr><td>R3.04 Qualité de développement</td><td data-label="Cible" class="tgt">16</td><td data-label="Niveau"><span class="lv lv-core">cœur</span></td><td data-label="Levier">Coef 16 dans l'UE Réaliser. Le projet (coef 15) et l'exposé sur les modèles de conception (coef 4) font la note.</td></tr>
+  <tr><td>R3.05 Programmation système</td><td data-label="Cible" class="tgt">16</td><td data-label="Niveau"><span class="lv lv-core">cœur</span></td><td data-label="Levier">Test en 3 parties : QCM de cours, Makefile, programme C (wrapper kill). Plus les sockets TCP.</td></tr>
+  <tr><td>R3.06 Architecture des réseaux</td><td data-label="Cible" class="tgt">16</td><td data-label="Niveau"><span class="lv lv-core">cœur</span></td><td data-label="Levier">DHCP, NAT, IPv6 : les TP Packet Tracer et le QCM IPv6. Piège n° 1 : SLAAC contre DHCPv6.</td></tr>
+  <tr><td>R3.09 Cryptographie et sécurité</td><td data-label="Cible" class="tgt">17</td><td data-label="Niveau"><span class="lv lv-core">cœur</span></td><td data-label="Levier">Tests de CC courts et calculatoires : de quoi aller chercher 17+. Coef 14 dans l'UE Administrer.</td></tr>
+  <tr><td>SAÉ 3.B.01 + alternance</td><td data-label="Cible" class="tgt">16</td><td data-label="Niveau"><span class="lv lv-core">cœur</span></td><td data-label="Levier">40 à 46 % de chaque UE, et l'avis du maître d'apprentissage compte dans un dossier.</td></tr>
+  <tr><td>R3.02 · R3.03 Dév. efficace · Analyse</td><td data-label="Cible" class="tgt">16</td><td data-label="Niveau"><span class="lv lv-fort">fort</span></td><td data-label="Levier">Moitié TD/TP, moitié examen QCM. <a href="../r3-02-r3-03-dev-efficace-analyse/">Parcours dédié R3.02 · R3.03</a>.</td></tr>
+  <tr><td>R3.12 Anglais</td><td data-label="Cible" class="tgt">16</td><td data-label="Niveau"><span class="lv lv-fort">fort</span></td><td data-label="Levier">Les oraux préparent aussi le TOEIC et l'épreuve d'anglais des écoles.</td></tr>
+  <tr><td>R3.01 Développement web</td><td data-label="Cible" class="tgt">15</td><td data-label="Niveau"><span class="lv lv-solide">solide</span></td><td data-label="Levier">Le projet (coef 10 sur 14) écrase les contrôles : soigne-le.</td></tr>
+  <tr><td>R3.07 SQL dans un langage</td><td data-label="Cible" class="tgt">15</td><td data-label="Niveau"><span class="lv lv-solide">solide</span></td><td data-label="Levier">Les exercices en ligne se refont jusqu'à 20 : ne laisse aucun point dessus.</td></tr>
+  <tr><td>R3.08 Probabilités</td><td data-label="Cible" class="tgt">15</td><td data-label="Niveau"><span class="lv lv-solide">solide</span></td><td data-label="Levier">Formules de lois à connaître par cœur (étape du parcours).</td></tr>
+  <tr><td>R3.10 Management des SI</td><td data-label="Cible" class="tgt">15</td><td data-label="Niveau"><span class="lv lv-solide">solide</span></td><td data-label="Levier">Coef 12 dans l'UE Collaborer.</td></tr>
+  <tr><td>R3.11 Droit</td><td data-label="Cible" class="tgt">15</td><td data-label="Niveau"><span class="lv lv-solide">solide</span></td><td data-label="Levier"><a href="../r3-11-droit-du-numerique/">Fiche, entraînement et cas pratiques R3.11</a>.</td></tr>
+  <tr><td>R3.13 Communication · R3.14 PPP</td><td data-label="Cible" class="tgt">15</td><td data-label="Niveau"><span class="lv lv-solide">solide</span></td><td data-label="Levier">Rendus complets et à l'heure : des points faciles.</td></tr>
+</table></div>
+<div class="box warn"><h4>À savoir</h4>Les cibles sont des repères, pas un barème d'école : chaque jury fixe sa propre barre. Elles visent un dossier au-dessus de 15,5 avec les matières réseau et sécurité devant.</div>
+
+<!-- ============================================================ calcul -->
+<h2 id="calcul">2. Calcule tes moyennes d'UE</h2>
+<p>Coefficients ScoDoc du S3 de l'IUT d'Aix (BUT informatique en alternance, parcours B). Tes notes restent dans ton navigateur. La projection complète les notes manquantes par les cibles.</p>
+<div class="box" id="calc"></div>
+
+<!-- ============================================================ réseaux -->
+<h2 id="reseaux">3. Réseaux : DHCP, NAT, IPv6</h2>
+<div class="cols">
+  <div class="box"><h4>DHCP</h4>
+    <p><b>DORA</b> : Discover (broadcast, source 0.0.0.0) → Offer → Request → Ack. UDP <b>67</b> serveur, <b>68</b> client.</p>
+    <p>Serveur dans un autre réseau : <b>relais</b> sur le routeur (<code>ip helper-address</code>).</p>
+    <p>Cisco : <code>ip dhcp excluded-address</code>, puis <code>ip dhcp pool</code> → <code>network</code>, <code>default-router</code>, <code>dns-server</code>.</p>
+  </div>
+  <div class="box"><h4>NAT / PAT</h4>
+    <p>Privé RFC 1918 : 10/8, 172.16/12, 192.168/16.</p>
+    <p><b>Statique</b> 1↔1 (publier un serveur) · <b>dynamique</b> (pool) · <b>PAT</b> (une IP publique, les ports départagent).</p>
+    <p><code>ip nat inside</code> / <code>ip nat outside</code> sur les interfaces, puis <code>ip nat inside source list 1 interface g0/1 overload</code>.</p>
+  </div>
+</div>
+<div class="tbl"><table class="stack">
+  <tr><th>IPv6 : préfixe</th><th>Type</th><th>À retenir</th></tr>
+  <tr><td>fe80::/10</td><td data-label="Type">Lien local</td><td data-label="À retenir">Sur chaque interface, ne passe pas les routeurs. La passerelle par défaut est l'adresse lien local du routeur.</td></tr>
+  <tr><td>fc00::/7 (fd…)</td><td data-label="Type">Locale unique (ULA)</td><td data-label="À retenir">L'équivalent du privé IPv4.</td></tr>
+  <tr><td>2000::/3</td><td data-label="Type">Globale</td><td data-label="À retenir">Routable sur Internet (2a00:…, 2001:…).</td></tr>
+  <tr><td>ff00::/8</td><td data-label="Type">Multicast</td><td data-label="À retenir">Remplace le broadcast : ff02::1 tous les nœuds, ff02::2 tous les routeurs.</td></tr>
+</table></div>
+<div class="box keep"><h4>Le piège classique</h4>
+  <b>SLAAC = le routeur seul</b> (RA avec le préfixe). <b>SLAAC + DHCPv6 sans état</b> : le serveur ne donne que les <b>DNS</b>. <b>DHCPv6 avec état</b> (drapeau M) : le serveur donne l'adresse. La <b>passerelle vient toujours du RA</b>. Compression : « :: » <b>une seule fois</b> ; EUI-64 : FF:FE au milieu et 7e bit inversé (84 → 86).
+</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="ipv6b">🎯 Étape « SLAAC, NDP et DHCPv6 » du parcours</button></p>
+
+<!-- ============================================================ R3.05 -->
+<h2 id="r305">4. R3.05 Programmation système</h2>
+<div class="cols">
+  <div class="box"><h4>Fichiers & Makefiles</h4>
+    <p>Descripteurs 0/1/2. <code>open</code> → -1 si erreur ; <code>read</code> → nb d'octets, <b>0 = fin</b>. Inode : tout sauf le nom.</p>
+    <p><code>cible: dépendances</code> + <b>TAB</b> commande. <b>$@</b> cible, <b>$&lt;</b> 1re dépendance, <b>$^</b> toutes. <code>.PHONY</code>.</p>
+  </div>
+  <div class="box"><h4>Processus & signaux</h4>
+    <p><code>fork</code> : 0 fils / PID fils au père / -1. <code>exec</code> remplace, garde le PID. <code>wait</code> évite les zombies.</p>
+    <p><code>kill(pid, sig)</code> ; SIGKILL et SIGSTOP impossibles à capter ; SIGCHLD au père ; <code>sigaction</code>.</p>
+  </div>
+</div>
+<div class="box"><h4>Sockets TCP en C</h4>Serveur : <b>socket → bind → listen → accept</b> ; client : <b>socket → connect</b>. <code>htons(port)</code>, <code>INADDR_ANY</code>, une nouvelle socket par <code>accept</code>, <code>SO_REUSEADDR</code> contre « Address already in use ». HTTP/0.9 : <code>GET /chemin</code>, pas d'en-têtes.</div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="proc">🎯 Étape « Processus et signaux » du parcours</button></p>
+
+<!-- ============================================================ R3.09 -->
+<h2 id="r309">5. R3.09 Cryptographie et sécurité</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Notion</th><th>À savoir faire</th></tr>
+  <tr><td>Modulo</td><td data-label="À savoir faire">Réduire d'abord (7 ≡ 2 mod 5), trouver la période des puissances (2⁴ ≡ 1), PGCD par Euclide, inverse si PGCD = 1.</td></tr>
+  <tr><td>Décalage / substitution</td><td data-label="À savoir faire">y = (x + k) mod 26, x = (y − k) mod 26, avec A = 0. CHAT, clé 12 → OTMF.</td></tr>
+  <tr><td>Permutation</td><td data-label="À savoir faire">Écrire en lignes, lire les colonnes dans l'ordre alphabétique des lettres de la clé (TIRE → E, I, R, T). Déchiffrer : découper en colonnes de la hauteur de la grille.</td></tr>
+  <tr><td>RSA</td><td data-label="À savoir faire">n = pq, φ = (p−1)(q−1), d = e⁻¹ mod φ ; c = mᵉ mod n ; m = cᵈ mod n.</td></tr>
+  <tr><td>Diffie-Hellman</td><td data-label="À savoir faire">A = gᵃ mod p, B = gᵇ mod p, secret gᵃᵇ. Faille : homme du milieu.</td></tr>
+  <tr><td>Hamming (7,4)</td><td data-label="À savoir faire">4 bits utiles, 3 de contrôle, corrige 1 erreur, en détecte 2.</td></tr>
+</table></div>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="sym">🎯 Étape « Chiffrements classiques » du parcours</button></p>
+
+<!-- ============================================================ R3.04 -->
+<h2 id="r304">6. R3.04 Qualité de développement</h2>
+<p><b>SOLID</b> (responsabilité unique, ouvert/fermé, Liskov, ségrégation des interfaces, inversion des dépendances), patrons du GoF en 3 familles (création, structure, comportement), refactoring sous tests, couplage faible et cohésion forte, documentation (Javadoc), branches Git. L'évaluation : questionnaires (coef 1), <b>exposé sur les modèles de conception (coef 4)</b>, <b>projet (coef 15)</b>.</p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="r304">🎯 Étape « SOLID et patrons » du parcours</button></p>
+
+<!-- ============================================================ autres -->
+<h2 id="autres">7. R3.01, R3.07, R3.08 et les autres</h2>
+<div class="cols">
+  <div class="box"><h4>R3.01 Développement web</h4>Requêtes préparées, échappement à l'affichage, <code>password_hash</code>, sessions, MVC. Le projet pèse 10 sur 14.</div>
+  <div class="box"><h4>R3.07 SQL dans un langage</h4>Fonctions PL/pgSQL, curseurs, triggers (NEW/OLD, BEFORE + RETURN NULL = annulation), transactions ACID, index.</div>
+  <div class="box"><h4>R3.08 Probabilités</h4>Conditionnelles, Bayes, binomiale (np, np(1−p)), Poisson (λ, λ), normale 68-95-99,7, TCL.</div>
+  <div class="box"><h4>Déjà sur GabouLearn</h4><a href="../r3-02-r3-03-dev-efficace-analyse/">R3.02 · R3.03 Interactive</a> et <a href="../r3-11-droit-du-numerique/">R3.11 Droit du numérique</a>. R3.12, R3.13, R3.14 : des rendus, pas de QCM : sois complet et à l'heure.</div>
+</div>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>15 étapes (Réseaux, système, crypto, qualité, web, SQL, probas) + un examen blanc · ⏱ <span data-total-time>2 h</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="parcours.js"></script>
+<script src="cible.js"></script>
+</body>
+</html>
