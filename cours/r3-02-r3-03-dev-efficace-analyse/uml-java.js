@@ -108,7 +108,7 @@
       why: 'Un adhérent emprunte <b>au plus 4 volumes</b> ⇒ <code>0..4</code> ⇒ une collection. Adherent en <i>italique</i> = abstraite, Etudiant (et Professeur) en héritent.',
       muts: [
         { msg: 'Multiplicité 1 : un seul emprunt possible, simple référence.', ch: [['rel', 0, { m: '1', role: 'emprunt' }]] },
-        { msg: 'Composition : les volumes seraient détruits avec l\'adhérent !', ch: [['rel', 0, { t: 'compo' }]] },
+        { msg: 'Composition : les volumes seraient détruits avec l\'adhérent.', ch: [['rel', 0, { t: 'compo' }]] },
         { msg: 'Adherent concrète (nom en droit) : on pourrait créer un adhérent ni étudiant ni professeur.', ch: [['cls', 'Adherent', { k: 'class' }]] },
       ],
     },
@@ -272,7 +272,7 @@
       why: '◆ Moteur (1) : créé par la voiture ⇒ <code>final</code> + <code>new Moteur()</code>. → Conducteur (0..1) : simple référence, peut être <code>null</code>.',
       muts: [
         { msg: 'Simple association vers Moteur : la voiture ne créerait pas son moteur (pas de <code>new</code>).', ch: [['rel', 0, { t: 'nav' }]] },
-        { msg: 'Conducteur en composition : créé par la voiture, il mourrait avec elle !', ch: [['rel', 1, { t: 'compo' }]] },
+        { msg: 'Conducteur en composition : créé par la voiture, il mourrait avec elle.', ch: [['rel', 1, { t: 'compo' }]] },
         { msg: 'Flèche vers Voiture : c\'est Conducteur qui aurait l\'attribut <code>voiture</code>.', ch: [['flip', 1]] },
       ],
     },
@@ -669,7 +669,7 @@
       btns.forEach((b, x) => { b.disabled = true; if (opts[x].good) b.classList.add('right'); });
       if (o.good) run.ok++; else { btns[j].classList.add('wrong'); run.missed.push(`${it.i}:${it.dir}`); }
       put(fb,
-        h('p', { class: o.good ? 'ok' : 'bad' }, o.good ? '✓ Exact !' : `✗ Non, la bonne réponse est ${L[opts.findIndex((x) => x.good)]}.`),
+        h('p', { class: o.good ? 'ok' : 'bad' }, o.good ? '✓ Exact' : `✗ Non, la bonne réponse est ${L[opts.findIndex((x) => x.good)]}.`),
         !o.good ? h('p', { html: `<b>Ta réponse ${L[j]} :</b> ${o.msg}` }) : null,
         h('p', { html: `<b>Pourquoi :</b> ${ex.why}` }),
         h('button', { class: 'btn block', type: 'button', onclick: next }, run.k + 1 < run.items.length ? 'Suivant →' : 'Voir mon score →'));

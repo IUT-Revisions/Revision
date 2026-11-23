@@ -82,6 +82,48 @@
   render(state);
   if (!on) return;
 
+  // ------------------------------------------------------------------ annotations de cours (posées par l'admin)
+  const TAG = {
+    'incomplet': ['Incomplet', 'warn'], 'en-redaction': ['En cours de rédaction', 'warn'],
+    'a-jour': ['À jour', 'ok'], 'verifie': ['Vérifié avec le cours', 'ok'],
+    'controle-bientot': ['Contrôle bientôt', 'exam'], 'controle-passe': ['Contrôle passé', 'past'],
+  };
+  function annItems(c) {
+    const out = [];
+    const tags = (c.tags || []).filter((t) => TAG[t]);
+    let examTxt = null, examKind = null;
+    if (c.exam_date) {
+      const d = new Date(c.exam_date + 'T12:00:00');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const f = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+      if (d < today || tags.includes('controle-passe')) { examTxt = `Contrôle passé le ${f}`; examKind = 'past'; } else { examTxt = `Contrôle le ${f}`; examKind = 'exam'; }
+    }
+    tags.forEach((t) => { if (examTxt && (t === 'controle-bientot' || t === 'controle-passe')) return; out.push([TAG[t][0], TAG[t][1]]); });
+    if (examTxt) out.push([examTxt, examKind]);
+    return out;
+  }
+  function annLine(c, withNote) {
+    const items = annItems(c);
+    if (!items.length && !(withNote && c.note)) return null;
+    return h('div', { class: 'gl-ann' },
+      items.map(([t, k]) => h('span', { class: 'gl-ann-i gl-k-' + k }, h('span', { class: 'gl-dot', 'aria-hidden': 'true' }), t)),
+      withNote && c.note ? h('span', { class: 'gl-ann-note' }, c.note) : null);
+  }
+  function annotate(courses) {
+    const by = Object.fromEntries(courses.map((c) => [c.slug, c]));
+    if (slug && by[slug]) {
+      const line = annLine(by[slug], true);
+      const anchor = document.querySelector('main .sub') || document.querySelector('main h1');
+      if (line && anchor) anchor.after(line);
+    }
+    document.querySelectorAll('a.course').forEach((a) => {
+      const s = (a.getAttribute('href') || '').match(/cours\/([^/]+)\//);
+      const c = s && by[s[1]];
+      const line = c && annLine(c, false);
+      if (line) { const tags = a.querySelector('.tags'); if (tags) tags.before(line); else a.append(line); }
+    });
+  }
+
   // ------------------------------------------------------------------ profil + cours fermés
   (async () => {
     if (A.session) {
@@ -91,7 +133,10 @@
       } catch { /* hors ligne */ }
     }
     let courses = [];
-    try { courses = await A.publicRest('courses?select=slug,open,message'); } catch { return; }
+    try { courses = await A.publicRest('courses?select=slug,open,message,tags,note,exam_date'); } catch {
+      try { courses = await A.publicRest('courses?select=slug,open,message'); } catch { return; }
+    }
+    annotate(courses);
     const closed = Object.fromEntries(courses.filter((c) => !c.open).map((c) => [c.slug, c.message || '']));
     const admin = state.profile && state.profile.role === 'admin' && !state.profile.blocked;
     if (slug && slug in closed) {

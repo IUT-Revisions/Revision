@@ -127,7 +127,7 @@
       r.warnings.map((w) => h('div', { class: 'explain', style: 'border-left-color:var(--bad)' }, '', w)),
       h('div', { class: 'cols' },
         h('div', {}, h('h4', {}, 'Notions présentes'), r.found.length ? h('ul', { class: 'kl ok' }, r.found.map((x) => h('li', {}, x))) : h('p', { class: 'muted' }, 'Aucune.')),
-        h('div', {}, h('h4', {}, 'Notions manquantes'), r.missing.length ? h('ul', { class: 'kl bad' }, r.missing.map((x) => h('li', {}, x))) : h('p', { class: 'ok' }, 'Rien ne manque !'))),
+        h('div', {}, h('h4', {}, 'Notions manquantes'), r.missing.length ? h('ul', { class: 'kl bad' }, r.missing.map((x) => h('li', {}, x))) : h('p', { class: 'ok' }, 'Rien ne manque'))),
       h('h4', {}, 'Méthode'),
       h('ul', { class: 'kl' }, tips.map(([ok, t]) => h('li', { class: ok ? 'ok' : 'muted' }, ok ? '✓ ' : '○ ', t))),
       h('details', {}, h('summary', {}, 'Votre copie'), h('div', { class: 'copy' }, text)),

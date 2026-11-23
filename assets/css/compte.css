@@ -19,3 +19,12 @@
 .pill.off { background: color-mix(in srgb, var(--bad) 18%, var(--card)); color: var(--bad); }
 .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: .6em 0; }
 .toolbar input, .toolbar select { padding: 6px 10px; border-radius: 10px; border: 2px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; }
+.adm-course { display: grid; gap: 12px; }
+.adm-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.adm-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.chk-tag { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-weight: 500; font-size: .9rem; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+.chk-tag input { accent-color: var(--accent); }
+.adm-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.adm-row label { margin: 0; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+.adm-row .note-in[type=date] { width: auto; }
+details summary { cursor: pointer; color: var(--ink-2, inherit); }

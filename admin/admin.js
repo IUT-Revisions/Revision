@@ -39,19 +39,33 @@
   }
 
   // ------------------------------------------------------------------ cours
+  const TAGS = [['incomplet', 'Incomplet'], ['en-redaction', 'En cours de rédaction'], ['a-jour', 'À jour'], ['verifie', 'Vérifié avec le cours'], ['controle-bientot', 'Contrôle bientôt'], ['controle-passe', 'Contrôle passé']];
   async function cours() {
     const rows = await A.rest('courses?select=*&order=slug');
-    return h('div', { class: 'tbl' }, h('p', { class: 'small muted' }, 'Fermer un cours masque sa page et son parcours pour les visiteurs (toi, tu le vois encore). Les fichiers restent techniquement publics sur GitHub : c\'est une fermeture de façade, pas une protection.'),
-      h('table', { class: 'calc-tbl adm-tbl' },
-        h('tr', {}, h('th', {}, 'Cours'), h('th', {}, 'État'), h('th', {}, 'Message affiché'), h('th', {}, 'Modifié'), h('th', {}, '')),
-        rows.map((c) => {
-          const inp = h('input', { type: 'text', maxlength: '300', value: c.message || '', placeholder: 'ex. en maintenance jusqu\'au 2 décembre', class: 'note-in', style: 'width:100%' });
-          const btn = h('button', { class: 'btn ' + (c.open ? 'alt' : ''), type: 'button', onclick: async () => {
-            btn.disabled = true;
-            try { await A.rpc('admin_set_course', { p_slug: c.slug, p_open: !c.open, p_message: inp.value }); say(c.open ? `« ${c.titre} » fermé.` : `« ${c.titre} » rouvert.`, true); render(); } catch (e) { say(e.message); btn.disabled = false; }
-          } }, c.open ? 'Fermer' : 'Rouvrir');
-          return h('tr', {}, h('td', {}, h('a', { href: `../cours/${c.slug}/` }, c.titre)), h('td', {}, h('span', { class: 'pill ' + (c.open ? 'on' : 'off') }, c.open ? 'ouvert' : 'fermé')), h('td', {}, inp), h('td', { class: 'small' }, date(c.updated_at)), h('td', {}, btn));
-        })));
+    return h('div', {},
+      h('p', { class: 'small muted' }, 'Les étiquettes, la date de contrôle et la note s\'affichent sur l\'accueil et en haut de la page du cours, pour tout le monde. Fermer un cours masque sa page pour les visiteurs (toi, tu le vois encore) ; ses fichiers restent publics sur GitHub.'),
+      rows.map((c) => {
+        const tags = new Set(c.tags || []);
+        const boxes = TAGS.map(([k, l]) => { const i = h('input', { type: 'checkbox', value: k }); i.checked = tags.has(k); return h('label', { class: 'chk-tag' }, i, ' ', l); });
+        const exam = h('input', { type: 'date', class: 'note-in', value: c.exam_date || '', 'aria-label': `Date du contrôle ${c.titre}` });
+        const note = h('input', { type: 'text', maxlength: '160', value: c.note || '', placeholder: 'Note visible par tous, ex. TP 3 pas encore intégré', class: 'note-in', style: 'width:100%' });
+        const saveB = h('button', { class: 'btn', type: 'button', onclick: async () => {
+          saveB.disabled = true;
+          const t = boxes.map((b) => b.querySelector('input')).filter((x) => x.checked).map((x) => x.value);
+          try { await A.rpc('admin_annotate_course', { p_slug: c.slug, p_tags: t, p_note: note.value, p_exam: exam.value || null }); say(`Annotations de « ${c.titre} » enregistrées.`, true); render(); } catch (e) { say(e.message); saveB.disabled = false; }
+        } }, 'Enregistrer');
+        const msgIn = h('input', { type: 'text', maxlength: '300', value: c.message || '', placeholder: 'Message si fermé, ex. en maintenance jusqu\'au 2 décembre', class: 'note-in', style: 'width:100%' });
+        const openB = h('button', { class: 'btn alt', type: 'button', onclick: async () => {
+          openB.disabled = true;
+          try { await A.rpc('admin_set_course', { p_slug: c.slug, p_open: !c.open, p_message: msgIn.value }); say(c.open ? `« ${c.titre} » fermé.` : `« ${c.titre} » rouvert.`, true); render(); } catch (e) { say(e.message); openB.disabled = false; }
+        } }, c.open ? 'Fermer le cours' : 'Rouvrir le cours');
+        return h('div', { class: 'box adm-course' },
+          h('div', { class: 'adm-head' }, h('a', { href: `../cours/${c.slug}/` }, h('b', {}, c.titre)), h('span', { class: 'pill ' + (c.open ? 'on' : 'off') }, c.open ? 'ouvert' : 'fermé'), h('span', { class: 'small muted' }, `modifié le ${date(c.updated_at)}`)),
+          h('div', { class: 'adm-tags' }, boxes),
+          h('div', { class: 'adm-row' }, h('label', { class: 'small' }, 'Date du contrôle ', exam), note),
+          h('div', { class: 'adm-row' }, saveB),
+          h('details', {}, h('summary', { class: 'small' }, 'Fermeture temporaire'), h('div', { class: 'adm-row' }, msgIn, openB)));
+      }));
   }
 
   // ------------------------------------------------------------------ comptes

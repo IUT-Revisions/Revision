@@ -1,48 +1,92 @@
-/* GabouLearn — couche « sobre » (passe unslop) : chargée en dernier sur chaque page.
-   Moins d'effets décoratifs : filets plutôt qu'ombres, arrondis modérés, boutons et étiquettes discrets. */
-:root { --shadow: none; --radius: 10px; }
-body { -webkit-font-smoothing: antialiased; line-height: 1.55; }
+/* GabouLearn — couche « unslop » : chargée en dernier sur chaque page.
+   Méthode : unslop par Damir Sokolovsky (@heydamir), CC BY 4.0.
+   Direction : révisions de BUT informatique · studieux, direct, un peu chaleureux · univers du cahier (papier et encre)
+   · moment : le parcours guidé · signature : les codes de ressources en chasse fixe, comme une cote de cahier. */
 
-/* surfaces : un filet, pas d'ombre portée */
-html body .card, html body .box, html body .course, html body .kpi, html body .tr-card {
-  box-shadow: none; border: 1px solid var(--line); border-radius: var(--radius);
+/* ------------------------------------------------------------ couleur : rampe « papier » + encre bleue */
+:root {
+  --bg: #f7f4ee; --card: #fdfbf7; --soft: #efe9df; --ink: #1f1b16; --ink-2: #5e554a; --muted: #7b7266;
+  --line: #e6dfd3; --accent: #2f5fb3; --link: #2a55a3; --good: #16a34a; --bad: #dc2626; --sun: #c9922e;
+  --shadow: none; --float: 0 8px 24px rgba(0, 0, 0, .06);
+  --r-tag: 4px; --r-ctl: 8px; --r-card: 12px;
+  --mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
-html body .course { padding: 16px; transition: border-color .15s; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161513; --card: #1c1a18; --soft: #262421; --ink: #efe9de; --ink-2: #aaa398; --muted: #8a847a;
+    --line: #2d2a26; --link: #93b4ee; --good: #4cc38a; --bad: #e5484d; --sun: #d8a54a; --float: 0 8px 24px rgba(0, 0, 0, .4);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161513; --card: #1c1a18; --soft: #262421; --ink: #efe9de; --ink-2: #aaa398; --muted: #8a847a;
+  --line: #2d2a26; --link: #93b4ee; --good: #4cc38a; --bad: #e5484d; --sun: #d8a54a; --float: 0 8px 24px rgba(0, 0, 0, .4);
+}
+body { -webkit-font-smoothing: antialiased; line-height: 1.55; font-size: 16px; }
+a { color: var(--link); text-underline-offset: 2px; }
+.muted, html body .sub { color: var(--muted); }
+
+/* ------------------------------------------------------------ type : hiérarchie par la taille, poids 400-600 */
+html body h1, html body h2, html body h3 { font-weight: 600; letter-spacing: 0; }
+html body .book h1 { font-size: clamp(1.75rem, 5vw, 2.25rem); line-height: 1.15; }
+html body .hero h1 { font-size: clamp(2rem, 7vw, 2.5rem); }
+html body .book h2 { font-size: 1.4rem; border-bottom: 1px solid var(--line); }
+html body .book h3 { font-size: 1.1rem; }
+html body b, html body strong { font-weight: 600; }
+/* étiquettes en casse normale, plus de MAJUSCULES espacées */
+html body .box > h4 { text-transform: none; letter-spacing: 0; font-size: .9rem; font-weight: 600; color: var(--ink-2); }
+html body .lv { text-transform: none; font-weight: 600; letter-spacing: 0; }
+html body .pc-m, html body .timer, html body td, html body .kpi b { font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------ signature : codes de ressources en chasse fixe */
+html body .course .code, html body .gl-code {
+  font-family: var(--mono); font-size: .8rem; font-weight: 500; letter-spacing: 0; color: var(--ink-2);
+  background: none; padding: 0; border-radius: 0;
+}
+
+/* ------------------------------------------------------------ surfaces : un filet, pas d'ombre */
+html body .card, html body .box, html body .course, html body .kpi, html body .tr-card {
+  box-shadow: none; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--card);
+}
+html body .course { padding: 16px 20px; transition: border-color 150ms var(--ease); }
 html body .course:hover { transform: none; border-color: var(--accent); }
-html body .course .name { font-size: 1.12rem; font-weight: 700; }
-html body .course .code { font-weight: 700; font-size: .85rem; letter-spacing: .02em; background: none; padding: 0; border-radius: 0; }
+html body .course .name { font-size: 1.1rem; font-weight: 600; margin: 4px 0 8px; }
+html body .kpi b { font-weight: 500; }
+html body .warn { border-left: 3px solid var(--bad); }
+html body .keep { border-left: 3px solid var(--good); }
 
-/* boutons : poids et taille normaux */
-html body .btn { font-weight: 600; font-size: 1rem; padding: 10px 16px; border-radius: 8px; transition: background-color .15s, filter .15s; }
-html body .btn:active { transform: none; }
+/* ------------------------------------------------------------ boutons et contrôles */
+html body .btn { font-weight: 500; font-size: 1rem; padding: 10px 16px; min-height: 44px; border-radius: var(--r-ctl); transition: background-color 150ms var(--ease), filter 150ms var(--ease); }
+html body .btn:active { transform: scale(.98); }
+html body .btn.alt { background: var(--soft); border: 1px solid var(--line); color: var(--ink); }
+html body .btn:focus-visible, html body a:focus-visible, html body button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 html body .launch { border: 1px solid var(--line); }
-html body .launch .btn { font-size: 1rem; padding: 12px 20px; }
-html body .hero-cta .btn { font-size: 1rem; }
-html body .fab { border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, .18); padding: 10px 14px; }
+html body .launch .btn, html body .hero-cta .btn { font-size: 1rem; padding: 12px 20px; }
+html body .fab { border-radius: var(--r-ctl); box-shadow: var(--float); padding: 10px 16px; }
+html body input[type=text], html body input[type=email], html body input[type=password], html body input[type=search], html body textarea, html body .note-in { border-width: 1px; border-radius: var(--r-ctl); }
 
-/* étiquettes : texte discret plutôt que pastilles colorées */
-html body .theme-tag { background: none; border: 1px solid var(--line); color: var(--muted); font-weight: 600; border-radius: 6px; padding: 1px 7px; }
-html body .lv, html body .pill { border-radius: 6px; }
+/* ------------------------------------------------------------ étiquettes discrètes */
+html body .theme-tag { background: none; border: 1px solid var(--line); color: var(--muted); font-weight: 500; font-size: .75rem; border-radius: var(--r-tag); padding: 0 6px; }
+html body .lv, html body .pill { border-radius: var(--r-tag); }
 
-/* titres : hiérarchie par la taille, pas par la décoration */
-html body .book h1 { font-size: clamp(1.7rem, 5vw, 2.1rem); letter-spacing: -.01em; }
-html body .hero h1 { font-size: clamp(2rem, 7vw, 2.4rem); }
-html body .book h2 { border-bottom-width: 1px; }
+/* ------------------------------------------------------------ parcours guidé (le moment) */
+html body .pc-step { border-width: 1px; border-radius: var(--r-ctl); font-weight: 500; min-height: 48px; }
+html body .pc-ic { font-family: var(--mono); font-size: .8rem; font-weight: 500; background: var(--soft); color: var(--ink-2); }
+html body .pc-steps li.next .pc-ic { background: var(--accent); color: #fff; }
+html body .pc-card { border-width: 1px; border-radius: var(--r-ctl); font-weight: 500; }
+html body .pc-check, html body .pc-opt, html body .uj-opt { border-radius: var(--r-ctl); font-weight: 400; }
+html body .explain { border-radius: 0 var(--r-ctl) var(--r-ctl) 0; }
+html body .bar > div { background: var(--accent); }
 
-/* parcours guidé : étapes numérotées, cartes plus sobres */
-html body .pc-step { border-width: 1px; border-radius: 8px; font-weight: 600; }
-html body .pc-ic { font-size: .85rem; font-weight: 700; background: var(--soft); }
-html body .pc-card { border-width: 1px; border-radius: 8px; font-weight: 600; }
-html body .pc-check, html body .pc-opt, html body .uj-opt { border-radius: 8px; }
-html body .explain { border-radius: 0 8px 8px 0; }
+/* ------------------------------------------------------------ mouvement : couleur seulement, une courbe */
+html body .gl-menu { animation: gl-in 180ms var(--ease); }
+@keyframes gl-in { from { opacity: 0; transform: translateY(-4px); } }
 
-/* champs */
-html body input[type=text], html body textarea, html body .note-in { border-width: 1px; border-radius: 8px; }
-
-/* petits écrans : marges et tailles lisibles */
+/* ------------------------------------------------------------ petits écrans */
 @media (max-width: 560px) {
-  html body .book { padding-left: 14px; padding-right: 14px; }
-  html body .btn { padding: 10px 14px; }
-  html body .box { padding: .9em 1em; }
+  html body .book { padding-left: 16px; padding-right: 16px; }
+  html body .box { padding: 12px 16px; }
+  html body .course { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

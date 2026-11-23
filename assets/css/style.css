@@ -146,3 +146,14 @@ input[type=number]:focus { border-color: var(--accent); }
 a.course.gl-off { opacity: .55; }
 .gl-off-tag { margin-top: 8px; }
 .gl-closed h2 { margin-top: 0; }
+/* annotations de cours */
+.gl-ann { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: .85rem; color: var(--ink-2, var(--muted)); margin: 8px 0; }
+main > .gl-ann { justify-content: center; margin: -8px 0 16px; }
+.gl-ann-i { display: inline-flex; align-items: center; gap: 6px; }
+.gl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+.gl-k-warn .gl-dot { background: var(--sun); }
+.gl-k-ok .gl-dot { background: var(--good); }
+.gl-k-exam .gl-dot { background: var(--accent); }
+.gl-k-past .gl-dot { background: var(--muted); }
+.gl-ann-note { flex-basis: 100%; text-align: inherit; color: var(--muted); }
+main > .gl-ann .gl-ann-note { text-align: center; }

@@ -201,7 +201,7 @@
           h('div', {}, h('b', {}, q.q)),
           h('div', { class: 'bad' }, '✗ Votre réponse : ', answerText(q, a)),
           h('div', { class: 'ok' }, '✓ ', goodText(q)),
-          h('div', { class: 'muted' }, q.ex)))) : h('p', { class: 'ok center' }, 'Sans faute !'),
+          h('div', { class: 'muted' }, q.ex)))) : h('p', { class: 'ok center' }, 'Sans faute'),
       h('div', { class: 'row', style: 'margin-top:14px' },
         wrong.length ? h('button', { class: 'btn', onclick: () => start(opts, shuffle(wrong.map(({ q }) => reshuffle(q)))) }, `Refaire mes ${wrong.length} erreur${wrong.length > 1 ? 's' : ''}`) : null,
         h('button', { class: 'btn alt', onclick: () => start(opts) }, 'Nouvelle série'),

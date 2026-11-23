@@ -202,7 +202,7 @@
           ? h('div', { class: 'pc-grid' }, left.map((x) => h('button', { class: 'pc-opt', type: 'button', onclick: (e) => {
             if (x === ORDER[picked.length]) { picked.push(x); draw(); } else { errors++; e.currentTarget.classList.add('wrong', 'shake'); }
           } }, x)))
-          : h('div', {}, h('p', { class: errors ? 'bad' : 'ok' }, errors ? `Classé, avec ${errors} erreur(s). Refais-le jusqu'à 0 erreur.` : '✓ Sans faute !'),
+          : h('div', {}, h('p', { class: errors ? 'bad' : 'ok' }, errors ? `Classé, avec ${errors} erreur(s). Refais-le jusqu'à 0 erreur.` : '✓ Sans faute'),
             h('p', {}, 'Bonus à savoir : quand n double, n ⇒ ×2, n² ⇒ ×4, n³ ⇒ ×8, log n ⇒ +1 étape.'),
             h('button', { class: 'btn alt', type: 'button', onclick: () => { picked = []; errors = 0; draw(); } }, '↻ Recommencer')));
     };
@@ -241,7 +241,7 @@
         h('p', { class: 'pc-seq' }, seq.slice(0, pos).split('').map((c) => h('span', { class: 'pc-chip ok' }, c))), status,
         done ? h('div', {}, h('p', { class: 'ok' }, `✓ ${name} : ${seq.split('').join(' ')}`),
           m < 2 ? h('button', { class: 'btn', type: 'button', onclick: () => { m++; pos = 0; draw(); } }, 'Parcours suivant →')
-            : h('p', {}, errors ? `Terminé avec ${errors} erreur(s). ` : 'Les 3 parcours sans faute ! ', 'Retiens : infixe d\'un ABR = ordre croissant.')) : null);
+            : h('p', {}, errors ? `Terminé avec ${errors} erreur(s). ` : 'Les 3 parcours sans faute. ', 'Retiens : infixe d\'un ABR = ordre croissant.')) : null);
     };
     draw();
   }
