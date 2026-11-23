@@ -119,29 +119,58 @@
       return `${k} ${d === day(Date.now()) ? 'aujourd\'hui' : 'le ' + d}${pb}`;
     };
     const next = groups.filter((g) => new Date(g.x.starts_at) >= today).slice(0, 2);
-    if (next.length) return next.map((g) => [label(g), 'exam']);
+    if (next.length) return next.map((g) => [label(g), 'exam', g.x.starts_at]);
     const last = groups[groups.length - 1];
-    return [[label(last).replace(/^(Examen|Soutenances?|Contrôle) le/, (m, k) => `${k} passé${k === 'Soutenances' ? 'es' : k === 'Soutenance' ? 'e' : ''} le`), 'past']];
+    return [[label(last).replace(/^(Examen|Soutenances?|Contrôle) le/, (m, k) => `${k} passé${k === 'Soutenances' ? 'es' : k === 'Soutenance' ? 'e' : ''} le`), 'past', last.x.starts_at]];
   }
-  function annLine(c, withNote) {
-    const items = [...annItems(c), ...examItems(c.slug)];
-    if (!items.length && !(withNote && c.note)) return null;
-    return h('div', { class: 'gl-ann' },
-      items.map(([t, k]) => h('span', { class: 'gl-ann-i gl-k-' + k }, h('span', { class: 'gl-dot', 'aria-hidden': 'true' }), t)),
-      withNote && c.note ? h('span', { class: 'gl-ann-note' }, c.note) : null);
+
+  // bandeau en surbrillance : prochaine évaluation (compte à rebours) + étiquettes + note
+  const daysTo = (iso) => {
+    const a = new Date(); a.setHours(0, 0, 0, 0);
+    const b = new Date(new Date(iso).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' }) + 'T00:00:00');
+    return Math.round((b - a) / 864e5);
+  };
+  const inDays = (n) => (n <= 0 ? 'aujourd\'hui' : n === 1 ? 'demain' : `dans ${n} jours`);
+  function annFlag(c, onPage) {
+    const tagItems = annItems(c);
+    const exams = examItems(c.slug);
+    if (c.exam_date) { // date posée à la main par l'admin
+      const n = daysTo(c.exam_date + 'T12:00:00');
+      const manual = tagItems.find((t) => /^Contrôle/.test(t[0]));
+      if (manual && n >= 0) { manual[2] = c.exam_date + 'T12:00:00'; }
+    }
+    const upcoming = [...exams, ...tagItems.filter((t) => t[2])].filter((t) => t[1] === 'exam' && t[2]).sort((x, y) => x[2].localeCompare(y[2]));
+    const past = exams.filter((t) => t[1] === 'past');
+    const others = tagItems.filter((t) => !t[2]);
+    if (!upcoming.length && !past.length && !others.length && !(onPage && c.note)) return null;
+
+    const main = upcoming[0];
+    let level = 'past', head = null;
+    if (main) {
+      const n = daysTo(main[2]);
+      level = n <= 1 ? 'now' : n <= 7 ? 'soon' : 'later';
+      head = h('div', { class: 'gl-flag-main' }, h('span', { class: 'gl-flag-t' }, main[0]), /aujourd'hui/.test(main[0]) ? null : h('span', { class: 'gl-flag-n' }, inDays(n)));
+    } else if (past.length) {
+      head = h('div', { class: 'gl-flag-main' }, h('span', { class: 'gl-flag-t' }, past[0][0]));
+    }
+    const rest = [...upcoming.slice(1).map((t) => [t[0], 'exam']), ...others.map((t) => [t[0], t[1]])];
+    return h('div', { class: `gl-flag gl-flag-${level}${onPage ? ' gl-flag-page' : ''}`, role: 'note' },
+      head,
+      rest.length ? h('div', { class: 'gl-flag-sub' }, rest.map(([t, k]) => h('span', { class: 'gl-ann-i gl-k-' + k }, h('span', { class: 'gl-dot', 'aria-hidden': 'true' }), t))) : null,
+      onPage && c.note ? h('div', { class: 'gl-flag-note' }, c.note) : null);
   }
   function annotate(courses) {
     const by = Object.fromEntries(courses.map((c) => [c.slug, c]));
     if (slug && by[slug]) {
-      const line = annLine(by[slug], true);
+      const flag = annFlag(by[slug], true);
       const anchor = document.querySelector('main .sub') || document.querySelector('main h1');
-      if (line && anchor) anchor.after(line);
+      if (flag && anchor) anchor.after(flag);
     }
     document.querySelectorAll('a.course').forEach((a) => {
       const s = (a.getAttribute('href') || '').match(/cours\/([^/]+)\//);
       const c = s && by[s[1]];
-      const line = c && annLine(c, false);
-      if (line) { const tags = a.querySelector('.tags'); if (tags) tags.before(line); else a.append(line); }
+      const flag = c && annFlag(c, false);
+      if (flag) a.prepend(flag);
     });
   }
 

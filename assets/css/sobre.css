@@ -90,3 +90,28 @@ html body .gl-menu { animation: gl-in 180ms var(--ease); }
   html body .course { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ------------------------------------------------------------ bandeau d'évaluation en surbrillance (haut des cartes et des cours) */
+html body .course { --pad-y: 16px; --pad-x: 20px; }
+.gl-flag {
+  --flag: var(--accent);
+  margin: calc(-1 * var(--pad-y, 16px)) calc(-1 * var(--pad-x, 20px)) 12px;
+  padding: 10px var(--pad-x, 20px);
+  border-radius: var(--r-card, 12px) var(--r-card, 12px) 0 0;
+  background: color-mix(in srgb, var(--flag) 16%, var(--card));
+  border-bottom: 1px solid color-mix(in srgb, var(--flag) 35%, var(--card));
+  color: var(--ink);
+}
+.gl-flag-soon { --flag: var(--sun); }
+.gl-flag-now { --flag: var(--bad); }
+.gl-flag-past { --flag: var(--muted); background: var(--soft); border-bottom-color: var(--line); color: var(--ink-2); }
+.gl-flag-main { display: flex; align-items: baseline; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; }
+.gl-flag-t { font-weight: 600; font-size: .98rem; }
+.gl-flag-n { font-family: var(--mono); font-size: .8rem; font-weight: 500; white-space: nowrap; color: color-mix(in srgb, var(--flag) 70%, var(--ink)); }
+.gl-flag-now .gl-flag-n, .gl-flag-soon .gl-flag-n { font-weight: 600; }
+.gl-flag-sub { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 4px; font-size: .82rem; color: var(--ink-2); }
+.gl-flag-note { margin-top: 6px; font-size: .88rem; color: var(--ink-2); }
+/* sur la page d'un cours : encadré centré sous le titre */
+.gl-flag.gl-flag-page { margin: 0 auto 20px; max-width: 560px; border-radius: var(--r-card, 12px); border: 1px solid color-mix(in srgb, var(--flag) 35%, var(--card)); padding: 12px 16px; }
+.gl-flag-page .gl-flag-t { font-size: 1.05rem; }
+@media (max-width: 560px) { html body .course { --pad-x: 16px; } }
