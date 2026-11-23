@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.07 SQL dans un langage de programmation · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
+<meta name="description" content="Réviser R3.07 SQL dans un langage de programmation (BUT2 informatique) : fonctions PL/pgSQL, %ROWTYPE, curseurs, triggers BEFORE/AFTER avec NEW et OLD, RAISE EXCEPTION, transactions ACID, index. Fiche + parcours guidé + 10 QCM corrigés.">
+<meta name="keywords" content="R3.07 SQL, BUT2 informatique, PL/pgSQL, trigger PostgreSQL NEW OLD, curseur, RAISE EXCEPTION, transaction ACID, index, ROWTYPE">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-07-sql/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.07 SQL dans un langage de programmation (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Réviser R3.07 SQL dans un langage de programmation (BUT2 informatique) : fonctions PL/pgSQL, %ROWTYPE, curseurs, triggers BEFORE/AFTER avec NEW et OLD, RAISE EXCEPTION, transactions ACID, index. Fiche + parcours guidé + 10 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-07-sql/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.07 SQL dans un langage de programmation : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-07-sql/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.07 SQL dans un langage de programmation","item":"https://gaboulearn.fr/cours/r3-07-sql/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Que fait RETURN NULL dans un trigger BEFORE ?","acceptedAnswer":{"@type":"Answer","text":"Il annule l'opération sur la ligne concernée : elle n'est ni insérée ni modifiée."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/fiche.css">
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🗄️</div>
+<h1>R3.07 SQL dans un langage de programmation</h1>
+<p class="sub">BUT2 · S3 · PL/pgSQL : fonctions, curseurs, triggers, exceptions, transactions, index</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>26 min</span> en moyenne</button>
+  <p class="muted">10 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#fonctions">Fonctions et curseurs PL/pgSQL</a></li>
+  <li><a href="#triggers">Triggers</a></li>
+  <li><a href="#transactions">Transactions, concurrence, index</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<h2 id="fonctions">1. Fonctions et curseurs PL/pgSQL</h2>
+<div class="box"><code>CREATE OR REPLACE FUNCTION nb_cmd(p_client INT) RETURNS INT AS $$</code><br><code>DECLARE n INT;</code><br><code>BEGIN SELECT COUNT(*) INTO n FROM commande WHERE client = p_client; RETURN n; END;</code><br><code>$$ LANGUAGE plpgsql;</code></div>
+<p>Variables : <code>%TYPE</code>, <code>%ROWTYPE</code>, <code>RECORD</code>. Parcours : curseur (OPEN / FETCH / CLOSE) ou <code>FOR rec IN SELECT … LOOP … END LOOP</code>. Erreur métier : <code>RAISE EXCEPTION 'message'</code> ; message simple : <code>RAISE NOTICE</code>.</p>
+<h2 id="triggers">2. Triggers</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Moment</th><th>NEW / OLD</th><th>Usage</th></tr>
+  <tr><td>BEFORE … FOR EACH ROW</td><td data-label="NEW / OLD">peut modifier NEW ; RETURN NULL annule la ligne</td><td data-label="Usage">valeur calculée, refus d'une ligne invalide</td></tr>
+  <tr><td>AFTER … FOR EACH ROW</td><td data-label="NEW / OLD">ligne déjà écrite</td><td data-label="Usage">historique, mise à jour d'autres tables</td></tr>
+</table></div>
+<p>INSERT : NEW seulement · UPDATE : NEW et OLD · DELETE : OLD seulement.</p>
+<h2 id="transactions">3. Transactions, concurrence, index</h2>
+<p>ACID ; BEGIN / COMMIT / ROLLBACK ; verrous et niveaux d'isolation ; index = lectures rapides, écritures plus lentes.</p>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>3 étapes + un examen blanc · ⏱ <span data-total-time>26 min</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+<p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="../../assets/js/parcours.js"></script>
+</body>
+</html>

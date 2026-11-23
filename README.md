@@ -9,7 +9,7 @@ Site de révision pour **tous les cours** du BUT. Chaque matière est une rubriq
 - ✍️ des **cas pratiques rédigés** dont les faits changent à chaque tirage, notés en **% par notions clés**, avec un corrigé type ;
 - 🎮 un **jeu multijoueur** à héberger soi-même sur un réseau local (R3.11 pour l'instant).
 
-Matières disponibles : **S3 parcours B · Objectifs** (notes à viser, calculateur d'UE, parcours guidé Réseaux/R3.05/R3.09/R3.04…), **R3.02 · R3.03 Interactive** (Développement efficace + Analyse, parcours guidé) et **R3.11 Droit du numérique**.
+Matières disponibles (BUT2 · S3) : **calculateur de moyenne BUT2** (coefficients officiels IUT d'Aix, FI/FA, parcours A/B, S3/S4), **R3.01**, **R3.04**, **R3.05**, **R3.06 Réseaux**, **R3.07**, **R3.08**, **R3.09** (fiche + parcours guidé, moteur commun `assets/js/parcours.js` + `assets/css/fiche.css`), **R3.02 · R3.03 Interactive** (Développement efficace + Analyse, parcours guidé) et **R3.11 Droit du numérique**.
 
 ## Utiliser le site
 

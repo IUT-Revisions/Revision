@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.08 Probabilités · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
+<meta name="description" content="Réviser R3.08 Probabilités (BUT2 informatique) : probabilités conditionnelles, Bayes, indépendance, loi binomiale, Poisson, uniforme, exponentielle, loi normale, théorème central limite, loi des grands nombres, chaînes de Markov. Fiche + parcours guidé + 10 QCM corrigés.">
+<meta name="keywords" content="R3.08 probabilités, BUT2 informatique, probabilité conditionnelle Bayes, loi binomiale espérance variance, loi de Poisson, loi exponentielle, loi normale 68 95 99,7, théorème central limite, chaîne de Markov">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-08-probabilites/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.08 Probabilités (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Réviser R3.08 Probabilités (BUT2 informatique) : probabilités conditionnelles, Bayes, indépendance, loi binomiale, Poisson, uniforme, exponentielle, loi normale, théorème central limite, loi des grands nombres, chaînes de Markov. Fiche + parcours guidé + 10 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-08-probabilites/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.08 Probabilités : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-08-probabilites/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.08 Probabilités","item":"https://gaboulearn.fr/cours/r3-08-probabilites/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la variance d'une loi binomiale ?","acceptedAnswer":{"@type":"Answer","text":"V(X) = np(1 − p), et l'espérance vaut np."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/fiche.css">
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🎲</div>
+<h1>R3.08 Probabilités</h1>
+<p class="sub">BUT2 · S3 · conditionnelles, lois discrètes et continues, loi normale, TCL, chaînes de Markov</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>26 min</span> en moyenne</button>
+  <p class="muted">10 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#conditionnelles">Conditionnelles et indépendance</a></li>
+  <li><a href="#lois">Lois usuelles</a></li>
+  <li><a href="#normale">Loi normale, théorèmes limites, Markov</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<h2 id="conditionnelles">1. Conditionnelles et indépendance</h2>
+<p>P(A | B) = P(A ∩ B) / P(B) ; Bayes : P(A | B) = P(B | A) P(A) / P(B) ; probabilités totales sur un système complet. A et B indépendants ⇔ P(A ∩ B) = P(A) P(B).</p>
+<h2 id="lois">2. Lois usuelles</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Loi</th><th>Situation</th><th>E(X)</th><th>V(X)</th></tr>
+  <tr><td>Bernoulli B(p)</td><td data-label="Situation">succès / échec</td><td data-label="E(X)">p</td><td data-label="V(X)">p(1 − p)</td></tr>
+  <tr><td>Binomiale B(n, p)</td><td data-label="Situation">nombre de succès sur n essais</td><td data-label="E(X)">np</td><td data-label="V(X)">np(1 − p)</td></tr>
+  <tr><td>Poisson P(λ)</td><td data-label="Situation">nombre d'événements rares</td><td data-label="E(X)">λ</td><td data-label="V(X)">λ</td></tr>
+  <tr><td>Uniforme U[a ; b]</td><td data-label="Situation">valeur au hasard dans un intervalle</td><td data-label="E(X)">(a + b)/2</td><td data-label="V(X)">(b − a)²/12</td></tr>
+  <tr><td>Exponentielle E(λ)</td><td data-label="Situation">durée de vie, attente (sans mémoire)</td><td data-label="E(X)">1/λ</td><td data-label="V(X)">1/λ²</td></tr>
+  <tr><td>Normale N(μ, σ²)</td><td data-label="Situation">mesures, sommes de nombreuses variables</td><td data-label="E(X)">μ</td><td data-label="V(X)">σ²</td></tr>
+</table></div>
+<h2 id="normale">3. Loi normale, théorèmes limites, Markov</h2>
+<p>68 – 95 – 99,7 % ; Z = (X − μ)/σ suit N(0, 1). Loi des grands nombres et théorème central limite. Chaîne de Markov : matrice de transition (lignes de somme 1), état suivant = état présent × matrice.</p>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>3 étapes + un examen blanc · ⏱ <span data-total-time>26 min</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+<p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="../../assets/js/parcours.js"></script>
+</body>
+</html>

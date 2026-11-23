@@ -1,12 +1,13 @@
-// GabouLearn — S3 parcours B : parcours guidé interactif (récap → cartes à réciter → quiz corrigé).
+// GabouLearn — moteur commun des parcours guidés (récap → cartes à réciter → quiz corrigé → examen blanc → carnet d'erreurs).
+// La page définit window.PARCOURS = { key, title, QUESTIONS, STEPS, tips: { semaine: [...], qcm: [...] } }.
 // Progression et carnet d'erreurs gardés dans le navigateur (localStorage).
 (() => {
   'use strict';
-  const D = window.GS3;
+  const D = window.PARCOURS;
   if (!D) return;
   const QS = Object.fromEntries(D.QUESTIONS.map((q) => [q.id, q]));
   const STEPS = D.STEPS;
-  const KEY = 'gaboulearn-s3b-v1';
+  const KEY = 'gaboulearn-' + (D.key || 'parcours') + '-v1';
   const L = 'ABCD';
 
   // ------------------------------------------------------------ état
@@ -64,7 +65,7 @@
     const left = STEPS.filter((s) => S.done[s.id] == null).reduce((t, s) => t + s.min, 0);
     put(root, 
       h('div', { class: 'pc-head' },
-        h('h2', {}, '🚀 Parcours guidé S3 · parcours B'),
+        h('h2', {}, '🚀 Parcours guidé ' + (D.title || '')),
         h('p', { class: 'muted' }, `${STEPS.length} étapes · ⏱ ${fmt(totalMin)} en moyenne · `, doneCount() ? `il te reste ≈ ${fmt(left)}` : 'zéro prérequis'),
         progressBar()),
       h('p', {}, 'Chaque étape : ', h('b', {}, 'l\'essentiel à retenir'), ' → ', h('b', {}, 'cartes à réciter'), ' → ', h('b', {}, 'le quiz corrigé'), '. Une question ratée revient en fin d\'étape et part dans ton carnet d\'erreurs. Raccourcis : touches 1-4 pour cocher, Entrée pour valider.'),
@@ -252,17 +253,12 @@
         errs.length ? h('ul', { class: 'pc-err' }, errs.map(([id, c]) => { const q = QS[id]; return h('li', {}, h('b', {}, q.q), ' → ', q.ok.map((o) => q.opts[o]).join(' + '), c > 1 ? h('span', { class: 'bad' }, ` (×${c})`) : null); })) : h('p', { class: 'ok' }, 'Aucune erreur en attente. 🎯'),
         errs.length ? h('button', { class: 'btn', type: 'button', onclick: errorDrill }, `🔁 Refaire mes ${errs.length} erreurs`) : null),
       weak.length ? h('div', { class: 'box warn' }, h('h3', {}, 'Chapitres sous 70 %'), h('div', { class: 'row' }, weak.map((s) => h('button', { class: 'btn alt', type: 'button', onclick: () => runStep(STEPS.indexOf(s)) }, `${s.icon} ${s.title} (${S.done[s.id]} %)`)))) : null,
-      h('div', { class: 'box pc-recap' }, h('h3', {}, '📅 Ta semaine type (S3)'), h('ul', {},
-        h('li', {}, 'Avant chaque contrôle : l\'étape du parcours qui correspond + ton carnet d\'erreurs.'),
-        h('li', {}, 'R3.09 : un exercice chronométré par type (permutation, modulo, RSA) la veille du test.'),
-        h('li', {}, 'Réseaux : refais les TP Packet Tracer (DHCP/NAT, IPv6) en 20 min sans l\'énoncé.'),
-        h('li', {}, 'R3.05 : réécris à blanc un Makefile et un wrapper kill() avec gestion d\'erreur.'),
-        h('li', {}, 'Chaque semaine : un vrai pas sur la SAÉ et le projet R3.04 (40-46 % de chaque UE).'))),
-      h('div', { class: 'box' }, h('h3', {}, '✍️ Pendant un QCM AMeTICE'), h('ul', {},
+      h('div', { class: 'box pc-recap' }, h('h3', {}, '📅 Avant le contrôle'), h('ul', {},
+        h('li', {}, 'Relis ton carnet d\'erreurs (ou clique « Refaire mes erreurs »).'),
+        ...((D.tips && D.tips.semaine) || []).map((t) => h('li', { html: t })))),
+      h('div', { class: 'box' }, h('h3', {}, '✍️ Pendant l\'épreuve'), h('ul', {},
         h('li', {}, 'Lis chaque proposition : plusieurs peuvent être justes, et une case en trop coûte des points.'),
-        h('li', {}, 'IPv6 : compte les groupes avant de développer un « :: ».'),
-        h('li', {}, 'Crypto : réduis modulo n avant de calculer, et vérifie ton résultat dans l\'autre sens.'),
-        h('li', {}, 'Mets ta réponse au format demandé (majuscules, 0 pour les espaces…).'),
+        ...((D.tips && D.tips.qcm) || []).map((t) => h('li', { html: t })),
         h('li', {}, 'Garde du temps à la fin pour les questions où tu as hésité.'))),
       h('div', { class: 'row' }, h('button', { class: 'btn alt', type: 'button', onclick: () => exam(STEPS.findIndex((s) => s.exam)) }, '⏱ Un autre examen blanc'), h('button', { class: 'btn alt', type: 'button', onclick: overview }, '← Plan du parcours')));
     root.scrollIntoView({ block: 'start' });

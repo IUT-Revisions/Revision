@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.01 Développement web · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
+<meta name="description" content="Réviser R3.01 Développement web (BUT2 informatique) : HTTP, GET/POST, codes de statut, sessions et cookies, injection SQL, XSS, CSRF, hachage des mots de passe, MVC. Fiche + parcours guidé + 10 QCM corrigés.">
+<meta name="keywords" content="R3.01 développement web, BUT2 informatique, sécurité web, injection SQL requêtes préparées, XSS htmlspecialchars, CSRF jeton, password_hash, session PHP, MVC">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-01-developpement-web/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.01 Développement web (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Réviser R3.01 Développement web (BUT2 informatique) : HTTP, GET/POST, codes de statut, sessions et cookies, injection SQL, XSS, CSRF, hachage des mots de passe, MVC. Fiche + parcours guidé + 10 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-01-developpement-web/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.01 Développement web : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-01-developpement-web/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.01 Développement web","item":"https://gaboulearn.fr/cours/r3-01-developpement-web/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Comment se protéger de l'injection SQL ?","acceptedAnswer":{"@type":"Answer","text":"Avec des requêtes préparées : la requête et les données sont envoyées séparément, la saisie ne peut pas devenir du SQL."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/fiche.css">
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🌍</div>
+<h1>R3.01 Développement web</h1>
+<p class="sub">BUT2 · S3 · programmation côté serveur, sessions, sécurité web, MVC</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>22 min</span> en moyenne</button>
+  <p class="muted">10 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#securite">Sécurité web</a></li>
+  <li><a href="#http">HTTP, sessions, MVC</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<h2 id="securite">1. Sécurité web</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Attaque</th><th>Principe</th><th>Parade</th></tr>
+  <tr><td>Injection SQL</td><td data-label="Principe">la saisie devient du code SQL</td><td data-label="Parade">requêtes préparées (PDO prepare / execute)</td></tr>
+  <tr><td>XSS</td><td data-label="Principe">un script injecté s'exécute chez les visiteurs</td><td data-label="Parade">échapper en sortie (htmlspecialchars), valider en entrée, cookie HttpOnly</td></tr>
+  <tr><td>CSRF</td><td data-label="Principe">un autre site fait envoyer une requête par le navigateur connecté</td><td data-label="Parade">jeton aléatoire dans le formulaire + cookie SameSite</td></tr>
+  <tr><td>Vol de mots de passe</td><td data-label="Principe">base dérobée, hachages rapides cassés</td><td data-label="Parade">password_hash (bcrypt / argon2, sel inclus), password_verify</td></tr>
+</table></div>
+<h2 id="http">2. HTTP, sessions, MVC</h2>
+<ul>
+  <li>HTTP est <b>sans état</b> ; HTTPS = HTTP dans TLS. GET pour lire (paramètres dans l'URL), POST pour modifier (corps).</li>
+  <li>Codes : 200 OK, 301/302 redirection, 400/401/403/404 erreurs du client, 500 erreur du serveur.</li>
+  <li>Session : données côté serveur, retrouvées grâce à l'identifiant du cookie (PHPSESSID).</li>
+  <li>MVC : Modèle = données et règles ; Vue = affichage ; Contrôleur = reçoit la requête et orchestre.</li>
+</ul>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>2 étapes + un examen blanc · ⏱ <span data-total-time>22 min</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+<p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="../../assets/js/parcours.js"></script>
+</body>
+</html>

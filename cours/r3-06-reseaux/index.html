@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.06 Réseaux : DHCP, NAT, IPv6 · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
+<meta name="description" content="Réviser le cours Réseaux du BUT2 informatique (R3.06) : DHCP (DORA, relais, Cisco), NAT et PAT, adressage IPv6 (compression, types, EUI-64), SLAAC, NDP et DHCPv6. Fiche + parcours guidé + 24 QCM corrigés.">
+<meta name="keywords" content="R3.06 architecture des réseaux, réseaux BUT2, DHCP DORA, NAT PAT Cisco, IPv6 adressage, SLAAC DHCPv6, NDP RS RA NS NA, EUI-64, Packet Tracer, QCM IPv6">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-06-reseaux/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.06 Réseaux : DHCP, NAT, IPv6 (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Réviser le cours Réseaux du BUT2 informatique (R3.06) : DHCP (DORA, relais, Cisco), NAT et PAT, adressage IPv6 (compression, types, EUI-64), SLAAC, NDP et DHCPv6. Fiche + parcours guidé + 24 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-06-reseaux/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.06 Réseaux : DHCP, NAT, IPv6 : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-06-reseaux/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.06 Réseaux : DHCP, NAT, IPv6","item":"https://gaboulearn.fr/cours/r3-06-reseaux/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle est la différence entre SLAAC et DHCPv6 sans état ?","acceptedAnswer":{"@type":"Answer","text":"En SLAAC, seul le routeur intervient : il annonce le préfixe dans un RA et l'hôte fabrique son adresse. En SLAAC + DHCPv6 sans état, l'adresse vient toujours de SLAAC et le serveur DHCPv6 fournit seulement les serveurs DNS."}},{"@type":"Question","name":"Dans quel ordre se fait l'échange DHCP ?","acceptedAnswer":{"@type":"Answer","text":"DORA : Discover, Offer, Request, Ack."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/fiche.css">
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🌐</div>
+<h1>R3.06 Réseaux : DHCP, NAT, IPv6</h1>
+<p class="sub">BUT2 · S3 · cours « Réseaux BUT2 » (R3.06 Architecture des réseaux) · CM, TP Packet Tracer et QCM IPv6</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>49 min</span> en moyenne</button>
+  <p class="muted">24 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#dhcp">DHCP</a></li>
+  <li><a href="#nat">NAT et PAT</a></li>
+  <li><a href="#ipv6">Adressage IPv6</a></li>
+  <li><a href="#slaac">SLAAC, NDP et DHCPv6</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<h2 id="dhcp">1. DHCP</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Message</th><th>Qui → qui</th><th>Rôle</th></tr>
+  <tr><td>Discover</td><td data-label="Qui → qui">client → broadcast (source 0.0.0.0)</td><td data-label="Rôle">« Y a-t-il un serveur DHCP ? »</td></tr>
+  <tr><td>Offer</td><td data-label="Qui → qui">serveur → client</td><td data-label="Rôle">propose une adresse, un masque, une passerelle, des DNS, un bail</td></tr>
+  <tr><td>Request</td><td data-label="Qui → qui">client → broadcast</td><td data-label="Rôle">accepte une offre (et prévient les autres serveurs)</td></tr>
+  <tr><td>Ack</td><td data-label="Qui → qui">serveur → client</td><td data-label="Rôle">confirme : l'adresse est attribuée pour la durée du bail</td></tr>
+</table></div>
+<ul>
+  <li>UDP <b>67</b> côté serveur, <b>68</b> côté client. Renouvellement du bail à <b>T1 = 50 %</b> (unicast), puis T2 = 87,5 % (broadcast).</li>
+  <li>Un routeur ne relaie pas les broadcasts : serveur dans un autre réseau = <b>agent relais</b> (<code>ip helper-address &lt;IP serveur&gt;</code> sur l'interface côté clients).</li>
+  <li>Sans réponse DHCP, Windows se donne une adresse <b>APIPA 169.254.x.x</b>.</li>
+</ul>
+<div class="box"><h4>Cisco, dans l'ordre</h4><code>ip dhcp excluded-address 192.168.1.1 192.168.1.10</code><br><code>ip dhcp pool LAN</code> → <code>network 192.168.1.0 255.255.255.0</code> → <code>default-router 192.168.1.1</code> → <code>dns-server 8.8.8.8</code></div>
+
+<h2 id="nat">2. NAT et PAT</h2>
+<ul>
+  <li>Adresses privées <b>RFC 1918</b> : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Non routées sur Internet : il faut les traduire.</li>
+  <li><b>NAT statique</b> : 1 privée ↔ 1 publique (publier un serveur, redirection de port). <b>NAT dynamique</b> : pool d'adresses publiques. <b>PAT / overload</b> : tout le monde derrière une seule adresse, les <b>ports</b> départagent.</li>
+  <li>Vocabulaire Cisco : <b>inside local</b> = adresse privée de l'hôte ; <b>inside global</b> = son adresse publique traduite ; outside = côté Internet.</li>
+</ul>
+<div class="box"><h4>Cisco, PAT</h4><code>interface g0/0</code> → <code>ip nat inside</code> · <code>interface g0/1</code> → <code>ip nat outside</code><br><code>access-list 1 permit 192.168.1.0 0.0.0.255</code><br><code>ip nat inside source list 1 interface g0/1 overload</code></div>
+
+<h2 id="ipv6">3. Adressage IPv6</h2>
+<ul>
+  <li><b>128 bits</b> = 8 groupes de 16 bits en hexadécimal. Compression : on enlève les <b>0 de tête</b> d'un groupe, et « :: » remplace une suite de groupes nuls <b>une seule fois</b>.</li>
+  <li>Développer : 2007:A8::75C:357:49C3 a 5 groupes, « :: » vaut donc 3 groupes → <b>2007:A8:0:0:0:75C:357:49C3</b>.</li>
+  <li><b>EUI-64 modifié</b> : MAC coupée en deux, <b>FF:FE</b> au milieu, <b>7e bit du 1er octet inversé</b>. 84:2b:2b:a0:59:f5 → 862b:2bff:fea0:59f5.</li>
+</ul>
+<div class="tbl"><table class="stack">
+  <tr><th>Préfixe</th><th>Type</th><th>À retenir</th></tr>
+  <tr><td>fe80::/10</td><td data-label="Type">Lien local</td><td data-label="À retenir">Sur chaque interface, ne passe pas les routeurs.</td></tr>
+  <tr><td>fc00::/7 (fd…)</td><td data-label="Type">Locale unique (ULA)</td><td data-label="À retenir">L'équivalent du privé IPv4.</td></tr>
+  <tr><td>2000::/3</td><td data-label="Type">Globale</td><td data-label="À retenir">Routable sur Internet (2001:…, 2a00:…).</td></tr>
+  <tr><td>ff00::/8</td><td data-label="Type">Multicast</td><td data-label="À retenir">Remplace le broadcast : ff02::1 tous les nœuds, ff02::2 tous les routeurs.</td></tr>
+  <tr><td>::1 · ::</td><td data-label="Type">Boucle locale · non spécifiée</td><td data-label="À retenir">Équivalents de 127.0.0.1 et 0.0.0.0.</td></tr>
+</table></div>
+
+<h2 id="slaac">4. SLAAC, NDP et DHCPv6</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Message NDP (ICMPv6)</th><th>Rôle</th></tr>
+  <tr><td>RS · Router Solicitation</td><td data-label="Rôle">l'hôte demande aux routeurs de s'annoncer</td></tr>
+  <tr><td>RA · Router Advertisement</td><td data-label="Rôle">le routeur annonce le préfixe, la passerelle et les drapeaux M / O</td></tr>
+  <tr><td>NS · Neighbor Solicitation</td><td data-label="Rôle">trouver la MAC d'un voisin, ou vérifier qu'une adresse est libre (DAD)</td></tr>
+  <tr><td>NA · Neighbor Advertisement</td><td data-label="Rôle">« c'est moi qui porte cette adresse »</td></tr>
+</table></div>
+<div class="box keep"><h4>Le piège n° 1</h4><b>SLAAC = le routeur seul</b> (préfixe dans le RA). <b>SLAAC + DHCPv6 sans état</b> (O = 1) : le serveur donne seulement les <b>DNS</b>. <b>DHCPv6 avec état</b> (M = 1) : le serveur donne l'adresse. La <b>passerelle vient toujours du RA</b>, jamais de DHCPv6.</div>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>4 étapes + un examen blanc · ⏱ <span data-total-time>49 min</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+<p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="../../assets/js/parcours.js"></script>
+</body>
+</html>

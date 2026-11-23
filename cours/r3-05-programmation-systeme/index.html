@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.05 Programmation système · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
+<meta name="description" content="Réviser R3.05 Programmation système (BUT2 informatique) : descripteurs, inodes, Makefiles, fork, exec, wait, zombies, signaux, kill, sockets TCP en C. Fiche + parcours guidé + 18 QCM corrigés.">
+<meta name="keywords" content="R3.05 programmation système, BUT2 informatique, fork exec wait, signaux SIGKILL SIGCHLD, kill C, Makefile $@ $&lt;, inode, sockets TCP C, bind listen accept">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-05-programmation-systeme/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.05 Programmation système (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Réviser R3.05 Programmation système (BUT2 informatique) : descripteurs, inodes, Makefiles, fork, exec, wait, zombies, signaux, kill, sockets TCP en C. Fiche + parcours guidé + 18 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-05-programmation-systeme/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.05 Programmation système : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-05-programmation-systeme/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.05 Programmation système","item":"https://gaboulearn.fr/cours/r3-05-programmation-systeme/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Que renvoie fork() ?","acceptedAnswer":{"@type":"Answer","text":"0 dans le processus fils, le PID du fils dans le père, et -1 en cas d'échec."}},{"@type":"Question","name":"Quels signaux ne peuvent pas être interceptés ?","acceptedAnswer":{"@type":"Answer","text":"SIGKILL et SIGSTOP."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/fiche.css">
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">⚙️</div>
+<h1>R3.05 Programmation système</h1>
+<p class="sub">BUT2 · S3 · fichiers Unix, Makefiles, processus, signaux · partie sockets TCP en C (TP parcours B)</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>38 min</span> en moyenne</button>
+  <p class="muted">18 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#fichiers">Fichiers Unix</a></li>
+  <li><a href="#make">Makefiles</a></li>
+  <li><a href="#processus">Processus et signaux</a></li>
+  <li><a href="#sockets">Sockets TCP en C </a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<h2 id="fichiers">1. Fichiers Unix</h2>
+<ul>
+  <li>Descripteurs ouverts d'office : <b>0</b> stdin, <b>1</b> stdout, <b>2</b> stderr. <code>open</code> renvoie le plus petit libre, ou <b>-1</b> (errno, <code>perror</code>).</li>
+  <li><code>read(fd, buf, n)</code> renvoie le nombre d'octets lus, <b>0 en fin de fichier</b>, -1 en erreur : on boucle tant que le résultat est &gt; 0. <code>lseek</code> déplace la position, <code>dup2</code> redirige.</li>
+  <li><b>Inode</b> : droits, propriétaire, taille, dates, adresses des blocs, nombre de liens. <b>Pas le nom</b> (il est dans le répertoire).</li>
+  <li><b>Lien dur</b> = même inode (le fichier disparaît quand le compteur tombe à 0). <b>Lien symbolique</b> = son propre inode, contient un chemin, peut « casser ».</li>
+</ul>
+<h2 id="make">2. Makefiles</h2>
+<div class="box"><code>prog: main.o util.o</code><br><code>&lt;TAB&gt;gcc -o $@ $^</code><br><code>%.o: %.c util.h</code><br><code>&lt;TAB&gt;gcc -c $&lt;</code><br><code>.PHONY: clean</code></div>
+<p><b>$@</b> la cible · <b>$&lt;</b> la première dépendance · <b>$^</b> toutes les dépendances. make reconstruit une cible absente ou plus ancienne qu'une de ses dépendances.</p>
+<h2 id="processus">3. Processus et signaux</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Appel</th><th>À retenir</th></tr>
+  <tr><td>fork()</td><td data-label="À retenir">0 dans le fils, PID du fils dans le père, -1 si échec. Les deux continuent après l'appel.</td></tr>
+  <tr><td>exec*()</td><td data-label="À retenir">remplace le programme, garde le PID, ne revient pas si succès.</td></tr>
+  <tr><td>wait / waitpid</td><td data-label="À retenir">récupère le statut du fils (WIFEXITED, WEXITSTATUS) et évite le zombie.</td></tr>
+  <tr><td>kill(pid, sig)</td><td data-label="À retenir">envoie un signal ; pid 0 = le groupe ; sig 0 = tester l'existence.</td></tr>
+  <tr><td>sigaction()</td><td data-label="À retenir">installe un gestionnaire (préférée à signal()).</td></tr>
+</table></div>
+<p><b>Zombie</b> : fils terminé, pas encore attendu. <b>Orphelin</b> : père mort, adopté par le PID 1. SIGINT (2) = Ctrl+C, SIGTERM (15) = kill par défaut, <b>SIGKILL (9) et SIGSTOP impossibles à capter</b>, SIGCHLD prévient le père.</p>
+<h2 id="sockets">4. Sockets TCP en C <small class="muted">(TP parcours B)</small></h2>
+<p>Serveur : <b>socket → bind → listen → accept</b> → read/write → close. Client : <b>socket → connect</b>. <code>socket(AF_INET, SOCK_STREAM, 0)</code> = TCP/IPv4. <code>htons(port)</code>, <code>htonl(INADDR_ANY)</code>. <code>accept</code> renvoie une <b>nouvelle socket</b> par client. « Address already in use » → <code>SO_REUSEADDR</code>. HTTP/0.9 : <code>GET /chemin</code>, pas d'en-têtes, le serveur ferme après l'envoi.</p>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>3 étapes + un examen blanc · ⏱ <span data-total-time>38 min</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+<p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="../../assets/js/parcours.js"></script>
+</body>
+</html>

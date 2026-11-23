@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3.04 Qualité de développement · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
+<meta name="description" content="Réviser R3.04 Qualité de développement (BUT2 informatique) : principes SOLID, patrons de conception du GoF (Singleton, Observateur, Stratégie, Décorateur, Adaptateur, Composite), refactoring, Javadoc, branches Git. Fiche + parcours guidé + 13 QCM corrigés.">
+<meta name="keywords" content="R3.04 qualité de développement, BUT2 informatique, SOLID, patrons de conception, design patterns GoF, Observateur, Stratégie, Décorateur, refactoring, Javadoc, Git branches">
+<link rel="canonical" href="https://gaboulearn.fr/cours/r3-04-qualite-dev/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f5fb3">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GabouLearn">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="R3.04 Qualité de développement (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
+<meta property="og:description" content="Réviser R3.04 Qualité de développement (BUT2 informatique) : principes SOLID, patrons de conception du GoF (Singleton, Observateur, Stratégie, Décorateur, Adaptateur, Composite), refactoring, Javadoc, branches Git. Fiche + parcours guidé + 13 QCM corrigés.">
+<meta property="og:url" content="https://gaboulearn.fr/cours/r3-04-qualite-dev/">
+<meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.04 Qualité de développement : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-04-qualite-dev/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.04 Qualité de développement","item":"https://gaboulearn.fr/cours/r3-04-qualite-dev/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelles sont les 3 familles de patrons de conception ?","acceptedAnswer":{"@type":"Answer","text":"Création (Singleton, Fabrique, Builder), structure (Adaptateur, Décorateur, Composite, Façade, Proxy) et comportement (Observateur, Stratégie, Commande, État, Itérateur)."}}]}]}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/fiche.css">
+</head>
+<body>
+<main class="book">
+<p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
+<div style="text-align:center;font-size:3rem" aria-hidden="true">🏛️</div>
+<h1>R3.04 Qualité de développement</h1>
+<p class="sub">BUT2 · S3 · SOLID, patrons de conception (GoF), refactoring, documentation, Git</p>
+
+<div class="hero-cta no-print">
+  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>29 min</span> en moyenne</button>
+  <p class="muted">13 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+</div>
+
+<nav class="box" aria-label="Sommaire">
+<b>Sommaire</b>
+<ol>
+  <li><a href="#solid">SOLID, couplage, refactoring</a></li>
+  <li><a href="#patrons">Patrons de conception (GoF)</a></li>
+  <li><a href="#outils">Documentation et Git</a></li>
+  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+</ol>
+</nav>
+
+<h2 id="solid">1. SOLID, couplage, refactoring</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Lettre</th><th>Principe</th><th>En une phrase</th></tr>
+  <tr><td>S</td><td data-label="Principe">Responsabilité unique</td><td data-label="En une phrase">une classe, une seule raison de changer</td></tr>
+  <tr><td>O</td><td data-label="Principe">Ouvert / fermé</td><td data-label="En une phrase">on étend par de nouvelles classes, sans modifier le code existant</td></tr>
+  <tr><td>L</td><td data-label="Principe">Substitution de Liskov</td><td data-label="En une phrase">une sous-classe doit pouvoir remplacer sa mère sans surprise</td></tr>
+  <tr><td>I</td><td data-label="Principe">Ségrégation des interfaces</td><td data-label="En une phrase">plusieurs petites interfaces plutôt qu'une grosse</td></tr>
+  <tr><td>D</td><td data-label="Principe">Inversion des dépendances</td><td data-label="En une phrase">dépendre d'abstractions, pas d'implémentations</td></tr>
+</table></div>
+<p>Objectif : <b>couplage faible, cohésion forte</b>. Le <b>refactoring</b> change la structure sans changer le comportement, sous la protection des tests.</p>
+<h2 id="patrons">2. Patrons de conception (GoF)</h2>
+<div class="tbl"><table class="stack">
+  <tr><th>Famille</th><th>Patrons</th><th>Exemple</th></tr>
+  <tr><td>Création</td><td data-label="Patrons">Singleton, Fabrique, Fabrique abstraite, Builder, Prototype</td><td data-label="Exemple">Builder : construire un objet à nombreux paramètres optionnels</td></tr>
+  <tr><td>Structure</td><td data-label="Patrons">Adaptateur, Décorateur, Composite, Façade, Proxy, Pont, Poids-mouche</td><td data-label="Exemple">Décorateur : new BufferedReader(new FileReader(f))</td></tr>
+  <tr><td>Comportement</td><td data-label="Patrons">Observateur, Stratégie, Commande, État, Itérateur, Patron de méthode, Visiteur</td><td data-label="Exemple">Observateur : écouteurs d'événements d'une interface graphique</td></tr>
+</table></div>
+<h2 id="outils">3. Documentation et Git</h2>
+<p>Javadoc : <code>/** … */</code> avec <code>@param</code>, <code>@return</code>, <code>@throws</code>. Git : une branche par fonctionnalité (<code>git switch -c</code>), fusion par merge ou pull request.</p>
+
+<section class="box launch no-print">
+  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
+  <p>3 étapes + un examen blanc · ⏱ <span data-total-time>29 min</span></p>
+  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+</section>
+<p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
+
+<section id="parcours-section" class="box train no-print" hidden>
+  <div id="parcours"></div>
+</section>
+</main>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<script src="data.js"></script>
+<script src="../../assets/js/parcours.js"></script>
+</body>
+</html>

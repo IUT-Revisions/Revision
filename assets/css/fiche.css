@@ -1,0 +1,76 @@
+﻿/* GabouLearn — styles communs des fiches + parcours guidé (pages de ressources) */
+.book { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; line-height: 1.6; }
+  .book h1 { font-size: 2.2rem; text-align: center; margin: .2em 0 0; }
+  .book .sub { text-align: center; color: var(--muted); margin-bottom: 1.4em; }
+  .book h2 { margin-top: 2.2em; border-bottom: 2px solid var(--accent); padding-bottom: .2em; scroll-margin-top: 12px; }
+  .book h3 { margin: 1.4em 0 .3em; }
+  .book table { width: 100%; border-collapse: collapse; margin: .8em 0; font-size: .95rem; }
+  .book td, .book th { border-bottom: 1px solid var(--line); padding: .45em .4em; text-align: left; vertical-align: top; }
+  .book th { color: var(--muted); font-weight: 700; }
+  .book td { overflow-wrap: anywhere; }
+  .book td:first-child { overflow-wrap: normal; word-break: normal; }
+  .tbl { overflow-x: auto; }
+  .box { background: var(--card); border-radius: 14px; padding: 1em 1.3em; box-shadow: var(--shadow); margin: 1em 0; }
+  .keep { border-left: 4px solid var(--good); }
+  .warn { border-left: 4px solid var(--bad); }
+  .box > h4 { margin: 0 0 .3em; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .92em; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .hero-cta { text-align: center; margin: 1em 0 1.6em; }
+  .chap-cta { text-align: right; margin: 1em 0 0; }
+  .launch { text-align: center; margin: 3em 0 1em; padding: 1.6em 1.2em; border: 2px solid var(--accent); }
+  .launch .btn { font-size: 1.2rem; padding: 16px 26px; }
+  .fab { position: fixed; right: 16px; bottom: 16px; z-index: 5; border-radius: 999px; box-shadow: var(--shadow); text-decoration: none; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 1em 0; }
+  .kpi { background: var(--card); border-radius: 14px; box-shadow: var(--shadow); padding: .8em 1em; }
+  .kpi b { display: block; font-size: 1.7rem; color: var(--accent); line-height: 1.1; }
+  .kpi span { color: var(--muted); font-size: .9rem; }
+  .lv { display: inline-block; font-size: .75rem; font-weight: 800; border-radius: 999px; padding: 1px 9px; color: #fff; text-transform: uppercase; }
+  .lv-core { background: var(--bad); } .lv-fort { background: var(--sun); color: #3a2a1a; } .lv-solide { background: var(--good); }
+  td.tgt { font-weight: 900; color: var(--accent); font-size: 1.1rem; }
+  .note-in { width: 5.5em; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line); background: var(--soft); color: var(--ink); font: inherit; font-weight: 700; }
+  .note-in:focus { outline: none; border-color: var(--accent); }
+  .note-in.bad-in { border-color: var(--bad); }
+  .calc-tbl tr.sum td { font-weight: 900; background: var(--soft); }
+  td.ok { color: var(--good); font-weight: 800; } td.bad, p.bad { color: var(--bad); font-weight: 700; }
+  @media (max-width: 640px) {
+    .book table.stack, .book table.stack tbody, .book table.stack tr, .book table.stack td { display: block; width: auto; }
+    .book table.stack tr:first-child { display: none; }
+    .book table.stack tr { border-bottom: 1px solid var(--line); padding: .55em 0; }
+    .book table.stack td { border: 0; padding: .12em 0; }
+    .book table.stack td[data-label]::before { content: attr(data-label) " : "; font-weight: 700; color: var(--muted); font-size: .85em; }
+    .book table.stack td:first-child { font-weight: 700; }
+  }
+  /* parcours */
+  #parcours-section { scroll-margin-top: 8px; }
+  .pc-head h2 { border: 0; margin: .3em 0 .2em; }
+  .pc-phase { font-size: 1rem; font-weight: 600; }
+  .pc-steps { list-style: none; padding: 0; margin: 1em 0; display: grid; gap: 8px; }
+  .pc-step { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 10px 14px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 1rem; }
+  .pc-step:hover { border-color: var(--accent); }
+  .pc-steps li.done .pc-step { border-color: var(--good); }
+  .pc-steps li.done .pc-ic { background: var(--good); color: #fff; }
+  .pc-steps li.next .pc-step { border-color: var(--accent); background: var(--soft); }
+  .pc-ic { flex: none; width: 2em; height: 2em; display: grid; place-items: center; border-radius: 50%; background: var(--soft); }
+  .pc-t { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .pc-m { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pc-recap ul { margin: .3em 0; padding-left: 1.2em; }
+  .pc-recap li { margin: .35em 0; }
+  .pc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-bottom: 1em; }
+  .pc-card { min-height: 96px; border: 2px dashed var(--accent); background: var(--card); color: var(--ink); border-radius: 14px; padding: 12px; cursor: pointer; font-weight: 700; text-align: center; font-size: 1rem; }
+  .pc-card .back { display: none; color: var(--good); }
+  .pc-card.flip { border-style: solid; border-color: var(--good); }
+  .pc-card.flip .front { display: none; }
+  .pc-card.flip .back { display: inline; }
+  .pc-qn { font-size: .9rem; }
+  .pc-checks { display: grid; gap: 8px; margin: 12px 0; }
+  .pc-check { display: flex; align-items: flex-start; gap: 10px; margin: 0; font-weight: 600; background: var(--soft); border: 2px solid transparent; border-radius: 12px; padding: 12px; cursor: pointer; }
+  .pc-check input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+  .pc-check .kbd { background: var(--card); flex: none; }
+  .pc-check.right { border-color: var(--good); }
+  .pc-check.wrong { border-color: var(--bad); }
+  .pc-err li { margin: .4em 0; }
+  .top-line { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  @media print { .no-print, #parcours-section, .fab, .launch, .chap-cta, .hero-cta { display: none !important; } body { background: #fff; } }
