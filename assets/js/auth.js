@@ -26,7 +26,7 @@
     if (!ON) throw new Error('Les comptes ne sont pas encore activés sur ce site.');
     const h = { apikey: C.anonKey, 'Content-Type': 'application/json', ...headers };
     if (auth) { const t = await token(); if (!t) throw new Error('Tu n\'es pas connecté.'); h.Authorization = 'Bearer ' + t; }
-    else h.Authorization = 'Bearer ' + C.anonKey;
+    else if (!String(C.anonKey).startsWith('sb_')) h.Authorization = 'Bearer ' + C.anonKey; // clé publishable : en-tête apikey seul
     const r = await fetch(C.url.replace(/\/$/, '') + path, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
     const txt = await r.text();
     let j = null; try { j = txt ? JSON.parse(txt) : null; } catch { j = txt; }
