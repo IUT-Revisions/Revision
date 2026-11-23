@@ -219,18 +219,18 @@ const byCh = (...chs) => QUESTIONS.filter((x) => chs.includes(x.ch)).map((x) => 
 // ---------------------------------------------------------------- Le parcours
 const STEPS = [
   {
-    id: 'carte', icon: '🗺️', title: 'La carte du territoire', min: 3, anchor: 'cours',
+    id: 'carte', icon: '', title: 'La carte du territoire', min: 3, anchor: 'cours',
     recap: [
       '<b>2 ressources, 2 notes</b> : R3.03 Analyse (exigences + UML) et R3.02 Développement efficace (complexité, structures, tris, Java efficace). Chacune : TD/TP 0,5 + examen 0,5.',
       'Le contrôle est un <b>QCM</b> où <b>plusieurs réponses peuvent être justes</b> : c\'est exactement le format de ce parcours.',
       'Méfie-toi des mots absolus (« toujours », « jamais », « obligatoirement ») : le cours aime « recommandé mais pas requis », « en moyenne », « en pratique impossible ».',
-      'Ordre du parcours : UML et associations d\'abord (le plus rentable), puis on alterne R3.03 / R3.02, et les chapitres « par cœur » à la fin.',
+      'Ordre du parcours : UML et associations d\'abord (prioritaire), puis on alterne R3.03 / R3.02, et les chapitres « par cœur » à la fin.',
     ],
     cards: [],
     qs: ['80'],
   },
   {
-    id: 'uml', icon: '🧩', title: 'Modélisation objet & UML', min: 8, anchor: 'uml',
+    id: 'uml', icon: '', title: 'Modélisation objet & UML', min: 8, anchor: 'uml',
     recap: [
       'Classe = rectangle <b>nom / attributs / méthodes</b>. Visibilité : <b>+</b> public, <b>-</b> private, <b>#</b> protected, <b>~</b> package. <i>Italique</i> = abstrait. «interface».',
       '<b>Généralisation</b> = héritage = trait plein + triangle vide, <b>de la fille vers la mère</b> (« vers le haut »).',
@@ -247,7 +247,7 @@ const STEPS = [
     qs: byCh('uml'),
   },
   {
-    id: 'assoc', icon: '⭐', title: 'Toutes les associations UML', min: 18, anchor: 'associations', star: true,
+    id: 'assoc', icon: '', title: 'Toutes les associations UML', min: 18, anchor: 'associations', star: true,
     recap: [
       'De la plus faible à la plus forte : <b>dépendance</b> (pointillé →) · <b>association</b> (trait) · <b>navigable</b> (trait →) · <b>agrégation</b> (◇) · <b>composition</b> (◆) · <b>généralisation</b> (trait + ▷) · <b>réalisation</b> (pointillé + ▷).',
       'Le <b>losange</b> est toujours <b>côté TOUT</b>. Le <b>triangle</b> pointe toujours vers le <b>plus général</b>. Les <b>pointillés</b> = dépendance et réalisation.',
@@ -267,7 +267,7 @@ const STEPS = [
     qs: byCh('assoc'),
   },
   {
-    id: 'exig', icon: '📋', title: 'Analyse des exigences', min: 12, anchor: 'exigences',
+    id: 'exig', icon: '', title: 'Analyse des exigences', min: 12, anchor: 'exigences',
     recap: [
       '<b>Fonctionnelle</b> = services, réactions aux entrées, comportement. <b>Non-fonctionnelle</b> = contraintes : propriétés (fiabilité, temps de réponse), contraintes (E/S), <b>processus</b> (AGL, langage, méthode). Les NF peuvent être <b>plus critiques</b> : non satisfaites ⇒ système inutile.',
       'Utilisateur = énoncés de haut niveau ; système = services décrits <b>dans le détail</b>.',
@@ -285,7 +285,7 @@ const STEPS = [
     qs: byCh('exig'),
   },
   {
-    id: 'cplx', icon: '📈', title: 'Complexité algorithmique', min: 10, anchor: 'complexite',
+    id: 'cplx', icon: '', title: 'Complexité algorithmique', min: 10, anchor: 'complexite',
     recap: [
       'Grand O : <b>indépendant du matériel et du langage</b>, <b>pas une durée</b>, un <b>ordre de grandeur</b> du nombre de calculs, <b>asymptotique</b> (3 cas : favorable, pire, moyen), pour de <b>très grandes entrées</b>.',
       '<b>O(1) < log n < n < n log n < n² < n³ < 2ⁿ < n!</b>',
@@ -302,7 +302,7 @@ const STEPS = [
     qs: byCh('cplx'),
   },
   {
-    id: 'struct', icon: '🔗', title: 'Structures de données', min: 14, anchor: 'structures',
+    id: 'struct', icon: '', title: 'Structures de données', min: 14, anchor: 'structures',
     recap: [
       'TAD = <b>ce que</b> la structure fait, pas comment. Pile = <b>LIFO</b>, file = <b>FIFO</b>.',
       'Liste simple : tête, <b>queue.next = null</b>, <b>pas d\'index</b>, taille indéfinie. Insertion en tête O(1) ; suppression en queue O(n).',
@@ -319,7 +319,7 @@ const STEPS = [
     qs: byCh('struct'),
   },
   {
-    id: 'tri', icon: '🔀', title: 'Algorithmes de tri', min: 12, anchor: 'tris',
+    id: 'tri', icon: '', title: 'Algorithmes de tri', min: 12, anchor: 'tris',
     recap: [
       'Tri à bulles : on échange les voisins mal ordonnés, le plus grand « remonte » ; <b>O(n²)</b>. Un tri ne peut pas être efficace dans toutes les situations.',
       'Récursivité = <b>condition(s) d\'arrêt + appel(s) récursif(s)</b>. Récursivité ≠ récurrence.',
@@ -335,7 +335,7 @@ const STEPS = [
     qs: byCh('tri'),
   },
   {
-    id: 'java', icon: '☕', title: 'Java efficace (Effective Java)', min: 12, anchor: 'java',
+    id: 'java', icon: '', title: 'Java efficace (Effective Java)', min: 12, anchor: 'java',
     recap: [
       '<b>F1</b> fabrique statique : a un nom, peut ne pas créer d\'objet, renvoie un sous-type… mais sans constructeur public/protégé, pas de sous-classe, et difficile à trouver. ≠ pattern Factory Method.',
       '<b>F6</b> pas de new String("bikini") ; <b>Long</b> sum = autoboxing horriblement lent. <b>F7</b> fuites mémoire : portée courte, null quand la classe gère sa mémoire.',
@@ -352,7 +352,7 @@ const STEPS = [
     qs: byCh('java'),
   },
   {
-    id: 'tpa', icon: '📐', title: 'Tes TPs Analyse (TP1, 3, 5, 7)', min: 12, anchor: 'tp-analyse', star: true,
+    id: 'tpa', icon: '', title: 'Tes TPs Analyse (TP1, 3, 5, 7)', min: 12, anchor: 'tp-analyse', star: true,
     recap: [
       '<b>TP1 Cas d\'utilisation</b> : acteur = <b>rôle</b> d\'une entité <b>externe</b> (humain, matériel, autre système) qui interagit <b>directement</b> ; non humain ⇒ rectangle «actor». Cas = <b>verbe à l\'infinitif + complément</b>. Effort sur acteurs, cas, associations simples ; <b>jamais</b> de fonctionnalité sans accord du client. GAB : Porteur de carte, Client banque, Opérateur de maintenance ; secondaires : système d\'autorisation, SI banque.',
       '<b>TP3 Classes</b> : point central du dev objet. Agrégation = contenance <b>conceptuelle</b> (« composition faible ») ; composition = 1 seul composite + destruction en cascade. Document.imprimer(Imprimante) ⇒ <b>dépendance</b> ; Répertoire ◆ Fichier ; Pièce ◇ Mur (1..2) ; Emprunt = classe d\'association (0..4 volumes) ; Forme <b>Composite</b>.',
@@ -368,7 +368,7 @@ const STEPS = [
     qs: byCh('tpa'),
   },
   {
-    id: 'tpd', icon: '🧮', title: 'Tes TPs Dév. efficace (TP2, 4, 6, 8)', min: 14, anchor: 'tp-dev', star: true,
+    id: 'tpd', icon: '', title: 'Tes TPs Dév. efficace (TP2, 4, 6, 8)', min: 14, anchor: 'tp-dev', star: true,
     recap: [
       '<b>TP2 Listes</b> (sans sentinelles) : size, isEmpty, first, last, addFirst, addLast, removeFirst ; sur liste vide ⇒ <b>null</b>. <code>private static class Node</code> (sans static : référence cachée vers la liste). Inverser en <b>O(1) d\'espace</b> avec 3 pointeurs ; milieu sans compteur (deux pointeurs) ; concaténation avec sentinelles en O(1) ; MyLinkedList&lt;T&gt; implements List&lt;T&gt;.',
       '<b>TP4 Arbres et piles</b> : préfixe = commence par la racine ; infixe <b>binaire seulement</b>. (2+3)*5−(9−(1+(3+4))*3) ⇒ postfixe <b>2 3 + 5 * 9 1 3 4 + + 3 * − −</b> = 40. NPI : opérande ⇒ empiler ; opérateur ⇒ <b>y = dépiler, x = dépiler, empiler x op y</b>.',
@@ -385,7 +385,7 @@ const STEPS = [
     qs: byCh('tpd'),
   },
   {
-    id: 'r304', icon: '🎄', title: 'Bonus R3.04 (Martin-Nevot, TD1 à TD3)', min: 6, anchor: 'r304',
+    id: 'r304', icon: '', title: 'Bonus R3.04 (Martin-Nevot, TD1 à TD3)', min: 6, anchor: 'r304',
     recap: [
       '<b>TD1-1 Bibliothèque</b> : <b>constante de classe</b> MAX_BOOKS = static final ; doublons en O(n) avec HashSet ⇒ equals <b>et</b> hashCode.',
       '<b>TD1-2 Mairie</b> : PersonalHome et ProHome <b>extends Home</b>, redéfinissent tax() avec super.tax() ; polymorphisme.',
@@ -399,7 +399,7 @@ const STEPS = [
     qs: byCh('r304'),
   },
   {
-    id: 'eco', icon: '🌍', title: 'Écoinformatique & écoconception web', min: 12, anchor: 'eco',
+    id: 'eco', icon: '', title: 'Écoinformatique & écoconception web', min: 12, anchor: 'eco',
     recap: [
       '<b>J = B/E × 365</b> (hectares globaux). Monde 2026 : <b>30 juillet</b> ; France 2026 : <b>24 avril</b> (2023 : 5 mai). <b>7/9</b> limites dépassées en 2026 (6 en 2023), dernière : acidification des océans (2025).',
       'Numérique : <b>4 % des eGES = ×1,5 l\'aérien</b> (GIEC 2022) ; 20 % de l\'énergie en 2030 ; page web <b>×155</b> ; cause n°1 : l\'<b>obésiciel</b>. Seul scénario 2050 en baisse : <b>Génération frugale</b>.',
@@ -412,8 +412,8 @@ const STEPS = [
     ],
     qs: byCh('eco', 'ecow'),
   },
-  { id: 'exam', icon: '⏱️', title: 'Examen blanc', min: 15, exam: 25, recap: [], cards: [] },
-  { id: 'fin', icon: '🏁', title: 'Carnet d\'erreurs & demain matin', min: 4, final: true, recap: [], cards: [] },
+  { id: 'exam', icon: '', title: 'Examen blanc', min: 15, exam: 25, recap: [], cards: [] },
+  { id: 'fin', icon: '', title: 'Carnet d\'erreurs & demain matin', min: 4, final: true, recap: [], cards: [] },
 ];
 
 const data = { QUESTIONS, STEPS };

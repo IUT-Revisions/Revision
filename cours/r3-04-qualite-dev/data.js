@@ -177,7 +177,7 @@ const QUESTIONS = RAW.map(([id, ch, q, opts, ok, ex]) => ({ id: String(id), ch, 
 const STEPS = [
  {
   "id": "solid",
-  "icon": "🧱",
+  "icon": "",
   "title": "SOLID, couplage et refactoring",
   "min": 6,
   "anchor": "solid",
@@ -205,7 +205,7 @@ const STEPS = [
  },
  {
   "id": "patrons",
-  "icon": "🧩",
+  "icon": "",
   "title": "Patrons de conception",
   "min": 8,
   "star": true,
@@ -241,7 +241,7 @@ const STEPS = [
  },
  {
   "id": "outils",
-  "icon": "🛠️",
+  "icon": "",
   "title": "Documentation et Git",
   "min": 4,
   "anchor": "outils",
@@ -262,7 +262,7 @@ const STEPS = [
  },
  {
   "id": "exam",
-  "icon": "⏱️",
+  "icon": "",
   "title": "Examen blanc",
   "min": 8,
   "exam": 13,
@@ -271,7 +271,7 @@ const STEPS = [
  },
  {
   "id": "fin",
-  "icon": "🏁",
+  "icon": "",
   "title": "Carnet d'erreurs & avant le contrôle",
   "min": 3,
   "final": true,

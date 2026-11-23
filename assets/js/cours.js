@@ -3,7 +3,7 @@
 const S3 = 'BUT2 · S3';
 window.COURS = [
   {
-    code: '🧮 Outil',
+    code: 'Outil',
     titre: 'Calcul de moyenne BUT2',
     semestre: S3,
     url: 'cours/but2-calcul-moyenne/',

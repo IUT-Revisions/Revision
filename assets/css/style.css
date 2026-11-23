@@ -118,9 +118,31 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 input[type=number] { width: 100%; border: 2px solid var(--line); background: var(--bg); border-radius: 12px; padding: 14px; font-size: 1.6rem; text-align: center; outline: none; }
 input[type=number]:focus { border-color: var(--accent); }
 
-/* comptes (GabouLearn) */
-.gl-account { position: fixed; top: 12px; right: 12px; z-index: 20; background: var(--card); color: var(--ink); border: 2px solid var(--line); border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: .9rem; text-decoration: none; box-shadow: var(--shadow); }
-.gl-account:hover { border-color: var(--accent); }
+/* barre du haut + menu compte (GabouLearn) */
+.gl-topbar { position: relative; z-index: 30; border-bottom: 1px solid var(--line); background: var(--card); }
+.gl-topbar .gl-wrap { max-width: 1100px; margin: 0 auto; padding: 6px 16px; display: flex; align-items: center; }
+.gl-acc { position: relative; }
+.gl-me { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 4px 12px 4px 4px; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+.gl-me:hover, .gl-me[aria-expanded="true"] { border-color: var(--accent); }
+.gl-me:focus-visible, .gl-item:focus-visible, .gl-seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gl-av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: .75rem; font-weight: 800; }
+.gl-menu { position: absolute; left: 0; top: calc(100% + 6px); width: min(300px, calc(100vw - 32px)); background: var(--card); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 6px; }
+.gl-menu hr { border: 0; border-top: 1px solid var(--line); margin: 6px 0; }
+.gl-head { padding: 8px 10px 10px; display: grid; gap: 4px; font-size: .9rem; overflow-wrap: anywhere; }
+.gl-badge { justify-self: start; font-size: .75rem; font-weight: 700; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+.gl-badge.adm { color: var(--accent); border-color: var(--accent); }
+.gl-item { display: block; width: 100%; text-align: left; background: none; border: 0; color: var(--ink); font: inherit; font-size: .92rem; padding: 8px 10px; border-radius: 8px; text-decoration: none; cursor: pointer; }
+.gl-item:hover:not(:disabled) { background: var(--soft); }
+.gl-item:disabled { color: var(--muted); cursor: default; }
+.gl-item.danger { color: var(--bad); }
+.gl-item.gl-small { font-size: .8rem; color: var(--muted); }
+.gl-muted { color: var(--muted); font-weight: 400; }
+.gl-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px; font-size: .92rem; }
+.gl-seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.gl-seg button { border: 0; background: none; color: var(--ink); font: inherit; font-size: .8rem; padding: 4px 8px; cursor: pointer; }
+.gl-seg button.on { background: var(--accent); color: #fff; }
+@media (max-width: 480px) { .gl-me .gl-txt { display: none; } .gl-me { padding: 4px; } }
+@media print { .gl-topbar { display: none; } }
 a.course.gl-off { opacity: .55; }
 .gl-off-tag { margin-top: 8px; }
 .gl-closed h2 { margin-top: 0; }

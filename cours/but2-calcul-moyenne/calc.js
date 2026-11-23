@@ -106,7 +106,7 @@
       h('p', { class: 'muted small' }, `BUT2 · parcours ${st.parcours} · ${st.regime === 'FA' ? 'alternance' : 'formation initiale'} · ${sem}. Tes notes sont gardées séparément pour chaque combinaison.`),
       inputs,
       h('div', { class: 'box keep goal' },
-        h('h4', {}, '🎯 Ce que tu vises dans chaque UE'),
+        h('h4', {}, 'Ce que tu vises dans chaque UE'),
         h('p', {}, 'Moyenne visée dans chaque UE : ', butIn, ' / 20'),
         h('ul', { class: 'small' },
           h('li', {}, h('b', {}, '10'), ' = valider l\'UE (le minimum pour obtenir ses ECTS sans compensation).'),

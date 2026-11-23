@@ -17,7 +17,7 @@
 
   const input = h('input', { type: 'file', accept: 'application/pdf,.pdf', id: 'releve-file', class: 'file-in' });
   const drop = h('label', { class: 'drop', for: 'releve-file' },
-    h('b', {}, '📄 Dépose ton relevé de notes ScoDoc (PDF)'), h('br'),
+    h('b', {}, 'Dépose ton relevé de notes ScoDoc (PDF)'), h('br'),
     h('span', { class: 'muted small' }, 'ou clique pour le choisir · le fichier est lu dans ton navigateur, il n\'est envoyé nulle part'));
   const out = h('div', { class: 'imp-out' });
   box.append(drop, input, out);
@@ -80,7 +80,7 @@
           ? h('p', {}, h('b', { class: 'big' }, `≈ ${est.rank}e / ${est.n}`), ' (rang moyen de tes UE, pondéré par les ECTS)')
           : h('p', {}, h('b', { class: 'big' }, `≈ ${est.rank}e / ${est.n}`), ` · fourchette ${est.from}e à ${est.to}e`),
         h('p', { class: 'small' }, `Tes UE vont du ${Math.min(...R.ues.filter((u) => u.rang).map((u) => u.rang))}e au ${Math.max(...R.ues.filter((u) => u.rang).map((u) => u.rang))}e rang. Rang moyen pondéré par les ECTS : ${fr(est.avgRank, 1)}. Moyenne de la promo (pondérée ECTS) : ${fr(est.promoMean)}.`),
-        fa || small ? h('p', { class: 'bad small' }, `⚠️ ${fa ? 'En alternance (FA), ' : ''}le classement se fait sur un groupe de ${est.n} étudiant${est.n > 1 ? 's' : ''} : il n'est pas représentatif du niveau de la promo entière. Compare plutôt ta moyenne à la moyenne de la promo.`) : null,
+        fa || small ? h('p', { class: 'bad small' }, `${fa ? 'En alternance (FA), ' : ''}le classement se fait sur un groupe de ${est.n} étudiant${est.n > 1 ? 's' : ''} : il n'est pas représentatif du niveau de la promo entière. Compare plutôt ta moyenne à la moyenne de la promo.`) : null,
         small ? h('p', { class: 'muted small' }, 'Sur un si petit groupe, aucun modèle statistique n\'a de sens : on affiche seulement ton rang moyen dans les UE, pondéré par les ECTS.') : h('p', { class: 'muted small' }, 'Méthode : chaque UE est supposée suivre une loi normale (moyenne de la promo, écart-type déduit de ton rang et du max), les UE sont corrélées entre elles (elles partagent ressources et SAÉ), la moyenne du semestre est pondérée par les ECTS. La fourchette fait varier cette corrélation. C\'est une estimation : ScoDoc ne publie pas de rang au semestre.'));
     }
 
@@ -99,7 +99,7 @@
       rankBox,
       details,
       canFill
-        ? h('p', { class: 'center' }, h('button', { class: 'btn', type: 'button', onclick: () => GabouCalc.load({ parcours: R.parcours, regime: R.regime, sem, notes }) }, `➡️ Envoyer ces notes dans le calculateur ${sem} (pour simuler la suite)`))
+        ? h('p', { class: 'center' }, h('button', { class: 'btn', type: 'button', onclick: () => GabouCalc.load({ parcours: R.parcours, regime: R.regime, sem, notes }) }, `Envoyer ces notes dans le calculateur ${sem} (pour simuler la suite)`))
         : h('p', { class: 'muted small center' }, `Le calculateur ci-dessous couvre le BUT2 (S3, S4). Pour ce relevé (${sem}), les calculs ci-dessus utilisent directement les coefficients imprimés sur le relevé.`));
   }
 })();

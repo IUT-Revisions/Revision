@@ -637,9 +637,9 @@
       h('p', {}, `${EX.length} situations tirées du cours et des TPs, dans les deux sens. Les mauvaises réponses reprennent les pièges du QCM : agrégation/composition, sens de la flèche, multiplicité, extends/implements, static, visibilité.`),
       h('div', { class: 'uj-modes' },
         Object.entries(MODES).map(([k, v]) => h('button', { class: 'btn' + (k === 'mix' ? '' : ' alt'), type: 'button', onclick: () => start(k) },
-          k === 'u2j' ? '🖼️ → ☕ ' : k === 'j2u' ? '☕ → 🖼️ ' : '🔀 ', v, best(k)))),
+          k === 'u2j' ? '→ ' : k === 'j2u' ? '→ ' : '', v, best(k)))),
       h('p', { class: 'muted center' }, `Séries de ${SERIES} questions · ≈ 8 min · touches 1-4 pour répondre, Entrée pour continuer`),
-      ST.miss.length ? h('p', { class: 'center' }, h('button', { class: 'btn alt', type: 'button', onclick: () => start('mix', ST.miss) }, `🔁 Refaire mes ${ST.miss.length} erreurs`)) : null);
+      ST.miss.length ? h('p', { class: 'center' }, h('button', { class: 'btn alt', type: 'button', onclick: () => start('mix', ST.miss) }, `Refaire mes ${ST.miss.length} erreurs`)) : null);
   }
 
   function start(mode, onlyMiss) {
@@ -684,7 +684,7 @@
         h('button', { class: 'linkish', type: 'button', onclick: home }, '← Modes'),
         h('span', { class: 'muted' }, `${run.retry ? 'Erreurs' : MODES[run.mode]} · ${run.k + 1}/${run.items.length} · ${run.ok} ✓`)),
       h('div', { class: 'bar' }, h('div', { style: `width:${Math.round((run.k / run.items.length) * 100)}%` })),
-      h('h3', {}, u2j ? `🖼️ Quel code Java correspond à ce diagramme ?` : `☕ Quel diagramme UML correspond à ce code ?`, h('span', { class: 'muted uj-t' }, ` · ${ex.title}`)),
+      h('h3', {}, u2j ? `Quel code Java correspond à ce diagramme ?` : `Quel diagramme UML correspond à ce code ?`, h('span', { class: 'muted uj-t' }, ` · ${ex.title}`)),
       h('div', { class: 'uj-q' }, u2j ? umlEl(base, true) : codeEl(base)),
       h('div', { class: 'uj-grid' + (u2j ? ' code' : wide ? ' one' : '') }, btns),
       fb);
@@ -702,11 +702,11 @@
     const pct = Math.round((sc / n) * 100);
     put(root,
       h('h3', {}, `Score : ${sc}/${n} (${pct} %)`),
-      h('p', {}, pct === 100 ? 'Sans faute : tu traduis UML ↔ Java comme un pro. 🎯' : pct >= 70 ? 'Solide. Refais tes erreurs pour verrouiller les derniers pièges.' : 'Relis le tableau « Trancher vite » et les 11 types d\'association, puis refais une série.'),
+      h('p', {}, pct === 100 ? 'Sans faute : tu traduis UML ↔ Java comme un pro. ' : pct >= 70 ? 'Solide. Refais tes erreurs pour verrouiller les derniers pièges.' : 'Relis le tableau « Trancher vite » et les 11 types d\'association, puis refais une série.'),
       run.missed.length ? h('ul', { class: 'pc-err' }, run.missed.map((x) => { const [i, d] = x.split(':'); return h('li', {}, `${EX[i].title} (${MODES[d]})`); })) : null,
       h('div', { class: 'row' },
         h('button', { class: 'btn', type: 'button', onclick: () => start(run.mode === 'mix' || run.retry ? 'mix' : run.mode) }, '↻ Nouvelle série'),
-        ST.miss.length ? h('button', { class: 'btn alt', type: 'button', onclick: () => start('mix', ST.miss) }, `🔁 Refaire mes ${ST.miss.length} erreurs`) : null,
+        ST.miss.length ? h('button', { class: 'btn alt', type: 'button', onclick: () => start('mix', ST.miss) }, `Refaire mes ${ST.miss.length} erreurs`) : null,
         h('button', { class: 'btn alt', type: 'button', onclick: home }, 'Changer de mode')),
       h('p', { class: 'muted' }, h('a', { href: '#associations' }, 'Revoir les associations UML ↑')));
     root.scrollIntoView({ block: 'start', behavior: 'smooth' });

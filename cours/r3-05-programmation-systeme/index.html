@@ -27,16 +27,16 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="../../assets/css/style.css">
 <link rel="stylesheet" href="../../assets/css/fiche.css">
+<link rel="stylesheet" href="../../assets/css/sobre.css">
 </head>
 <body>
 <main class="book">
 <p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
-<div style="text-align:center;font-size:3rem" aria-hidden="true">⚙️</div>
 <h1>R3.05 Programmation système</h1>
 <p class="sub">BUT2 · S3 · fichiers Unix, Makefiles, processus, signaux · partie sockets TCP en C (TP parcours B)</p>
 
 <div class="hero-cta no-print">
-  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>38 min</span> en moyenne</button>
+  <button class="btn" type="button" data-parcours="">Lancer le parcours guidé · ≈ <span data-total-time>38 min</span></button>
   <p class="muted">18 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
 </div>
 
@@ -47,7 +47,7 @@
   <li><a href="#make">Makefiles</a></li>
   <li><a href="#processus">Processus et signaux</a></li>
   <li><a href="#sockets">Sockets TCP en C </a></li>
-  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+  <li><a href="#parcours-section">Parcours guidé interactif</a></li>
 </ol>
 </nav>
 
@@ -75,9 +75,9 @@
 <p>Serveur : <b>socket → bind → listen → accept</b> → read/write → close. Client : <b>socket → connect</b>. <code>socket(AF_INET, SOCK_STREAM, 0)</code> = TCP/IPv4. <code>htons(port)</code>, <code>htonl(INADDR_ANY)</code>. <code>accept</code> renvoie une <b>nouvelle socket</b> par client. « Address already in use » → <code>SO_REUSEADDR</code>. HTTP/0.9 : <code>GET /chemin</code>, pas d'en-têtes, le serveur ferme après l'envoi.</p>
 
 <section class="box launch no-print">
-  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
-  <p>3 étapes + un examen blanc · ⏱ <span data-total-time>38 min</span></p>
-  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+  <h2 style="border:0;margin-top:0">Parcours guidé</h2>
+  <p>3 étapes + un examen blanc · <span data-total-time>38 min</span></p>
+  <button class="btn" type="button" data-parcours="">Suivre le parcours interactif</button>
 </section>
 <p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
 
@@ -85,7 +85,7 @@
   <div id="parcours"></div>
 </section>
 </main>
-<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">Parcours</a>
 <script src="data.js"></script>
 <script src="../../assets/js/parcours.js"></script>
 <script src="../../assets/js/config.js"></script>

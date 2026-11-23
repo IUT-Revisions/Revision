@@ -64,21 +64,21 @@
     const left = STEPS.filter((s) => S.done[s.id] == null).reduce((t, s) => t + s.min, 0);
     put(root, 
       h('div', { class: 'pc-head' },
-        h('h2', {}, '🚀 Parcours guidé R3.02 · R3.03'),
-        h('p', { class: 'muted' }, `${STEPS.length} étapes · ⏱ ${fmt(totalMin)} en moyenne · `, doneCount() ? `il te reste ≈ ${fmt(left)}` : 'zéro prérequis'),
+        h('h2', {}, 'Parcours guidé R3.02 · R3.03'),
+        h('p', { class: 'muted' }, `${STEPS.length} étapes · ${fmt(totalMin)} en moyenne · `, doneCount() ? `il te reste ≈ ${fmt(left)}` : 'aucun prérequis'),
         progressBar()),
       h('p', {}, 'Chaque étape : ', h('b', {}, 'l\'essentiel à retenir'), ' → ', h('b', {}, 'cartes à réciter'), ' → ', h('b', {}, 'un exercice'), ' → ', h('b', {}, 'le quiz corrigé'), '. Une question ratée revient en fin d\'étape et part dans ton carnet d\'erreurs. Raccourcis : touches 1-4 pour cocher, Entrée pour valider.'),
       h('ol', { class: 'pc-steps' }, STEPS.map((s, i) => {
         const sc = S.done[s.id];
         return h('li', { class: sc != null ? 'done' : i === next ? 'next' : '' },
           h('button', { class: 'pc-step', type: 'button', onclick: () => runStep(i) },
-            h('span', { class: 'pc-ic' }, sc != null ? '✓' : s.icon),
-            h('span', { class: 'pc-t' }, s.title, s.star ? h('span', { class: 'theme-tag' }, 'le plus rentable') : null),
+            h('span', { class: 'pc-ic' }, sc != null ? '✓' : String(i + 1)),
+            h('span', { class: 'pc-t' }, s.title, s.star ? h('span', { class: 'theme-tag' }, 'prioritaire') : null),
             h('span', { class: 'pc-m' }, sc != null && sc >= 0 ? `${sc} %` : fmt(s.min))));
       })),
       h('div', { class: 'row' },
-        next >= 0 ? h('button', { class: 'btn', type: 'button', onclick: () => runStep(next) }, doneCount() ? `▶ Reprendre : ${STEPS[next].title}` : '▶ Commencer le parcours') : h('button', { class: 'btn', type: 'button', onclick: () => runStep(STEPS.length - 1) }, '🏁 Voir mon bilan'),
-        Object.keys(S.errors).length ? h('button', { class: 'btn alt', type: 'button', onclick: () => errorDrill() }, `🔁 Refaire mes ${Object.keys(S.errors).length} erreurs`) : null),
+        next >= 0 ? h('button', { class: 'btn', type: 'button', onclick: () => runStep(next) }, doneCount() ? `▶ Reprendre : ${STEPS[next].title}` : '▶ Commencer le parcours') : h('button', { class: 'btn', type: 'button', onclick: () => runStep(STEPS.length - 1) }, 'Voir mon bilan'),
+        Object.keys(S.errors).length ? h('button', { class: 'btn alt', type: 'button', onclick: () => errorDrill() }, `Refaire mes ${Object.keys(S.errors).length} erreurs`) : null),
       h('p', { class: 'center' }, h('button', { class: 'linkish', type: 'button', onclick: () => { if (confirm('Effacer la progression et le carnet d\'erreurs ?')) { S = { done: {}, errors: {}, exam: null }; save(); overview(); } } }, 'Recommencer à zéro')));
   }
 
@@ -93,8 +93,8 @@
     return h('div', { class: 'pc-head' },
       h('div', { class: 'top-line' },
         h('button', { class: 'linkish', type: 'button', onclick: overview }, '← Plan'),
-        h('span', { class: 'muted' }, `Étape ${i + 1}/${STEPS.length} · ⏱ ${fmt(s.min)} · `, clock)),
-      h('h2', {}, s.icon, ' ', s.title, phase ? h('span', { class: 'muted pc-phase' }, ' · ', phase) : null),
+        h('span', { class: 'muted' }, `Étape ${i + 1}/${STEPS.length} · ${fmt(s.min)} · `, clock)),
+      h('h2', {}, s.title, phase ? h('span', { class: 'muted pc-phase' }, ' · ', phase) : null),
       progressBar());
   }
 
@@ -109,11 +109,11 @@
   function learn(i) {
     const s = STEPS[i];
     const kids = [stepHeader(i, 'à retenir'),
-      h('div', { class: 'box pc-recap' }, h('h3', {}, '🟢 L\'essentiel'), h('ul', {}, s.recap.map((r) => h('li', { html: r })))),
+      h('div', { class: 'box pc-recap' }, h('h3', {}, 'L\'essentiel'), h('ul', {}, s.recap.map((r) => h('li', { html: r })))),
     ];
     if (s.anchor) kids.push(h('p', { class: 'muted' }, 'Besoin du détail ? ', h('a', { href: `#${s.anchor}` }, 'Relire cette partie du cours ↑')));
     if (s.cards.length) {
-      kids.push(h('h3', {}, '🧠 Récite avant de retourner la carte'),
+      kids.push(h('h3', {}, 'Récite avant de retourner la carte'),
         h('div', { class: 'pc-cards' }, s.cards.map(([q, a]) => {
           const card = h('button', { class: 'pc-card', type: 'button', onclick: () => card.classList.toggle('flip') },
             h('span', { class: 'front' }, q), h('span', { class: 'back' }, a));
@@ -171,7 +171,7 @@
     let k = 0, ok = 0;
     const round = () => {
       if (k >= keys.length) {
-        put(box, h('h3', {}, `Symboles UML : ${ok}/${keys.length}`), h('p', {}, ok === keys.length ? 'Parfait, tu les reconnais tous. 🎯' : 'Relis le tableau « force des relations » du cours, puis refais l\'exercice.'), h('button', { class: 'btn alt', type: 'button', onclick: () => { k = 0; ok = 0; keys.splice(0, keys.length, ...shuffle(Object.keys(REL))); round(); } }, '↻ Recommencer'));
+        put(box, h('h3', {}, `Symboles UML : ${ok}/${keys.length}`), h('p', {}, ok === keys.length ? 'Parfait, tu les reconnais tous. ' : 'Relis le tableau « force des relations » du cours, puis refais l\'exercice.'), h('button', { class: 'btn alt', type: 'button', onclick: () => { k = 0; ok = 0; keys.splice(0, keys.length, ...shuffle(Object.keys(REL))); round(); } }, '↻ Recommencer'));
         return;
       }
       const key = keys[k];
@@ -196,7 +196,7 @@
     const draw = () => {
       const left = shuffle(ORDER.filter((x) => !picked.includes(x)));
       const msg = h('p', { class: 'muted' }, 'Clique les complexités de la plus efficace à la moins efficace.');
-      put(box, h('h3', {}, '📈 Range les complexités'), msg,
+      put(box, h('h3', {}, 'Range les complexités'), msg,
         h('div', { class: 'pc-seq' }, picked.map((p) => h('span', { class: 'pc-chip ok' }, p))),
         picked.length < ORDER.length
           ? h('div', { class: 'pc-grid' }, left.map((x) => h('button', { class: 'pc-opt', type: 'button', onclick: (e) => {
@@ -237,7 +237,7 @@
       }
       const status = h('p', { class: 'bad' }, '');
       const done = pos >= seq.length;
-      put(box, h('h3', {}, `🌳 Parcours ${name} (${m + 1}/3)`), h('p', { class: 'muted' }, `Clique les nœuds dans l'ordre ${name.toLowerCase()} : ${rule}.`), svg,
+      put(box, h('h3', {}, `Parcours ${name} (${m + 1}/3)`), h('p', { class: 'muted' }, `Clique les nœuds dans l'ordre ${name.toLowerCase()} : ${rule}.`), svg,
         h('p', { class: 'pc-seq' }, seq.slice(0, pos).split('').map((c) => h('span', { class: 'pc-chip ok' }, c))), status,
         done ? h('div', {}, h('p', { class: 'ok' }, `✓ ${name} : ${seq.split('').join(' ')}`),
           m < 2 ? h('button', { class: 'btn', type: 'button', onclick: () => { m++; pos = 0; draw(); } }, 'Parcours suivant →')
@@ -258,7 +258,7 @@
     let k = 0;
     const draw = () => {
       const [arr, piv, sw, txt] = STEPS_Q[k];
-      put(box, h('h3', {}, `🔀 Partition de Lomuto (${k + 1}/${STEPS_Q.length})`),
+      put(box, h('h3', {}, `Partition de Lomuto (${k + 1}/${STEPS_Q.length})`),
         h('div', { class: 'qs-row' }, arr.map((v, j) => h('span', { class: 'qs-cell' + (piv.includes(j) ? ' piv' : '') + (sw.includes(j) ? ' sw' : '') }, v))),
         h('p', {}, txt),
         h('div', { class: 'row' },
@@ -282,7 +282,7 @@
         while (t < toks.length && !OPS[toks[t]]) { stack.push(Number(toks[t])); t++; }
         const done = t >= toks.length;
         const head = [
-          h('h3', {}, `🧮 Évalue la NPI (${e + 1}/${EXPRS.length})`),
+          h('h3', {}, `Évalue la NPI (${e + 1}/${EXPRS.length})`),
           h('div', { class: 'qs-row' }, toks.map((x, j) => h('span', { class: 'qs-cell' + (j === t ? ' piv' : j < t ? ' sw' : '') }, x.replace('-', '−')))),
           h('p', { class: 'muted center' }, 'Pile (bas → sommet) :'),
           h('div', { class: 'qs-row' }, stack.length ? stack.map((v) => h('span', { class: 'qs-cell' }, v)) : h('span', { class: 'muted' }, 'vide')),
@@ -374,12 +374,12 @@
       onEnd(score, total, wrongIds) {
         const pct = Math.round((score / total) * 100);
         S.done[s.id] = pct; save();
-        const verdict = pct >= 85 ? ['🔥', 'Au taquet sur ce chapitre.'] : pct >= 65 ? ['👍', 'Solide. Relis les explications de tes erreurs.'] : ['⚠️', 'Chapitre à revoir : relis l\'essentiel puis refais le quiz.'];
+        const verdict = pct >= 85 ? ['', 'Chapitre maîtrisé.'] : pct >= 65 ? ['', 'Solide. Relis les explications de tes erreurs.'] : ['', 'Chapitre à revoir : relis l\'essentiel puis refais le quiz.'];
         put(root, stepHeader(i, 'bilan'),
-          h('div', { class: 'box center' }, h('div', { class: 'big-emoji' }, verdict[0]), h('h3', {}, `${score}/${total} du premier coup · ${pct} %`), h('p', {}, verdict[1])),
-          wrongIds.length ? h('div', { class: 'box' }, h('h3', {}, '📓 Ajouté au carnet d\'erreurs'), h('ul', {}, wrongIds.map((id) => h('li', {}, QS[id].q, ' → ', h('b', {}, QS[id].ok.map((o) => QS[id].opts[o]).join(' + ')))))) : null,
+          h('div', { class: 'box center' }, h('h3', {}, `${score}/${total} du premier coup · ${pct} %`), h('p', {}, verdict[1])),
+          wrongIds.length ? h('div', { class: 'box' }, h('h3', {}, 'Ajouté au carnet d\'erreurs'), h('ul', {}, wrongIds.map((id) => h('li', {}, QS[id].q, ' → ', h('b', {}, QS[id].ok.map((o) => QS[id].opts[o]).join(' + ')))))) : null,
           h('div', { class: 'row' },
-            h('button', { class: 'btn', type: 'button', onclick: () => runStep(i + 1) }, `Étape suivante : ${STEPS[i + 1].icon} ${STEPS[i + 1].title} →`),
+            h('button', { class: 'btn', type: 'button', onclick: () => runStep(i + 1) }, `Étape suivante : ${STEPS[i + 1].title} →`),
             pct < 65 ? h('button', { class: 'btn alt', type: 'button', onclick: () => learn(i) }, '↻ Revoir l\'étape') : null));
         setKeys((e) => { if (e.key === 'Enter') { e.preventDefault(); runStep(i + 1); } });
         root.scrollIntoView({ block: 'start' });
@@ -393,7 +393,7 @@
     put(root, stepHeader(i, 'conditions réelles'),
       h('div', { class: 'box' }, h('p', {}, `${s.exam} questions tirées au hasard dans tout le programme, `, h('b', {}, 'sans corrigé avant la fin'), '. Plusieurs réponses possibles. Vise ~35 s par question, sans regarder le cours.'),
         S.exam ? h('p', { class: 'muted' }, `Ton dernier examen blanc : ${S.exam.score}/${S.exam.total}.`) : null),
-      h('button', { class: 'btn block', type: 'button', onclick: () => exam(i) }, '⏱ Lancer l\'examen blanc'));
+      h('button', { class: 'btn block', type: 'button', onclick: () => exam(i) }, 'Lancer l\'examen blanc'));
     setKeys((e) => { if (e.key === 'Enter') { e.preventDefault(); exam(i); } });
   }
   function exam(i) {
@@ -405,11 +405,11 @@
         S.exam = { score, total }; S.done[s.id] = Math.round((score / total) * 100); save();
         const note = Math.round((score / total) * 200) / 10;
         put(root, stepHeader(i, 'résultat'),
-          h('div', { class: 'box center' }, h('div', { class: 'big-emoji' }, note >= 16 ? '🏆' : note >= 12 ? '💪' : '📚'), h('h3', {}, `${score}/${total} · ≈ ${String(note).replace('.', ',')}/20`),
+          h('div', { class: 'box center' }, h('h3', {}, `${score}/${total} · ≈ ${String(note).replace('.', ',')}/20`),
             h('p', {}, note >= 16 ? 'Tu es prêt pour demain.' : 'Relis le corrigé ci-dessous puis refais tes erreurs.')),
           wrongIds.length ? h('div', { class: 'box' }, h('h3', {}, 'Corrigé de tes erreurs'), wrongIds.map((id) => { const q = QS[id]; return h('div', { class: 'miss' }, h('b', {}, q.q), h('div', { class: 'ok' }, '✓ ', q.ok.map((o) => q.opts[o]).join(' + ')), h('div', { class: 'muted' }, q.ex)); })) : null,
           h('div', { class: 'row' },
-            h('button', { class: 'btn', type: 'button', onclick: () => runStep(i + 1) }, '🏁 Carnet d\'erreurs & demain matin →'),
+            h('button', { class: 'btn', type: 'button', onclick: () => runStep(i + 1) }, 'Carnet d\'erreurs & demain matin →'),
             h('button', { class: 'btn alt', type: 'button', onclick: () => exam(i) }, '↻ Un autre examen blanc')));
         root.scrollIntoView({ block: 'start' });
       },
@@ -420,12 +420,12 @@
   function errorDrill() {
     const ids = Object.keys(S.errors).filter((id) => QS[id]);
     if (!ids.length) return overview();
-    runQuiz(() => h('div', { class: 'pc-head' }, h('div', { class: 'top-line' }, h('button', { class: 'linkish', type: 'button', onclick: overview }, '← Plan'), h('span', { class: 'muted' }, 'Carnet d\'erreurs')), h('h2', {}, '🔁 Refaire mes erreurs')), ids, {
+    runQuiz(() => h('div', { class: 'pc-head' }, h('div', { class: 'top-line' }, h('button', { class: 'linkish', type: 'button', onclick: overview }, '← Plan'), h('span', { class: 'muted' }, 'Carnet d\'erreurs')), h('h2', {}, 'Refaire mes erreurs')), ids, {
       onEnd(score, total, wrongIds, answers) {
         // une erreur réussie du premier coup sort du carnet
         answers.forEach((a) => { if (a.good && !wrongIds.includes(a.id)) delete S.errors[a.id]; });
         save();
-        put(root, h('div', { class: 'box center' }, h('h3', {}, `${score}/${total} erreurs corrigées`), h('p', {}, Object.keys(S.errors).length ? `Il en reste ${Object.keys(S.errors).length} dans ton carnet.` : 'Carnet vide : tout est acquis. 🎯')),
+        put(root, h('div', { class: 'box center' }, h('h3', {}, `${score}/${total} erreurs corrigées`), h('p', {}, Object.keys(S.errors).length ? `Il en reste ${Object.keys(S.errors).length} dans ton carnet.` : 'Carnet vide : tout est acquis. ')),
           h('div', { class: 'row' }, Object.keys(S.errors).length ? h('button', { class: 'btn', type: 'button', onclick: errorDrill }, '↻ Encore une fois') : null, h('button', { class: 'btn alt', type: 'button', onclick: overview }, '← Plan du parcours')));
       },
     });
@@ -436,22 +436,22 @@
     const errs = Object.entries(S.errors).filter(([id]) => QS[id]).sort((a, b) => b[1] - a[1]);
     const weak = STEPS.filter((s) => S.done[s.id] != null && S.done[s.id] >= 0 && S.done[s.id] < 70 && !s.exam);
     put(root, stepHeader(i, 'bilan'),
-      h('div', { class: 'box' }, h('h3', {}, '📓 Ton carnet d\'erreurs'), h('p', { class: 'muted' }, 'C\'est ÇA que tu relis demain matin, pas tout le cours.'),
-        errs.length ? h('ul', { class: 'pc-err' }, errs.map(([id, c]) => { const q = QS[id]; return h('li', {}, h('b', {}, q.q), ' → ', q.ok.map((o) => q.opts[o]).join(' + '), c > 1 ? h('span', { class: 'bad' }, ` (×${c})`) : null); })) : h('p', { class: 'ok' }, 'Aucune erreur en attente. 🎯'),
-        errs.length ? h('button', { class: 'btn', type: 'button', onclick: errorDrill }, `🔁 Refaire mes ${errs.length} erreurs`) : null),
-      weak.length ? h('div', { class: 'box warn' }, h('h3', {}, 'Chapitres sous 70 %'), h('div', { class: 'row' }, weak.map((s) => h('button', { class: 'btn alt', type: 'button', onclick: () => runStep(STEPS.indexOf(s)) }, `${s.icon} ${s.title} (${S.done[s.id]} %)`)))) : null,
-      h('div', { class: 'box pc-recap' }, h('h3', {}, '☀️ Demain matin (15 min)'), h('ul', {},
+      h('div', { class: 'box' }, h('h3', {}, 'Ton carnet d\'erreurs'), h('p', { class: 'muted' }, 'C\'est ÇA que tu relis demain matin, pas tout le cours.'),
+        errs.length ? h('ul', { class: 'pc-err' }, errs.map(([id, c]) => { const q = QS[id]; return h('li', {}, h('b', {}, q.q), ' → ', q.ok.map((o) => q.opts[o]).join(' + '), c > 1 ? h('span', { class: 'bad' }, ` (×${c})`) : null); })) : h('p', { class: 'ok' }, 'Aucune erreur en attente. '),
+        errs.length ? h('button', { class: 'btn', type: 'button', onclick: errorDrill }, `Refaire mes ${errs.length} erreurs`) : null),
+      weak.length ? h('div', { class: 'box warn' }, h('h3', {}, 'Chapitres sous 70 %'), h('div', { class: 'row' }, weak.map((s) => h('button', { class: 'btn alt', type: 'button', onclick: () => runStep(STEPS.indexOf(s)) }, `${s.title} (${S.done[s.id]} %)`)))) : null,
+      h('div', { class: 'box pc-recap' }, h('h3', {}, 'Demain matin (15 min)'), h('ul', {},
         h('li', {}, 'Relis ton carnet d\'erreurs (ou clique « Refaire mes erreurs »).'),
         h('li', {}, 'Relis la ', h('a', { href: '#flash' }, 'fiche flash'), '.'),
         h('li', {}, 'Redessine de tête les 7 symboles UML et l\'échelle O(1) < log n < n < n log n < n² < n³ < 2ⁿ < n!.'),
-        h('li', {}, 'Rien de nouveau : on consolide.'))),
-      h('div', { class: 'box' }, h('h3', {}, '✍️ Pendant le QCM'), h('ul', {},
+        h('li', {}, 'La veille, on révise : rien de nouveau.'))),
+      h('div', { class: 'box' }, h('h3', {}, 'Pendant le QCM'), h('ul', {},
         h('li', {}, 'Lis chaque proposition : plusieurs peuvent être justes.'),
         h('li', {}, 'Méfie-toi des mots absolus (« toujours », « jamais », « obligatoirement »).'),
         h('li', {}, 'UML : mini-croquis au brouillon. Losange côté tout, triangle vers le général, pointillés = implements / dépendance.'),
         h('li', {}, 'Complexité : compte les boucles imbriquées, regarde si l\'entrée est divisée par 2.'),
         h('li', {}, 'Garde du temps à la fin pour les questions où tu as hésité.'))),
-      h('div', { class: 'row' }, h('button', { class: 'btn alt', type: 'button', onclick: () => exam(STEPS.findIndex((s) => s.exam)) }, '⏱ Un autre examen blanc'), h('button', { class: 'btn alt', type: 'button', onclick: overview }, '← Plan du parcours')));
+      h('div', { class: 'row' }, h('button', { class: 'btn alt', type: 'button', onclick: () => exam(STEPS.findIndex((s) => s.exam)) }, 'Un autre examen blanc'), h('button', { class: 'btn alt', type: 'button', onclick: overview }, '← Plan du parcours')));
     root.scrollIntoView({ block: 'start' });
   }
 })();

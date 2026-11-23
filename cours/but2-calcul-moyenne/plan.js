@@ -81,7 +81,7 @@
       else {
         const inp = h('input', { type: 'text', inputmode: 'decimal', class: 'note-in' + (e.state === 'fixé' ? ' locked' : ''), value: fr(e.target), 'aria-label': `Cible ${e.k}` });
         inp.addEventListener('change', () => { const x = parse(inp.value); if (x != null) { p.lock[e.k] = x; save(); render(); } });
-        cell = h('span', {}, inp, e.state === 'fixé' ? h('button', { type: 'button', class: 'linkish small', title: 'Laisser GabouLearn ajuster cette cible', onclick: () => { delete p.lock[e.k]; save(); render(); } }, ' 🔓 auto') : h('span', { class: 'muted small' }, ' auto'));
+        cell = h('span', {}, inp, e.state === 'fixé' ? h('button', { type: 'button', class: 'linkish small', title: 'Laisser GabouLearn ajuster cette cible', onclick: () => { delete p.lock[e.k]; save(); render(); } }, ' auto') : h('span', { class: 'muted small' }, ' auto'));
       }
       const page = PAGES[e.k];
       return h('tr', {},
@@ -93,7 +93,7 @@
 
     box.replaceChildren(...[
       h('div', { class: 'box keep goal' },
-        h('h4', {}, '🎯 Mon objectif pour le semestre'),
+        h('h4', {}, 'Mon objectif pour le semestre'),
         h('p', {}, `Moyenne du ${S.sem} visée : `, goalIn, ' / 20 ', h('span', { class: 'muted small' }, `(BUT2 · parcours ${S.parcours} · ${S.regime === 'FA' ? 'alternance' : 'formation initiale'} · ${S.sem}, réglé dans le calculateur)`)),
         h('p', { class: 'small' }, 'La moyenne du semestre = moyenne des UE pondérée par les ECTS. Chaque ressource y pèse le « poids » indiqué ci-dessous (calculé depuis les coefficients officiels). Tes notes réelles sont reprises du calculateur ; tout le reste reçoit une ', h('b', {}, 'cible'), '. Modifie une cible : elle est fixée, et les cibles « auto » se rééquilibrent pour que l\'objectif reste atteint. Les points forts reçoivent une cible plus haute, les points faibles une cible plus basse.')),
       msg ? h('p', { class: msg[0] }, msg[1]) : null,
@@ -107,23 +107,23 @@
       h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl' }, h('tr', {}, h('th', {}, 'UE'), h('th', {}, 'ECTS'), h('th', {}, 'Moyenne prévue')),
         ues.map((u) => h('tr', {}, h('td', {}, u.name), h('td', {}, u.ects), h('td', { class: u.avg >= 10 ? 'ok' : 'bad' }, fr(u.avg)))))),
 
-      h('h3', {}, '💪 Mes points forts et points faibles'),
+      h('h3', {}, 'Mes points forts et points faibles'),
       h('p', { class: 'small muted' }, 'Coche « + fort » ou « − faible » dans le tableau, et note ce que tu veux garder en tête : ça apparaît dans ton PDF.'),
       h('div', { class: 'cols' },
         area('Mes points forts', 'forts', p, 'Ex. : algo, SQL, à l\'aise à l\'oral…'),
         area('Mes points faibles', 'faibles', p, 'Ex. : IPv6, signaux, je rends tard…')),
 
-      h('h3', {}, '🗓️ Mon plan de travail'),
+      h('h3', {}, 'Mon plan de travail'),
       h('p', {}, 'Temps de travail perso par semaine : ', hoursIn, ' h'),
       todo.length ? h('ol', { class: 'prio' }, todo.slice(0, 8).map((e) => h('li', {},
         h('b', {}, `${e.k.startsWith('R') ? e.k + ' ' : ''}${e.label}`), ` · vise ${fr(e.target)} · ≈ ${fr(e.hours, 1)} h / semaine`,
         e.prof === 'faible' ? h('span', { class: 'bad small' }, ' · point faible') : e.prof === 'fort' ? h('span', { class: 'ok small' }, ' · point fort') : null,
-        PAGES[e.k] ? h('span', {}, ' · ', h('a', { href: `../${PAGES[e.k]}/` }, 'réviser sur GabouLearn')) : null))) : h('p', { class: 'ok' }, 'Plus rien à évaluer ce semestre. 🎯'),
+        PAGES[e.k] ? h('span', {}, ' · ', h('a', { href: `../${PAGES[e.k]}/` }, 'réviser sur GabouLearn')) : null))) : h('p', { class: 'ok' }, 'Plus rien à évaluer ce semestre. '),
       h('p', { class: 'small muted' }, 'Ordre = poids dans le semestre × difficulté (point faible ×1,6, point fort ×0,6). Le temps est réparti dans la même proportion.'),
 
       h('div', { class: 'box launch' },
         h('p', {}, 'Prénom à afficher sur le PDF (facultatif) : ', nameIn(p)),
-        h('button', { class: 'btn', type: 'button', onclick: () => pdf(M) }, '📄 Télécharger mon plan en PDF (signé GabouLearn)'),
+        h('button', { class: 'btn', type: 'button', onclick: () => pdf(M) }, 'Télécharger mon plan en PDF (signé GabouLearn)'),
         h('p', { class: 'muted small' }, 'Le PDF est fabriqué dans ton navigateur : rien n\'est envoyé.')),
     ].filter(Boolean));
   }

@@ -242,7 +242,7 @@ const QUESTIONS = RAW.map(([id, ch, q, opts, ok, ex]) => ({ id: String(id), ch, 
 const STEPS = [
  {
   "id": "arith",
-  "icon": "🧮",
+  "icon": "",
   "title": "Arithmétique modulaire",
   "min": 8,
   "anchor": "r309",
@@ -273,7 +273,7 @@ const STEPS = [
  },
  {
   "id": "sym",
-  "icon": "🔐",
+  "icon": "",
   "title": "César, substitution, permutation, Vigenère",
   "min": 9,
   "star": true,
@@ -305,7 +305,7 @@ const STEPS = [
  },
  {
   "id": "asym",
-  "icon": "🗝️",
+  "icon": "",
   "title": "RSA, Diffie-Hellman, Hamming",
   "min": 9,
   "anchor": "r309",
@@ -335,7 +335,7 @@ const STEPS = [
  },
  {
   "id": "exam",
-  "icon": "⏱️",
+  "icon": "",
   "title": "Examen blanc",
   "min": 11,
   "exam": 15,
@@ -344,7 +344,7 @@ const STEPS = [
  },
  {
   "id": "fin",
-  "icon": "🏁",
+  "icon": "",
   "title": "Carnet d'erreurs & avant le contrôle",
   "min": 3,
   "final": true,

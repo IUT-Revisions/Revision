@@ -1,0 +1,48 @@
+/* GabouLearn — couche « sobre » (passe unslop) : chargée en dernier sur chaque page.
+   Moins d'effets décoratifs : filets plutôt qu'ombres, arrondis modérés, boutons et étiquettes discrets. */
+:root { --shadow: none; --radius: 10px; }
+body { -webkit-font-smoothing: antialiased; line-height: 1.55; }
+
+/* surfaces : un filet, pas d'ombre portée */
+html body .card, html body .box, html body .course, html body .kpi, html body .tr-card {
+  box-shadow: none; border: 1px solid var(--line); border-radius: var(--radius);
+}
+html body .course { padding: 16px; transition: border-color .15s; }
+html body .course:hover { transform: none; border-color: var(--accent); }
+html body .course .name { font-size: 1.12rem; font-weight: 700; }
+html body .course .code { font-weight: 700; font-size: .85rem; letter-spacing: .02em; background: none; padding: 0; border-radius: 0; }
+
+/* boutons : poids et taille normaux */
+html body .btn { font-weight: 600; font-size: 1rem; padding: 10px 16px; border-radius: 8px; transition: background-color .15s, filter .15s; }
+html body .btn:active { transform: none; }
+html body .launch { border: 1px solid var(--line); }
+html body .launch .btn { font-size: 1rem; padding: 12px 20px; }
+html body .hero-cta .btn { font-size: 1rem; }
+html body .fab { border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, .18); padding: 10px 14px; }
+
+/* étiquettes : texte discret plutôt que pastilles colorées */
+html body .theme-tag { background: none; border: 1px solid var(--line); color: var(--muted); font-weight: 600; border-radius: 6px; padding: 1px 7px; }
+html body .lv, html body .pill { border-radius: 6px; }
+
+/* titres : hiérarchie par la taille, pas par la décoration */
+html body .book h1 { font-size: clamp(1.7rem, 5vw, 2.1rem); letter-spacing: -.01em; }
+html body .hero h1 { font-size: clamp(2rem, 7vw, 2.4rem); }
+html body .book h2 { border-bottom-width: 1px; }
+
+/* parcours guidé : étapes numérotées, cartes plus sobres */
+html body .pc-step { border-width: 1px; border-radius: 8px; font-weight: 600; }
+html body .pc-ic { font-size: .85rem; font-weight: 700; background: var(--soft); }
+html body .pc-card { border-width: 1px; border-radius: 8px; font-weight: 600; }
+html body .pc-check, html body .pc-opt, html body .uj-opt { border-radius: 8px; }
+html body .explain { border-radius: 0 8px 8px 0; }
+
+/* champs */
+html body input[type=text], html body textarea, html body .note-in { border-width: 1px; border-radius: 8px; }
+
+/* petits écrans : marges et tailles lisibles */
+@media (max-width: 560px) {
+  html body .book { padding-left: 14px; padding-right: 14px; }
+  html body .btn { padding: 10px 14px; }
+  html body .box { padding: .9em 1em; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

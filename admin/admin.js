@@ -29,7 +29,7 @@
   }
 
   function shell(body) {
-    const tabs = h('div', { class: 'seg' }, [['cours', '📚 Cours'], ['comptes', '👥 Comptes'], ['journal', '📜 Journal']].map(([k, l]) => h('button', { type: 'button', class: k === tab ? 'on' : '', onclick: () => { tab = k; say(''); render(); } }, l)));
+    const tabs = h('div', { class: 'seg' }, [['cours', 'Cours'], ['comptes', 'Comptes'], ['journal', 'Journal']].map(([k, l]) => h('button', { type: 'button', class: k === tab ? 'on' : '', onclick: () => { tab = k; say(''); render(); } }, l)));
     app.replaceChildren(h('p', { class: 'muted small' }, `Connecté : ${me.email} (admin)`), tabs, msg, body);
   }
   async function render() {
@@ -77,7 +77,7 @@
     const conf = rows.filter((p) => p.confirmed_at).length;
     return h('div', {},
       h('div', { class: 'kpis' }, h('div', { class: 'kpi' }, h('b', {}, rows.length), h('span', {}, 'comptes')), h('div', { class: 'kpi' }, h('b', {}, conf), h('span', {}, 'adresses confirmées')), h('div', { class: 'kpi' }, h('b', {}, rows.filter((p) => p.blocked).length), h('span', {}, 'bloqués'))),
-      h('div', { class: 'toolbar' }, q, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('comptes', rows.map((p) => ({ email: p.email, role: p.role, confirme: p.confirmed_at || '', cree: p.created_at, derniere_connexion: p.last_login_at || '', bloque: p.blocked }))) }, '⬇ Export CSV')),
+      h('div', { class: 'toolbar' }, q, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('comptes', rows.map((p) => ({ email: p.email, role: p.role, confirme: p.confirmed_at || '', cree: p.created_at, derniere_connexion: p.last_login_at || '', bloque: p.blocked }))) }, 'Export CSV')),
       h('p', { class: 'small muted' }, 'Bloquer retire l\'accès aux fonctions du compte sur le site. Pour empêcher toute connexion, bannis aussi le compte dans Supabase (Authentication → Users).'),
       h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' }, h('thead', {}, h('tr', {}, ['Adresse', 'Rôle', 'IUT', 'E-mail', 'Créé', 'Dernière connexion', '', ''].map((t) => h('th', {}, t)))), tbody)));
   }
@@ -95,7 +95,7 @@
     kind.addEventListener('change', () => load().catch((e) => say(e.message)));
     await load();
     return h('div', {},
-      h('div', { class: 'toolbar' }, kind, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('journal', rows.map((e) => ({ date: e.at, evenement: e.kind, email: e.email || '', detail: JSON.stringify(e.detail || {}) }))) }, '⬇ Export CSV')),
+      h('div', { class: 'toolbar' }, kind, h('button', { class: 'btn alt', type: 'button', onclick: () => csv('journal', rows.map((e) => ({ date: e.at, evenement: e.kind, email: e.email || '', detail: JSON.stringify(e.detail || {}) }))) }, 'Export CSV')),
       h('p', { class: 'small muted' }, 'Inscriptions, confirmations d\'adresse et connexions sont enregistrées par la base elle-même. Seules les adresses @etu.univ-amu.fr peuvent s\'inscrire. Le journal est conservé 12 mois.'),
       h('div', { class: 'tbl' }, h('table', { class: 'calc-tbl adm-tbl' }, h('thead', {}, h('tr', {}, ['Date', 'Événement', 'Compte', 'Détail'].map((t) => h('th', {}, t)))), tbody)));
   }

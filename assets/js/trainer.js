@@ -167,8 +167,8 @@
       }, h('span', { class: 'kbd' }, i + 1), ' ', c)));
     }
     const feedback = show ? h('div', {},
-      h('h3', { class: 'center', style: 'margin:14px 0 0' }, isGood(q, ans) ? '✅ Juste' : `❌ Raté${q.type === 'num' ? ` (vous : ${answerText(q, ans)})` : ''}`),
-      h('div', { class: 'explain' }, '📌 ', q.ex),
+      h('h3', { class: 'center', style: 'margin:14px 0 0' }, isGood(q, ans) ? 'Juste' : `Raté${q.type === 'num' ? ` (vous : ${answerText(q, ans)})` : ''}`),
+      h('div', { class: 'explain' }, '', q.ex),
       h('button', { class: 'btn block', style: 'margin-top:12px', id: 'tr-next', onclick: next }, S.i + 1 < S.qs.length ? 'Question suivante ↵' : 'Voir mon résultat ↵')) : null;
     root.replaceChildren(h('div', { class: 'tr-card' }, head,
       q.context ? h('div', { class: 'context' }, q.context) : null,
@@ -183,7 +183,7 @@
     const n = S.qs.length;
     const good = S.qs.filter((q, i) => isGood(q, S.answers[i])).length;
     const note = Math.round((20 * good / n) * 10) / 10;
-    const mention = note >= 18 ? '🏆 Irréprochable' : note >= 14 ? '🔥 Très bien' : note >= 10 ? '👍 Validé' : '📖 À retravailler';
+    const mention = note >= 18 ? 'Irréprochable' : note >= 14 ? 'Très bien' : note >= 10 ? 'Validé' : 'À retravailler';
     const byTheme = {};
     S.qs.forEach((q, i) => { const b = byTheme[q.t] || (byTheme[q.t] = [0, 0]); b[1]++; if (isGood(q, S.answers[i])) b[0]++; });
     const wrong = S.qs.map((q, i) => ({ q, a: S.answers[i] })).filter((x) => !isGood(x.q, x.a));
@@ -221,7 +221,7 @@
     for (const s of Object.values(stats)) { const b = per[s.t] || (per[s.t] = [0, 0]); b[0] += s.ok; b[1] += s.ok + s.ko; }
     const seen = Object.keys(per).length;
     root.replaceChildren(seen ? h('div', { class: 'tr-card' },
-      h('h3', { style: 'margin-top:0' }, '📊 Mes résultats par chapitre'),
+      h('h3', { style: 'margin-top:0' }, 'Mes résultats par chapitre'),
       h('table', {}, Object.entries(TH).map(([t, label]) => {
         const [g, tot] = per[t] || [0, 0];
         const pct = tot ? Math.round(100 * g / tot) : 0;

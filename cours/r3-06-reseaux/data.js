@@ -320,7 +320,7 @@ const QUESTIONS = RAW.map(([id, ch, q, opts, ok, ex]) => ({ id: String(id), ch, 
 const STEPS = [
  {
   "id": "dhcp",
-  "icon": "📡",
+  "icon": "",
   "title": "DHCP",
   "min": 8,
   "star": true,
@@ -356,7 +356,7 @@ const STEPS = [
  },
  {
   "id": "nat",
-  "icon": "🔁",
+  "icon": "",
   "title": "NAT et PAT",
   "min": 7,
   "anchor": "reseaux",
@@ -386,7 +386,7 @@ const STEPS = [
  },
  {
   "id": "ipv6a",
-  "icon": "🔢",
+  "icon": "",
   "title": "Adressage IPv6",
   "min": 9,
   "star": true,
@@ -427,7 +427,7 @@ const STEPS = [
  },
  {
   "id": "ipv6b",
-  "icon": "🛰️",
+  "icon": "",
   "title": "SLAAC, NDP et DHCPv6",
   "min": 8,
   "star": true,
@@ -463,7 +463,7 @@ const STEPS = [
  },
  {
   "id": "exam",
-  "icon": "⏱️",
+  "icon": "",
   "title": "Examen blanc",
   "min": 14,
   "exam": 15,
@@ -472,7 +472,7 @@ const STEPS = [
  },
  {
   "id": "fin",
-  "icon": "🏁",
+  "icon": "",
   "title": "Carnet d'erreurs & avant le contrôle",
   "min": 3,
   "final": true,

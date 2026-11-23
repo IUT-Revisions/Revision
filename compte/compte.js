@@ -67,7 +67,7 @@
         if (!A.AMU.test(mail)) return say('Inscription réservée aux adresses étudiantes @etu.univ-amu.fr.');
         if (a !== b) return say('Les deux mots de passe ne sont pas identiques.');
         if (!pwOk(a)) return say(PWRULE);
-        busy(btn, async () => { await A.signUp(mail, a); form.replaceChildren(h('h3', {}, '📬 Vérifie ta boîte mail'), h('p', {}, `Un lien de confirmation a été envoyé à ${mail}. Clique dessus pour activer ton compte (pense aux courriers indésirables).`)); });
+        busy(btn, async () => { await A.signUp(mail, a); form.replaceChildren(h('h3', {}, 'Vérifie ta boîte mail'), h('p', {}, `Un lien de confirmation a été envoyé à ${mail}. Clique dessus pour activer ton compte (pense aux courriers indésirables).`)); });
       });
     } else {
       const em = field('Adresse e-mail étudiante', { type: 'email', autocomplete: 'username', required: true });
@@ -94,14 +94,14 @@
     } }, 'Supprimer mon compte');
     app.replaceChildren(
       h('div', { class: 'box keep' },
-        h('h2', {}, '👤 Mon compte'),
+        h('h2', {}, 'Mon compte'),
         h('p', {}, h('b', {}, (p && p.email) || (A.user && A.user.email) || '')),
         h('ul', { class: 'small' },
           h('li', {}, 'Rôle : ', p && p.role === 'admin' ? h('b', {}, 'administrateur') : 'étudiant'),
           h('li', {}, 'Compte créé le ', date(p && p.created_at)),
           h('li', {}, 'Adresse confirmée le ', date(p && p.confirmed_at)),
           h('li', {}, 'Dernière connexion : ', date(p && p.last_login_at))),
-        p && p.role === 'admin' ? h('p', {}, h('a', { class: 'btn', href: '../admin/' }, '🛠️ Ouvrir l\'administration')) : null,
+        p && p.role === 'admin' ? h('p', {}, h('a', { class: 'btn', href: '../admin/' }, 'Ouvrir l\'administration')) : null,
         h('div', { class: 'row' }, chg, out)),
       h('p', { class: 'center' }, del),
       msg);
@@ -116,8 +116,11 @@
       }
       let force = false; try { force = sessionStorage.getItem('gl-force-pw') === '1'; } catch { /* ignore */ }
       if (force && A.session) return forcePassword('Choisis ton mot de passe', 'Termine la création de ton compte en choisissant ton mot de passe.');
-      if (type === 'signup' || type === 'email_change') say('Adresse confirmée : ton compte est actif. ✅', true);
+      if (type === 'signup' || type === 'email_change') say('Adresse confirmée : ton compte est actif. ', true);
     } catch (e) { say(e.message); }
+    const anchor = location.hash;
+    if (anchor === '#mdp' && A.session) return forcePassword('Changer mon mot de passe', 'Choisis un nouveau mot de passe.');
+    if (anchor === '#inscription' && !A.session) return guest('signup');
     await account();
   })();
 })();

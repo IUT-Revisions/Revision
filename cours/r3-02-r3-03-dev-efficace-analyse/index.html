@@ -168,16 +168,16 @@
   .linkish { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
   @media print { .no-print, #parcours-section, .fab, .launch, .chap-cta, .hero-cta { display: none !important; } body { background: #fff; } }
 </style>
+<link rel="stylesheet" href="../../assets/css/sobre.css">
 </head>
 <body>
 <main class="book">
 <p class="no-print"><a href="../../">← Toutes les matières</a></p>
-<div style="text-align:center;font-size:3rem" aria-hidden="true">🧩</div>
 <h1>R3.02 · R3.03 Interactive</h1>
 <p class="sub">Développement efficace + Analyse · BUT informatique, semestre 3 · examen QCM, 2 parties, 2 notes</p>
 
 <div class="hero-cta no-print">
-  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>2 h</span> en moyenne</button>
+  <button class="btn" type="button" data-parcours="">Lancer le parcours guidé · ≈ <span data-total-time>2 h</span></button>
   <p class="muted">Ou lis d'abord le cours ci-dessous : le bouton du parcours t'attend à la fin.</p>
 </div>
 
@@ -187,16 +187,16 @@
   <li><a href="#eco">Écoinformatique</a></li>
   <li><a href="#exigences">Analyse des exigences</a></li>
   <li><a href="#uml">Modélisation objet & UML</a></li>
-  <li><a href="#associations">⭐ Toutes les associations UML</a></li>
+  <li><a href="#associations">Toutes les associations UML</a></li>
   <li><a href="#complexite">Complexité algorithmique</a></li>
   <li><a href="#structures">Structures de données</a></li>
   <li><a href="#tris">Algorithmes de tri</a></li>
   <li><a href="#java">Java efficace</a></li>
   <li><a href="#ecoweb">Écoconception web</a></li>
-  <li><a href="#tps">⭐ Tes TPs, sujet par sujet</a></li>
-  <li><a href="#entrainement">🏋️ Entraînement UML ↔ Java</a></li>
-  <li><a href="#flash">⚡ Fiche flash</a></li>
-  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+  <li><a href="#tps">Tes TPs, sujet par sujet</a></li>
+  <li><a href="#entrainement">Entraînement UML ↔ Java</a></li>
+  <li><a href="#flash">Fiche flash</a></li>
+  <li><a href="#parcours-section">Parcours guidé interactif</a></li>
 </ol>
 </nav>
 
@@ -221,7 +221,7 @@
   <div class="box"><b>Simplicité</b> (qualitative) : chaque besoin couvert par un ensemble cohérent de fonctionnalités, une interface homogène. <b>Frugalité</b> (quantitative) : couverture et profondeur fonctionnelles au strict minimum.</div>
   <div class="box warn"><h4>Piège QCM</h4><b>Pertinence = utilité × rapidité × accessibilité</b> : un produit, pas une somme. Un facteur faible ⇒ l'utilisateur change de service ⇒ 100 % d'impacts inutiles.</div>
 </div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">🎯 Étape « Écoinformatique » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">Étape « Écoinformatique » du parcours</button></p>
 
 <!-- ============================================================ 2 -->
 <h2 id="exigences">2. Analyse des exigences <small class="muted">(slides 30-52)</small></h2>
@@ -250,7 +250,7 @@
 <h3>Diagramme de séquence</h3>
 <p>Participants « <u>objet : Classe</u> » soulignés, <b>ligne de vie</b> verticale pointillée, <b>appel = flèche pleine</b>, <b>retour = flèche pointillée</b>, exécution = barre d'activation. Un message reçu par un objet devient une <b>méthode de sa classe</b>. Modélisations de système (§8.4) : contextuelles, comportementales, orientées données, orientées objet.</p>
 <div class="box tp"><h4>Dans ton TP</h4>Contrôle d'accès : clavier 4 chiffres, voyants rouge/vert (multiplicité <b>2</b>), minuteur 5 s / 20 s, porte, alarme, base de codes. saisirChiffre → chiffreSaisi → verifierCode → deverrouiller → ouvrir. Pas de message entre deux acteurs.</div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="exig">🎯 Étape « Exigences » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="exig">Étape « Exigences » du parcours</button></p>
 
 <!-- ============================================================ 3 -->
 <h2 id="uml">3. Modélisation objet & UML <small class="muted">(slides 52-61)</small></h2>
@@ -268,10 +268,10 @@
   <tr><td>Cardinality / Note</td><td>1..* / rectangle à coin plié</td></tr>
 </table></div>
 <div class="box warn"><h4>Piège QCM</h4>En UML standard, généralisation = héritage = <b>trait plein</b> ; la flèche pointillée s'appelle <b>réalisation</b>. Retiens : <b>plein = extends, pointillé = implements</b>.</div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="uml">🎯 Étape « UML » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="uml">Étape « UML » du parcours</button></p>
 
 <!-- ============================================================ 4 -->
-<h2 id="associations">4. ⭐ Toutes les associations UML</h2>
+<h2 id="associations">4. Toutes les associations UML</h2>
 <p>Une relation exprime qu'un objet <b>connaît</b>, <b>contient</b>, <b>est une sorte de</b> ou <b>utilise</b> un autre. De la plus faible à la plus forte :</p>
 <div class="tbl"><table>
   <tr><th>Relation</th><th>Symbole</th><th>Se lit</th><th>En Java</th></tr>
@@ -317,7 +317,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td>Exemple</td><td>Personne — Voiture</td><td>Université ◇ Étudiant</td><td>Université ◆ Département</td></tr>
 </table></div>
 <div class="box warn"><h4>Piège QCM</h4>Losange vide à 3 branches = <b>n-aire</b>. En composition, multiplicité côté composite <b>≤ 1</b>. Héritage et réalisation : <b>ni multiplicité ni rôle</b>. Le <b>triangle plein n'existe pas</b>.</div>
-<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">🏋️ S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="assoc">🎯 Étape « Associations » du parcours</button></p>
+<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="assoc">Étape « Associations » du parcours</button></p>
 
 <!-- ============================================================ 5 -->
 <h2 id="complexite">5. Complexité algorithmique <small class="muted">(slides 62-76)</small></h2>
@@ -335,7 +335,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
 </table></div>
 <div class="box warn"><h4>Piège QCM</h4>Quand n double : O(n) ×2 · O(n²) <b>×4</b> · O(n³) <b>×8</b> · O(log n) +1 étape · O(n log n) un peu plus que ×2. On garde le terme dominant : 3n² + 5n + 2 ⇒ O(n²) ; n/2 ⇒ O(n). La cryptographie repose sur l'absence d'algorithme polynomial connu de factorisation.</div>
 <div class="box tp"><h4>Dans ton TP</h4>TP6 : <code>System.nanoTime()</code> avant/après, ÷ 1 000 000 pour des ms (sert à mesurer une durée, pas l'heure). Taille ×10 ⇒ temps un peu plus que ×10 ⇒ n log n. Petites tailles peu fiables (JVM pas encore « chauffée »).</div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="cplx">🎯 Étape « Complexité » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="cplx">Étape « Complexité » du parcours</button></p>
 
 <!-- ============================================================ 6 -->
 <h2 id="structures">6. Structures de données <small class="muted">(slides 77-106)</small></h2>
@@ -369,7 +369,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td>Arbre binaire</td><td>tout rapide si équilibré</td><td>suppression complexe</td></tr>
   <tr><td>Table de hachage</td><td>O(1) en moyenne par clé</td><td>collisions, pas d'ordre</td></tr>
 </table></div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="struct">🎯 Étape « Structures » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="struct">Étape « Structures » du parcours</button></p>
 
 <!-- ============================================================ 7 -->
 <h2 id="tris">7. Algorithmes de tri <small class="muted">(slides 107-118)</small></h2>
@@ -401,7 +401,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td>triée 10 000</td><td>142 ms</td><td>0,94 ms</td><td>0,52 ms</td><td>1,5 ms</td></tr>
   <tr><td>triée 50 000</td><td>StackOverflow</td><td>5,8 ms</td><td>3,3 ms</td><td>8,5 ms</td></tr>
 </table></div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="tri">🎯 Étape « Tris » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="tri">Étape « Tris » du parcours</button></p>
 
 <!-- ============================================================ 8 -->
 <h2 id="java">8. Java efficace <small class="muted">(Effective Java, J. Bloch, 3e éd.)</small></h2>
@@ -426,7 +426,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td><b>63</b> Concaténation</td><td><code>+=</code> en boucle = temps <b>quadratique</b> ⇒ <code>StringBuilder</code> (6,5× plus rapide).</td></tr>
   <tr><td><b>85</b> Sérialisation</td><td>très risquée (ransomware du métro de San Francisco, 2016) : ne pas l'utiliser, ne jamais désérialiser des données non fiables.</td></tr>
 </table></div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="java">🎯 Étape « Java efficace » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="java">Étape « Java efficace » du parcours</button></p>
 
 <!-- ============================================================ 9 -->
 <h2 id="ecoweb">9. Écoconception web <small class="muted">(115 bonnes pratiques, F. Bordage)</small></h2>
@@ -451,13 +451,13 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td>59 / 61 / 62</td><td>liens de partage HTML ; valider au W3C ; cookies petits, <code>Set-Cookie: x=; Max-Age=0</code></td><td></td></tr>
   <tr><td>63 / 64 / 69</td><td>TINYINT &lt; SMALLINT &lt; INT &lt; BIGINT ; IndexedDB, localStorage ; thème CMS simple</td><td>extensions ≤ 10</td></tr>
 </table></div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">🎯 Étape « Écoinformatique & écoconception » du parcours</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="eco">Étape « Écoinformatique & écoconception » du parcours</button></p>
 
 <!-- ============================================================ 10 -->
 <h2 id="tps">10. Tes TPs, sujet par sujet</h2>
 <div class="box keep"><h4>Le contrôle</h4>Un <b>questionnaire Ametice (Moodle)</b> qui mélange des questions d'<b>Analyse</b> (R3.03) et de <b>Dév. efficace</b> (R3.02). Les rendus git de chaque TP comptent aussi (assiduité + qualité par échantillonnage). Au total, 4 notes, 2 par ressource. Les 8 TPs de J.-P. Prost ci-dessous sont la priorité.</div>
 
-<h3 id="tp-analyse">📐 Analyse : TP1, TP3, TP5, TP7</h3>
+<h3 id="tp-analyse">Analyse : TP1, TP3, TP5, TP7</h3>
 <div class="tbl"><table>
   <tr><th>TP</th><th>Ce que dit le sujet</th><th>Les exercices et leurs réponses clés</th></tr>
   <tr><td><b>TP1</b> · Cas d'utilisation</td><td>Objectif : <b>recueillir, analyser, organiser les besoins</b> et recenser les grandes fonctionnalités. <b>Acteur</b> = rôle joué par une entité <b>externe</b> (humain, dispositif matériel, autre système) qui interagit <b>directement</b> ; frontière du système : dehors = acteur, dedans = fonctionnalité ; non humain ⇒ rectangle «actor». <b>Cas</b> = séquence d'actions au résultat observable pour un acteur, nommé <b>verbe à l'infinitif + complément</b> ; l'ensemble décrit <b>exhaustivement</b> les exigences fonctionnelles. Relations entre cas : secondaires. Interdit d'ajouter une fonctionnalité sans le client. Pas une approche objet (analyse fonctionnelle).</td><td><b>Train</b> : Voyageur ; acteur secondaire <b>machine centrale</b> (met à jour les tarifs) ; erreurs (temps trop long, annulation, plus de papier) greffées sur « Acheter un billet ». <b>Ascenseur</b> : Passager ; « Choisir étage » à décrire en texte. <b>Repas</b> : individus, groupes (choix aussi par e-mail), organismes subventionneurs, cuisine industrielle, service de livraison. <b>GAB</b> : Porteur de carte, Client banque, Opérateur de maintenance ; secondaires : système d'autorisation, SI de la banque.</td></tr>
@@ -466,7 +466,7 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td><b>TP7</b> · Séquence</td><td>Vue <b>temporelle</b> des interactions ; un diagramme par scénario. Lignes de vie ; barre = entité <b>active</b> ; X = destruction ; « xxx:A » = instance xxx de A. Message <b>synchrone</b> : bloque l'expéditeur. <b>Asynchrone</b> : l'expéditeur continue, le message peut être ignoré. <b>Pas de message entre deux acteurs.</b> Message reçu par un objet de A ⇒ <b>méthode de A</b> (cohérence, on complète le diagramme de classes).</td><td><b>Accès bâtiment</b> : code à 4 chiffres en <b>5 s</b>, voyant rouge en attente, vert dès le 1<sup>er</sup> chiffre, vérification en base, <b>20 s</b> pour ouvrir, entrer et refermer, sinon <b>alarme</b> et redémarrage manuel ; archivage de <b>toutes</b> les tentatives (code, jour, heure) dans un fichier. Scénarios : nominal, saisie &gt; 5 s, entrée &gt; 20 s, code faux.</td></tr>
 </table></div>
 
-<h3 id="tp-dev">🧮 Dév. efficace : TP2, TP4, TP6, TP8</h3>
+<h3 id="tp-dev">Dév. efficace : TP2, TP4, TP6, TP8</h3>
 <div class="tbl"><table>
   <tr><th>TP</th><th>Ce que dit le sujet</th><th>Les réponses à connaître</th></tr>
   <tr><td><b>TP2</b> · Listes chaînées</td><td>Structures <b>sans sentinelles</b>. SinglyListClass récursive d'Integer : size, isEmpty, first, last, addFirst, addLast, removeFirst. Sur liste vide : <b>retourner null</b> sans modifier. <code>private static class Node</code> imbriquée. Puis liste double, equals(), comptage d'une liste circulaire, <code>MyLinkedList&lt;T&gt; implements List&lt;T&gt;</code> testée avec les 10 meilleurs scores.</td><td>Sans <code>static</code>, Node serait une classe <b>interne</b> liée à une instance de la liste (référence cachée). Avant-dernier : avancer tant que <code>cur.next.next != null</code>, O(n). <b>Inverser</b> en espace O(1) sans récursivité : 3 pointeurs prev / cur / next. Liste circulaire : compter jusqu'à revenir au nœud de départ. Milieu sans compteur : deux pointeurs (tête + queue qui se rejoignent, ou lent + rapide). Concaténer 2 listes à sentinelles : O(1).</td></tr>
@@ -474,9 +474,9 @@ class Lutin extends Humanoide implements Travailleur, Divertissable { }    // 1 
   <tr><td><b>TP6</b> · Tris</td><td>Tri à bulles du CM (écrit pour un tableau) <b>adapté à une liste doublement chaînée</b>. Quicksort sur <code>ArrayList&lt;&gt;</code> après un déroulé pas à pas de la partition. Passage à l'échelle : <code>randomInit(Integer[] input, int size)</code>, mesures avec <code>System.nanoTime()</code>, relevés en CSV.</td><td>nanoTime = <b>nanosecondes</b>, par différence (÷ 10⁶ ⇒ ms). Pire cas du quicksort : <b>O(n²)</b>. <b>Randomisé</b> : position du pivot tirée au hasard, le reste inchangé. <b>Médiane-de-trois</b> (tête, milieu, queue) : {27, 4, 15} ⇒ 15 ; c'est une <b>heuristique</b> (rapide, assez bonne, sans garantie), généralisable à plus de 3 valeurs. Bulles sur liste : échanger les <b>éléments</b>, pas les nœuds.</td></tr>
   <tr><td><b>TP8</b> · Collections et Maps</td><td>Choisir la collection la plus adaptée et apprendre à se documenter (javadoc, tutoriel Oracle, Guava). Compétition : Participant, Amateur (score, non classés), Competiteur (classés par score). Annuaire : numéro (long) indexé par nom.</td><td>Amateurs ⇒ <code>HashSet</code> (ou List). Compétiteurs toujours triés ⇒ <b><code>TreeSet</code></b> + <code>Competiteur implements Comparable&lt;Competiteur&gt;</code> (ou Comparator). <b>Piège</b> : même score ⇒ compareTo = 0 ⇒ le TreeSet n'ajoute pas le second, il faut départager. Annuaire ⇒ <code>Map&lt;String, Long&gt;</code> : HashMap O(1) en moyenne, TreeMap pour l'ordre alphabétique en O(log n).</td></tr>
 </table></div>
-<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="tpa">📐 Étape « TPs Analyse »</button> <button class="btn alt" type="button" data-parcours="tpd">🧮 Étape « TPs Dév. efficace »</button></p>
+<p class="chap-cta no-print"><button class="btn alt" type="button" data-parcours="tpa">Étape « TPs Analyse »</button> <button class="btn alt" type="button" data-parcours="tpd">Étape « TPs Dév. efficace »</button></p>
 
-<h3 id="r304">🎄 Bonus R3.04 (M. Martin-Nevot) : TD1 à TD3, peuvent aussi tomber</h3>
+<h3 id="r304">Bonus R3.04 (M. Martin-Nevot) : TD1 à TD3, peuvent aussi tomber</h3>
 <p class="muted">D'après les énoncés de « Qualité de développement » (R3.04) sur le site de M. Martin-Nevot.</p>
 <h4 class="tdh">TD1-1 · Gestion d'une bibliothèque</h4>
 <div class="tbl"><table>
@@ -520,10 +520,10 @@ class ProHome extends Home {          // + employeeNb
   <tr><td>Village : Père Noël, superficie et capacité max, bâtiments ; <code>main</code> = boucle temporelle aléatoire</td><td><b>Village ◆ Bâtiment</b> (composition) ; <b>Bâtiment ◇ Personnage</b> (agrégation : transfert possible) ; itérer sur une <b>copie</b> quand on modifie la liste (sinon ConcurrentModificationException)</td></tr>
 </table></div>
 
-<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">🏋️ S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="r304">🎄 Étape « Bonus R3.04 »</button></p>
+<p class="chap-cta no-print"><a class="btn alt" href="#entrainement">S'entraîner UML ↔ Java</a> <button class="btn alt" type="button" data-parcours="r304">Étape « Bonus R3.04 »</button></p>
 
 <!-- ============================================================ entraînement -->
-<h2 id="entrainement">🏋️ Entraînement UML ↔ Java</h2>
+<h2 id="entrainement">Entraînement UML ↔ Java</h2>
 <p>Un diagramme de classes → choisis le bon code Java. Un code Java → choisis le bon diagramme. Les trois mauvaises réponses ne diffèrent que d'<b>un seul détail</b>, comme au QCM.</p>
 <section class="box no-print" id="entrainement-box">
   <div id="uml-java"><p class="muted">Chargement de l'entraînement…</p></div>
@@ -531,7 +531,7 @@ class ProHome extends Home {          // + employeeNb
 <noscript><p class="muted">L'entraînement interactif nécessite JavaScript.</p></noscript>
 
 <!-- ============================================================ flash -->
-<h2 id="flash">⚡ Fiche flash (veille et matin de l'examen)</h2>
+<h2 id="flash">Fiche flash (veille et matin de l'examen)</h2>
 <div class="flash">
   <div class="box"><h3>Organisation</h3><p>2 ressources, 2 notes : (TD/TP 0,5 + examen 0,5) × 2. StarUML, Eclipse, GitHub, Ametice.</p></div>
   <div class="box"><h3>Jour de dépassement</h3><p>J = B/E × 365 (hectares globaux). Monde 2026 : 30 juillet. France 2026 : 24 avril (2023 : 5 mai).</p></div>
@@ -554,8 +554,8 @@ class ProHome extends Home {          // + employeeNb
 <section class="box launch no-print">
   <h2 style="border:0;margin-top:0">Prêt pour le contrôle ?</h2>
   <p>Le parcours guidé reprend tout le cours en <b>14 étapes</b> : l'essentiel, des cartes à réciter, des exercices interactifs (symboles UML, ordre des complexités, parcours d'arbre, partition du quicksort, évaluation NPI), des quiz corrigés, un examen blanc et ton carnet d'erreurs.</p>
-  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
-  <p class="time">⏱ Temps moyen : <b data-total-time>2 h</b> · ta progression est enregistrée dans ce navigateur</p>
+  <button class="btn" type="button" data-parcours="">Suivre le parcours interactif</button>
+  <p class="time">Temps moyen : <b data-total-time>2 h</b> · ta progression est enregistrée dans ce navigateur</p>
 </section>
 <section id="parcours-section" class="box train no-print" hidden>
   <div id="parcours"></div>
@@ -563,7 +563,7 @@ class ProHome extends Home {          // + employeeNb
 
 <p class="muted" style="text-align:center;margin-top:2em">Fiche établie à partir du CM de J.-P. Prost (199 slides) et des TPs de R3.02 / R3.03. En cas de doute, la version de l'enseignant fait foi pour l'examen.</p>
 </main>
-<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">Parcours</a>
 <script src="data.js"></script>
 <script src="parcours.js"></script>
 <script src="uml-java.js"></script>

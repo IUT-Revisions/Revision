@@ -138,7 +138,7 @@ const QUESTIONS = RAW.map(([id, ch, q, opts, ok, ex]) => ({ id: String(id), ch, 
 const STEPS = [
  {
   "id": "cond",
-  "icon": "🔀",
+  "icon": "",
   "title": "Conditionnelles et indépendance",
   "min": 4,
   "anchor": "conditionnelles",
@@ -159,7 +159,7 @@ const STEPS = [
  },
  {
   "id": "lois",
-  "icon": "📊",
+  "icon": "",
   "title": "Lois usuelles",
   "min": 7,
   "star": true,
@@ -187,7 +187,7 @@ const STEPS = [
  },
  {
   "id": "limites",
-  "icon": "🔔",
+  "icon": "",
   "title": "Loi normale, théorèmes limites, Markov",
   "min": 6,
   "anchor": "normale",
@@ -211,7 +211,7 @@ const STEPS = [
  },
  {
   "id": "exam",
-  "icon": "⏱️",
+  "icon": "",
   "title": "Examen blanc",
   "min": 6,
   "exam": 10,
@@ -220,7 +220,7 @@ const STEPS = [
  },
  {
   "id": "fin",
-  "icon": "🏁",
+  "icon": "",
   "title": "Carnet d'erreurs & avant le contrôle",
   "min": 3,
   "final": true,

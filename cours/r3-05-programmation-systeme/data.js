@@ -242,7 +242,7 @@ const QUESTIONS = RAW.map(([id, ch, q, opts, ok, ex]) => ({ id: String(id), ch, 
 const STEPS = [
  {
   "id": "fich",
-  "icon": "📁",
+  "icon": "",
   "title": "Fichiers Unix et Makefiles",
   "min": 8,
   "anchor": "r305",
@@ -277,7 +277,7 @@ const STEPS = [
  },
  {
   "id": "proc",
-  "icon": "⚙️",
+  "icon": "",
   "title": "Processus et signaux",
   "min": 9,
   "star": true,
@@ -313,7 +313,7 @@ const STEPS = [
  },
  {
   "id": "sock",
-  "icon": "🔌",
+  "icon": "",
   "title": "Sockets TCP en C",
   "min": 7,
   "anchor": "r305",
@@ -344,7 +344,7 @@ const STEPS = [
  },
  {
   "id": "exam",
-  "icon": "⏱️",
+  "icon": "",
   "title": "Examen blanc",
   "min": 11,
   "exam": 15,
@@ -353,7 +353,7 @@ const STEPS = [
  },
  {
   "id": "fin",
-  "icon": "🏁",
+  "icon": "",
   "title": "Carnet d'erreurs & avant le contrôle",
   "min": 3,
   "final": true,

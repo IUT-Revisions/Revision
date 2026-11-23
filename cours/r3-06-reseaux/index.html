@@ -27,16 +27,16 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="../../assets/css/style.css">
 <link rel="stylesheet" href="../../assets/css/fiche.css">
+<link rel="stylesheet" href="../../assets/css/sobre.css">
 </head>
 <body>
 <main class="book">
 <p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
-<div style="text-align:center;font-size:3rem" aria-hidden="true">🌐</div>
 <h1>R3.06 Réseaux : DHCP, NAT, IPv6</h1>
 <p class="sub">BUT2 · S3 · cours « Réseaux BUT2 » (R3.06 Architecture des réseaux) · CM, TP Packet Tracer et QCM IPv6</p>
 
 <div class="hero-cta no-print">
-  <button class="btn" type="button" data-parcours="">🚀 Parcours guidé · ⏱ <span data-total-time>49 min</span> en moyenne</button>
+  <button class="btn" type="button" data-parcours="">Lancer le parcours guidé · ≈ <span data-total-time>49 min</span></button>
   <p class="muted">24 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
 </div>
 
@@ -47,7 +47,7 @@
   <li><a href="#nat">NAT et PAT</a></li>
   <li><a href="#ipv6">Adressage IPv6</a></li>
   <li><a href="#slaac">SLAAC, NDP et DHCPv6</a></li>
-  <li><a href="#parcours-section">🚀 Parcours guidé interactif</a></li>
+  <li><a href="#parcours-section">Parcours guidé interactif</a></li>
 </ol>
 </nav>
 
@@ -100,9 +100,9 @@
 <div class="box keep"><h4>Le piège n° 1</h4><b>SLAAC = le routeur seul</b> (préfixe dans le RA). <b>SLAAC + DHCPv6 sans état</b> (O = 1) : le serveur donne seulement les <b>DNS</b>. <b>DHCPv6 avec état</b> (M = 1) : le serveur donne l'adresse. La <b>passerelle vient toujours du RA</b>, jamais de DHCPv6.</div>
 
 <section class="box launch no-print">
-  <h2 style="border:0;margin-top:0">🚀 Prêt ? Lance le parcours</h2>
-  <p>4 étapes + un examen blanc · ⏱ <span data-total-time>49 min</span></p>
-  <button class="btn" type="button" data-parcours="">🚀 Suivre le parcours interactif</button>
+  <h2 style="border:0;margin-top:0">Parcours guidé</h2>
+  <p>4 étapes + un examen blanc · <span data-total-time>49 min</span></p>
+  <button class="btn" type="button" data-parcours="">Suivre le parcours interactif</button>
 </section>
 <p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
 
@@ -110,7 +110,7 @@
   <div id="parcours"></div>
 </section>
 </main>
-<a class="btn fab no-print" href="#parcours-section" data-parcours="">🚀 Parcours</a>
+<a class="btn fab no-print" href="#parcours-section" data-parcours="">Parcours</a>
 <script src="data.js"></script>
 <script src="../../assets/js/parcours.js"></script>
 <script src="../../assets/js/config.js"></script>

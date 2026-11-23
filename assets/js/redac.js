@@ -79,14 +79,14 @@
     const hint = () => {
       const notions = c.keys.slice().sort((a, b) => b.w - a.w);
       if (hintShown >= notions.length) return;
-      hintBox.append(h('div', { class: 'explain' }, '💡 Pensez à : ', notions[hintShown].label));
+      hintBox.append(h('div', { class: 'explain' }, 'Pensez à : ', notions[hintShown].label));
       hintShown++;
     };
 
     root.replaceChildren(h('div', { class: 'tr-card' },
       h('div', { class: 'tr-head' }, h('span', { class: 'theme-tag' }, TH[c.t] || c.t), ' ', h('span', { class: 'muted' }, `Cas ${S.i + 1}/${S.cases.length} · ${c.title}`), ' ', clock),
       h('div', { class: 'context', style: 'margin-top:10px' }, c.facts),
-      h('h3', {}, '❓ ', c.question),
+      h('h3', {}, '', c.question),
       ta,
       h('div', { class: 'row', style: 'align-items:center;margin-top:8px' }, wc,
         h('button', { class: 'btn alt', type: 'button', onclick: hint }, 'Indice'),
@@ -100,7 +100,7 @@
       const end = Date.now() + S.opts.minutes * 60000;
       const tick = () => {
         const left = Math.max(0, end - Date.now());
-        clock.textContent = `· ⏱️ ${Math.floor(left / 60000)}:${String(Math.floor(left / 1000) % 60).padStart(2, '0')}`;
+        clock.textContent = `· ${Math.floor(left / 60000)}:${String(Math.floor(left / 1000) % 60).padStart(2, '0')}`;
         clock.style.color = left < 60000 ? 'var(--bad)' : '';
         if (!left) { stopTimer(); if (ta.value.trim()) correct(); else { ta.value = '(pas de réponse)'; correct(); } }
       };
@@ -124,14 +124,14 @@
         h('div', { class: 'title', style: `font-size:3rem;color:${color(r.pct)}` }, `${r.pct} %`),
         h('div', {}, h('b', {}, label(r.pct)), h('span', { class: 'muted' }, ` · similarité par notions clés · ${r.found.length}/${r.found.length + r.missing.length} notions`)),
         h('div', { class: 'bar', style: 'margin-top:8px;height:10px' }, h('div', { style: `width:${r.pct}%;background:${color(r.pct)}` }))),
-      r.warnings.map((w) => h('div', { class: 'explain', style: 'border-left-color:var(--bad)' }, '⚠️ ', w)),
+      r.warnings.map((w) => h('div', { class: 'explain', style: 'border-left-color:var(--bad)' }, '', w)),
       h('div', { class: 'cols' },
-        h('div', {}, h('h4', {}, '✅ Notions présentes'), r.found.length ? h('ul', { class: 'kl ok' }, r.found.map((x) => h('li', {}, x))) : h('p', { class: 'muted' }, 'Aucune.')),
-        h('div', {}, h('h4', {}, '❌ Notions manquantes'), r.missing.length ? h('ul', { class: 'kl bad' }, r.missing.map((x) => h('li', {}, x))) : h('p', { class: 'ok' }, 'Rien ne manque !'))),
-      h('h4', {}, '🧭 Méthode'),
+        h('div', {}, h('h4', {}, 'Notions présentes'), r.found.length ? h('ul', { class: 'kl ok' }, r.found.map((x) => h('li', {}, x))) : h('p', { class: 'muted' }, 'Aucune.')),
+        h('div', {}, h('h4', {}, 'Notions manquantes'), r.missing.length ? h('ul', { class: 'kl bad' }, r.missing.map((x) => h('li', {}, x))) : h('p', { class: 'ok' }, 'Rien ne manque !'))),
+      h('h4', {}, 'Méthode'),
       h('ul', { class: 'kl' }, tips.map(([ok, t]) => h('li', { class: ok ? 'ok' : 'muted' }, ok ? '✓ ' : '○ ', t))),
       h('details', {}, h('summary', {}, 'Votre copie'), h('div', { class: 'copy' }, text)),
-      h('h4', {}, '📘 Corrigé type'),
+      h('h4', {}, 'Corrigé type'),
       h('div', { class: 'model' }, c.model),
       h('p', { class: 'muted', style: 'font-size:.85rem' }, 'Le pourcentage mesure la présence des notions attendues, pas la qualité du raisonnement : relisez le corrigé pour vérifier votre argumentation.'),
       h('div', { class: 'row', style: 'margin-top:12px' },
@@ -159,7 +159,7 @@
     const per = {};
     for (const x of hist) { const b = per[x.t] || (per[x.t] = []); b.push(x.pct); }
     root.replaceChildren(h('div', { class: 'tr-card' },
-      h('h3', { style: 'margin-top:0' }, `📊 Mes cas rédigés (${hist.length})`),
+      h('h3', { style: 'margin-top:0' }, `Mes cas rédigés (${hist.length})`),
       h('table', {}, Object.entries(TH).map(([t, lab]) => {
         const a = per[t];
         const m = a ? Math.round(a.reduce((s, v) => s + v, 0) / a.length) : 0;
