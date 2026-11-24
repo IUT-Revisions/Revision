@@ -71,8 +71,8 @@ window.COURS = [
     titre: 'Cryptographie et sécurité',
     semestre: S3,
     url: 'cours/r3-09-cryptographie/',
-    description: 'Modulo, PGCD, inverse, César, substitution, permutation par grille, Vigenère, RSA, Diffie-Hellman, Hamming.',
-    outils: ['Fiche', 'Parcours guidé', '18 QCM corrigés'],
+    description: 'Kerckhoffs, arithmétique modulaire, Bézout, Euler, CRT, polynômes, César/affine/permutation/Vigenère, ECB/CBC/CFB/OFB/CTR, LFSR, DES/AES, RSA, El Gamal, PKI.',
+    outils: ['Cours complet', '12 exercices sur feuille', 'Parcours guidé', '54 QCM corrigés'],
   },
   {
     code: 'R3.11',

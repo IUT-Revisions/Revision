@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>R3.09 Cryptographie et sécurité · BUT2 S3 : fiche, parcours guidé et QCM · GabouLearn</title>
-<meta name="description" content="Réviser R3.09 Cryptographie et sécurité (BUT2 informatique) : PGCD, congruences, inverse modulaire, César, substitution, permutation, Vigenère, RSA, Diffie-Hellman, Hamming. Fiche + parcours guidé + 18 QCM corrigés.">
-<meta name="keywords" content="R3.09 cryptographie, BUT2 informatique, arithmétique modulaire, PGCD Euclide, inverse modulaire, chiffrement par permutation, César, Vigenère, RSA exercice, Diffie-Hellman, code de Hamming">
+<title>R3.09 Cryptographie et sécurité · BUT2 S3 : cours complet, exercices sur feuille et parcours · GabouLearn</title>
+<meta name="description" content="Réviser R3.09 Cryptographie et sécurité (BUT2 informatique, S3) : Kerckhoffs, arithmétique modulaire, Bézout, Euler, restes chinois, polynômes, César, affine, permutation, Vigenère, ECB/CBC/CFB/OFB/CTR, Diffie-Hellman, Vernam, LFSR, SPN, DES, AES, Merkle-Hellman, RSA, El Gamal, PKI. Cours complet + 12 exercices sur feuille corrigés + 54 QCM.">
+<meta name="keywords" content="R3.09 cryptographie, BUT2 informatique, arithmétique modulaire, Euclide étendu, Bézout, théorème des restes chinois, polynômes corps finis, chiffrement affine, permutation grille, Vigenère Kasiski, ECB CBC CFB OFB CTR, LFSR, Feistel DES AES, Merkle-Hellman, RSA, El Gamal, Diffie-Hellman, PKI">
 <link rel="canonical" href="https://gaboulearn.fr/cours/r3-09-cryptographie/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#2f5fb3">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="GabouLearn">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:title" content="R3.09 Cryptographie et sécurité (BUT2 S3) : fiche + parcours guidé + QCM corrigés">
-<meta property="og:description" content="Réviser R3.09 Cryptographie et sécurité (BUT2 informatique) : PGCD, congruences, inverse modulaire, César, substitution, permutation, Vigenère, RSA, Diffie-Hellman, Hamming. Fiche + parcours guidé + 18 QCM corrigés.">
+<meta property="og:title" content="R3.09 Cryptographie et sécurité (BUT2 S3) : cours complet, 12 exercices sur feuille et 54 QCM">
+<meta property="og:description" content="Tout le programme R3.09 Cryptographie et sécurité : arithmétique, polynômes, chiffrements classiques, modes ECB/CBC/CFB/OFB/CTR, LFSR, DES/AES, RSA, El Gamal, Diffie-Hellman. 12 exercices sur feuille corrigés + parcours guidé.">
 <meta property="og:url" content="https://gaboulearn.fr/cours/r3-09-cryptographie/">
 <meta property="og:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://gaboulearn.fr/assets/img/og-gaboulearn.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.09 Cryptographie et sécurité : fiche et parcours guidé","url":"https://gaboulearn.fr/cours/r3-09-cryptographie/","inLanguage":"fr","learningResourceType":["Fiche de révision","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-23","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.09 Cryptographie et sécurité","item":"https://gaboulearn.fr/cours/r3-09-cryptographie/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Comment chiffrer par permutation avec une grille et une clé ?","acceptedAnswer":{"@type":"Answer","text":"On écrit le message ligne par ligne dans la grille, puis on lit les colonnes dans l'ordre alphabétique des lettres de la clé."}},{"@type":"Question","name":"Comment calculer d en RSA ?","acceptedAnswer":{"@type":"Answer","text":"d est l'inverse de e modulo φ(n) = (p−1)(q−1)."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LearningResource","name":"R3.09 Cryptographie et sécurité : cours complet, exercices sur feuille et parcours guidé","url":"https://gaboulearn.fr/cours/r3-09-cryptographie/","inLanguage":"fr","learningResourceType":["Fiche de révision","Exercices corrigés","Quiz","Parcours guidé","Examen blanc"],"educationalLevel":"BUT informatique, 2e année, semestre 3","isAccessibleForFree":true,"dateModified":"2026-11-24","isPartOf":{"@type":"WebSite","name":"GabouLearn","url":"https://gaboulearn.fr/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GabouLearn","item":"https://gaboulearn.fr/"},{"@type":"ListItem","position":2,"name":"R3.09 Cryptographie et sécurité","item":"https://gaboulearn.fr/cours/r3-09-cryptographie/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Comment chiffrer par permutation avec une grille et une clé ?","acceptedAnswer":{"@type":"Answer","text":"On écrit le message ligne par ligne dans la grille en remplaçant les espaces par le symbole convenu, puis on lit les colonnes dans l'ordre alphabétique des lettres de la clé."}},{"@type":"Question","name":"Comment calculer la clé secrète d en RSA ?","acceptedAnswer":{"@type":"Answer","text":"d est l'inverse multiplicatif de e modulo φ(n) = (p − 1)(q − 1), obtenu par l'algorithme d'Euclide étendu (identité de Bézout)."}},{"@type":"Question","name":"Pourquoi ne faut-il jamais réutiliser le même IV en mode CTR ou OFB ?","acceptedAnswer":{"@type":"Answer","text":"Parce que le flot chiffrant est identique : le XOR de deux textes chiffrés donne directement le XOR des deux textes clairs, et un seul couple clair/chiffré suffit à déchiffrer tous les autres messages."}}]}]}</script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
@@ -28,54 +28,729 @@
 <link rel="stylesheet" href="../../assets/css/style.css?v=20261123d">
 <link rel="stylesheet" href="../../assets/css/fiche.css?v=20261123d">
 <link rel="stylesheet" href="../../assets/css/sobre.css?v=20261123d">
+<style>
+  .math { font-family: var(--mono); font-size: .92em; background: var(--soft); padding: 1px 5px; border-radius: var(--r-tag); }
+  .calc { font-family: var(--mono); font-size: .88rem; line-height: 1.5; background: var(--soft); border: 1px solid var(--line); border-radius: var(--r-ctl); padding: 10px 12px; overflow-x: auto; margin: .6em 0; white-space: pre; }
+  .exo { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card); padding: 14px 18px; margin: 14px 0; }
+  .exo-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 12px; margin-bottom: 8px; }
+  .exo-head h3 { margin: 0; font-size: 1.05rem; }
+  .exo-meta { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+  .exo-sol { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+  .exo-sol summary { cursor: pointer; font-weight: 500; color: var(--link); padding: 4px 0; list-style-position: inside; }
+  .exo-sol summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-tag); }
+  .exo-sol[open] summary { margin-bottom: 8px; }
+  .exo-sol p, .exo-sol ul, .exo-sol ol { margin: .4em 0; }
+  .alpha-tbl { font-family: var(--mono); font-size: .82rem; }
+  .alpha-tbl td, .alpha-tbl th { text-align: center; padding: .28em .35em; }
+  @media (max-width: 560px) { .exo { padding: 12px 14px; } }
+  @media print { .exo-sol { display: block; } }
+</style>
 </head>
 <body>
 <main class="book">
 <p class="no-print"><a href="../../">← BUT2 · S3 : toutes les ressources</a></p>
 <h1>R3.09 Cryptographie et sécurité</h1>
-<p class="sub">BUT2 · S3 · arithmétique modulaire, chiffrements classiques, RSA, Diffie-Hellman, codes correcteurs</p>
+<p class="sub">BUT2 · S3 · cours complet, TD1–TD3, TP1, 12 exercices sur feuille corrigés et parcours guidé</p>
 
 <div class="hero-cta no-print">
-  <button class="btn" type="button" data-parcours="">Lancer le parcours guidé · ≈ <span data-total-time>40 min</span></button>
-  <p class="muted">18 QCM corrigés, un examen blanc et un carnet d'erreurs. Ou lis d'abord la fiche ci-dessous.</p>
+  <button class="btn" type="button" data-parcours="">Lancer le parcours guidé · ≈ <span data-total-time>1 h 25</span></button>
+  <p class="muted">54 QCM corrigés, un examen blanc de 20 questions, un carnet d'erreurs et 12 exercices à faire sur feuille.</p>
 </div>
 
 <nav class="box" aria-label="Sommaire">
 <b>Sommaire</b>
 <ol>
-  <li><a href="#modulo">Arithmétique modulaire</a></li>
-  <li><a href="#classiques">Chiffrements classiques</a></li>
-  <li><a href="#asym">RSA, Diffie-Hellman, Hamming</a></li>
+  <li><a href="#bases">Fondamentaux, Kerckhoffs, attaques et sécurité</a></li>
+  <li><a href="#arith">Arithmétique modulaire, Euler, restes chinois et factorisation</a></li>
+  <li><a href="#poly">Polynômes et corps finis</a></li>
+  <li><a href="#classiques">Chiffrements classiques et cryptanalyse</a></li>
+  <li><a href="#modes">Modes opératoires : ECB, CBC, CFB, OFB, CTR</a></li>
+  <li><a href="#modernes">Codes modernes : Diffie-Hellman, Vernam, LFSR, SPN, DES et AES</a></li>
+  <li><a href="#publique">Clé publique : Merkle-Hellman, RSA, El Gamal et PKI</a></li>
+  <li><a href="#exercices">12 exercices d'application sur feuille (corrigés)</a></li>
   <li><a href="#parcours-section">Parcours guidé interactif</a></li>
 </ol>
 </nav>
 
-<h2 id="modulo">1. Arithmétique modulaire</h2>
+<!-- ================================================================== 1 -->
+<h2 id="bases">1. Fondamentaux, Kerckhoffs, attaques et sécurité</h2>
+
+<h3>Vocabulaire et acteurs</h3>
 <ul>
-  <li>Division euclidienne : a = bq + r, 0 ≤ r &lt; b. <b>PGCD par Euclide</b> : 640 = 520 + 120 ; 520 = 4×120 + 40 ; 120 = 3×40 → PGCD = 40.</li>
-  <li>On <b>réduit avant de calculer</b> : 7 ≡ 2 (mod 5), 2⁴ ≡ 1, donc 7^2021 = 7^(4×505+1) ≡ 2.</li>
-  <li>a a un <b>inverse modulo n ⇔ PGCD(a, n) = 1</b> (Bézout : au + nv = 1). Inverse de 3 mod 7 = 5.</li>
-  <li><b>Fermat</b> : p premier, a non multiple de p ⇒ a^(p−1) ≡ 1 (mod p).</li>
+  <li><b>Cryptographie</b> : art de rendre un message inintelligible pour les personnes non habilitées (remplacer un « secret encombrant » par un « secret miniature », la clé).</li>
+  <li><b>Cryptanalyse</b> : ensemble des procédés d'attaque d'un cryptosystème pour décrypter un message sans habilitation ou retrouver la clé.</li>
+  <li><b>Cryptologie</b> = cryptographie + cryptanalyse.</li>
+  <li>Acteurs types : <b>Alice</b> (émettrice), <b>Bob</b> (destinataire), <b>Ève</b> (opposant passif qui écoute), <b>Martin</b> (opposant actif qui modifie ou usurpe).</li>
+  <li><b>Cryptosystème</b> : quintuplet <span class="math">(P, C, K, E, D)</span> où <span class="math">P</span> = textes clairs, <span class="math">C</span> = textes chiffrés, <span class="math">K</span> = espace des clés, et pour chaque clé <span class="math">k</span>, <span class="math">g<sub>k</sub>(f<sub>k</sub>(M)) = M</span> (<span class="math">f</span> injective, <span class="math">g</span> surjective).</li>
+  <li>Deux familles selon les clés : <b>symétrique</b> (clé secrète partagée : DES, AES) et <b>asymétrique</b> (clé publique + clé privée : RSA, El Gamal, ECC). Deux modes d'action : <b>en continu (par flots)</b> ou <b>par blocs</b>.</li>
 </ul>
-<h2 id="classiques">2. Chiffrements classiques</h2>
+
+<div class="box keep"><h4>Principe de Kerckhoffs (1883)</h4>
+La sécurité d'un cryptosystème <b>ne doit jamais reposer sur le secret de l'algorithme</b>, mais uniquement sur le secret de la <b>clé</b>. L'algorithme doit pouvoir tomber sans inconvénient entre les mains de l'ennemi (2e desideratum, illustré par le choix public d'AES). Seule la clé de déchiffrement doit impérativement rester secrète.</div>
+
+<h3>Les 4 qualités d'un cryptosystème</h3>
 <div class="tbl"><table class="stack">
-  <tr><th>Méthode</th><th>Chiffrer</th><th>Faiblesse</th></tr>
-  <tr><td>Décalage (César, clé k)</td><td data-label="Chiffrer">y = (x + k) mod 26, A = 0. CHAT, k = 12 → OTMF</td><td data-label="Faiblesse">25 clés : force brute</td></tr>
-  <tr><td>Substitution</td><td data-label="Chiffrer">une lettre → une autre (26! clés)</td><td data-label="Faiblesse">analyse de fréquences</td></tr>
-  <tr><td>Permutation (grille + clé)</td><td data-label="Chiffrer">écrire en lignes, lire les colonnes dans l'ordre alphabétique de la clé</td><td data-label="Faiblesse">les lettres restent les mêmes</td></tr>
-  <tr><td>Vigenère</td><td data-label="Chiffrer">décalage qui change à chaque lettre selon la clé répétée</td><td data-label="Faiblesse">longueur de clé (Kasiski), puis César</td></tr>
+  <tr><th>Qualité</th><th>Définition</th><th>Protège contre</th></tr>
+  <tr><td>Confidentialité</td><td data-label="Définition">Seules les personnes habilitées accèdent au contenu du message.</td><td data-label="Protège contre">Écoute passive (Ève).</td></tr>
+  <tr><td>Intégrité</td><td data-label="Définition">Le message ne peut pas être falsifié sans qu'on s'en aperçoive.</td><td data-label="Protège contre">Modification active (Martin).</td></tr>
+  <tr><td>Authentification</td><td data-label="Définition">Certitude sur l'identité de l'émetteur et du destinataire.</td><td data-label="Protège contre">Mascarade / usurpation d'identité.</td></tr>
+  <tr><td>Non-répudiation</td><td data-label="Définition">L'émetteur ne peut nier avoir écrit/envoyé le message, le receveur ne peut nier l'avoir reçu.</td><td data-label="Protège contre">Dénégation a posteriori (origine, transmission, réception).</td></tr>
 </table></div>
-<div class="box keep"><h4>Exemple de permutation</h4>RENDEZ VOUS CHEZ MOI, grille 5×4, espaces = 0, clé <b>TIRE</b>. Lignes : REND · EZ0V · OUS0 · CHEZ · 0MOI. Ordre de la clé : E (col. 4), I (2), R (3), T (1) → <b>DV0ZI EZUHM N0SEO REOC0</b>. Pour déchiffrer : couper en blocs de la hauteur de la grille et les remettre dans les colonnes.</div>
-<h2 id="asym">3. RSA, Diffie-Hellman, Hamming</h2>
+<p class="muted">Remarque : protéger un message contre le bruit du canal relève de la <b>correction d'erreur</b>, pas du chiffrement.</p>
+
+<h3>Types d'attaques et notions de sécurité</h3>
+<div class="cols">
+  <div class="box">
+    <h4>Les 4 types d'attaques (+ physiques)</h4>
+    <ul>
+      <li><b>Texte chiffré connu</b> : l'attaquant n'a que des messages chiffrés.</li>
+      <li><b>Texte clair connu</b> : l'attaquant a des couples <span class="math">(M, f(M))</span>.</li>
+      <li><b>Texte clair choisi</b> : accès à une machine chiffrante (choisit <span class="math">M</span>, observe <span class="math">f(M)</span>).</li>
+      <li><b>Texte chiffré choisi</b> : accès à une machine déchiffrante (choisit <span class="math">C</span>, observe <span class="math">g(C)</span>).</li>
+      <li><b>Attaques physiques</b> : consommation électrique, échauffement, espionnage clavier.</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h4>Les 4 notions de sécurité</h4>
+    <ul>
+      <li><b>Inconditionnelle</b> : résiste même à une puissance de calcul illimitée (Shannon).</li>
+      <li><b>Calculatoire</b> : casser le code demande un temps irréaliste (ex. <span class="math">2<sup>100</sup></span> opérations). Dépend de la technique actuelle.</li>
+      <li><b>Prouvée</b> : réduit la sécurité à un problème réputé difficile (ex. factorisation, logarithme discret).</li>
+      <li><b>Confidentialité parfaite</b> : un couple <span class="math">(M, C)</span> ne donne aucune information sur la clé (masque jetable de Vernam).</li>
+    </ul>
+  </div>
+</div>
+
 <ul>
-  <li><b>RSA</b> : n = pq, φ = (p−1)(q−1), e premier avec φ, <b>d = e⁻¹ mod φ</b>. c = mᵉ mod n ; m = cᵈ mod n. Exemple p = 3, q = 11, e = 3 → n = 33, φ = 20, d = 7 ; m = 4 → c = 31.</li>
-  <li><b>Diffie-Hellman</b> : p, g publics ; A = gᵃ mod p, B = gᵇ mod p ; secret commun gᵃᵇ mod p. Sans authentification : <b>homme du milieu</b>.</li>
-  <li><b>Hamming (7,4)</b> : 4 bits utiles, 3 de contrôle, distance 3 : corrige 1 erreur, en détecte 2. Bit de parité : détecte un nombre impair d'erreurs.</li>
+  <li><b>Force brute</b> sur un espace de <span class="math">N</span> clés équiprobables : <b><span class="math">N/2</span> essais en moyenne</b> (pire cas <span class="math">N</span>).</li>
+  <li><b>Attaque par dictionnaire</b> (texte clair choisi) : précalculer les chiffrés d'un clair fixé pour diverses clés. <b>Attaque par répertoire</b> (texte chiffré connu) : comparer un chiffré à une table précalculée sans chercher la clé.</li>
+  <li><b>Mots de passe</b> : viser une <b>entropie ≥ 128 bits</b> (ex. 22 caractères aléatoires sur un alphabet de 64 symboles, car <span class="math">64<sup>22</sup> = 2<sup>132</sup></span>), résister au dictionnaire, ne jamais réutiliser.</li>
 </ul>
+
+<!-- ================================================================== 2 -->
+<h2 id="arith">2. Arithmétique modulaire, Euler, restes chinois et factorisation</h2>
+
+<h3>Division euclidienne, PGCD, PPCM et Bézout</h3>
+<ul>
+  <li><b>Division euclidienne</b> dans <span class="math">ℤ</span> : pour <span class="math">a ∈ ℤ*</span> et <span class="math">b ∈ ℤ</span>, il existe un unique couple <span class="math">(q, r)</span> tel que <span class="math">b = a × q + r</span> et <span class="math">0 ≤ r &lt; |a|</span>. Attention : le reste <span class="math">r</span> est toujours <b>positif ou nul</b>.</li>
+  <li><b>Divisibilité</b> : <span class="math">a | b</span> (« <span class="math">a</span> divise <span class="math">b</span> », « <span class="math">a</span> est un diviseur de <span class="math">b</span> », « <span class="math">b</span> est divisible par <span class="math">a</span> ») ssi <span class="math">r = 0</span>.</li>
+  <li><b>PGCD et PPCM par facteurs premiers</b> : si <span class="math">a = ∏ p<sub>i</sub><sup>α<sub>i</sub></sup></span> et <span class="math">b = ∏ p<sub>i</sub><sup>β<sub>i</sub></sup></span>, alors <span class="math">PGCD = ∏ p<sub>i</sub><sup>min(α<sub>i</sub>, β<sub>i</sub>)</sup></span>, <span class="math">PPCM = ∏ p<sub>i</sub><sup>max(α<sub>i</sub>, β<sub>i</sub>)</sup></span>, et <span class="math">PGCD(a, b) × PPCM(a, b) = |a × b|</span>.</li>
+  <li><b>Algorithme d'Euclide</b> : on remplace <span class="math">(a, b)</span> par <span class="math">(b, r)</span> car <span class="math">PGCD(a, b) = PGCD(b, r)</span>. Le PGCD est le <b>dernier reste non nul</b>. Deux entiers sont <b>premiers entre eux</b> ssi <span class="math">PGCD(a, b) = 1</span>.</li>
+  <li><b>Théorème de Bézout (Euclide étendu)</b> : il existe <span class="math">u, v ∈ ℤ</span> tels que <span class="math">au + bv = PGCD(a, b)</span>. On les trouve en remontant les équations d'Euclide. Toutes les solutions s'écrivent :
+    <span class="math">u' = u + k · (PPCM(a,b)/a)</span> et <span class="math">v' = v − k · (PPCM(a,b)/b)</span> (<span class="math">k ∈ ℤ</span>).</li>
+</ul>
+
+<h3>Fonction d'Euler, congruences et inverses dans ℤ/nℤ</h3>
+<ul>
+  <li><b>Indicatrice d'Euler <span class="math">φ(n)</span></b> : nombre d'entiers entre <span class="math">1</span> et <span class="math">n − 1</span> premiers avec <span class="math">n</span> (et <span class="math">φ(1) = 1</span>).
+    <ul>
+      <li>Si <span class="math">p</span> est premier : <span class="math">φ(p) = p − 1</span> et <span class="math">φ(p<sup>α</sup>) = p<sup>α−1</sup>(p − 1)</span>.</li>
+      <li>Multiplicativité : si <span class="math">PGCD(a, b) = 1</span>, alors <span class="math">φ(ab) = φ(a)φ(b)</span>.</li>
+      <li>Formule générale : <span class="math">φ(n) = n × ∏ (1 − 1/p<sub>i</sub>)</span> sur les facteurs premiers <b>distincts</b> de <span class="math">n</span>.</li>
+    </ul>
+  </li>
+  <li><b>Congruences</b> : <span class="math">a ≡ b (mod m)</span> ssi <span class="math">m | (a − b)</span> (même reste modulo <span class="math">m</span>). Compatible avec <span class="math">+</span>, <span class="math">×</span> et les puissances <span class="math">a<sup>e</sup> ≡ b<sup>e</sup> (mod m)</span>.</li>
+  <li><b>Opposé vs inverse dans <span class="math">ℤ/nℤ</span></b> :
+    <ul>
+      <li><b>Opposé</b> (pour <span class="math">+</span>) : existe toujours, c'est <span class="math">−a ≡ n − a (mod n)</span>. Ex. dans <span class="math">ℤ/18ℤ</span>, opposé de 7 = 11.</li>
+      <li><b>Inverse multiplicatif</b> (pour <span class="math">×</span>) : existe <b>ssi <span class="math">PGCD(a, n) = 1</span></b>. L'ensemble des inversibles <span class="math">(ℤ/nℤ)*</span> est un groupe abélien de cardinal <b><span class="math">φ(n)</span></b>. Si <span class="math">p</span> est premier, <span class="math">ℤ/pℤ = 𝔽<sub>p</sub></span> est un corps fini.</li>
+      <li><b>Calcul d'un inverse</b> : résoudre <span class="math">au + nv = 1</span> par Euclide étendu, puis réduire <span class="math">u</span> dans <span class="math">[0, n − 1]</span>.</li>
+    </ul>
+  </li>
+  <li><b>Générateur de <span class="math">(ℤ/pℤ)*</span></b> : élément <span class="math">g</span> dont les puissances <span class="math">g<sup>0</sup>, g<sup>1</sup>, …, g<sup>p−2</sup> mod p</span> parcourent tous les <span class="math">p − 1</span> éléments non nuls (ex. <span class="math">g = 2</span> dans <span class="math">(ℤ/13ℤ)*</span>).</li>
+  <li><b>Théorème d'Euler et petit théorème de Fermat</b> :
+    <ul>
+      <li>Si <span class="math">PGCD(a, n) = 1</span> : <span class="math">a<sup>φ(n)</sup> ≡ 1 (mod n)</span>.</li>
+      <li>Si <span class="math">p</span> premier et <span class="math">p ∤ a</span> : <span class="math">a<sup>p−1</sup> ≡ 1 (mod p)</span> (et <span class="math">a<sup>p</sup> ≡ a (mod p)</span> pour tout <span class="math">a</span>).</li>
+      <li><b>Méthode pour grandes puissances</b> : réduire la base modulo <span class="math">n</span>, puis diviser l'exposant par <span class="math">φ(n)</span> (ou par une petite période <span class="math">k</span> telle que <span class="math">a<sup>k</sup> ≡ 1</span>).</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="box keep"><h4>Théorème des restes chinois (CRT)</h4>
+Si <span class="math">n<sub>1</sub>, …, n<sub>k</sub></span> sont <b>deux à deux premiers entre eux</b>, le système <span class="math">x ≡ a<sub>i</sub> (mod n<sub>i</sub>)</span> a une unique solution modulo <span class="math">N = n<sub>1</sub> × … × n<sub>k</sub></span> :
+<div class="calc">x ≡ (a₁·N₁·y₁ + a₂·N₂·y₂ + … + aₖ·Nₖ·yₖ) mod N
+avec Nᵢ = N / nᵢ   et   yᵢ = Nᵢ⁻¹ mod nᵢ</div>
+<b>Piège TD1</b> : si <span class="math">PGCD(n<sub>1</sub>, n<sub>2</sub>) = d &gt; 1</span>, le CRT ne s'applique pas directement. On écrit <span class="math">x = a<sub>1</sub> + n<sub>1</sub>k = a<sub>2</sub> + n<sub>2</sub>t</span>, soit <span class="math">n<sub>1</sub>k − n<sub>2</sub>t = a<sub>2</sub> − a<sub>1</sub></span>. Si <span class="math">d</span> ne divise pas <span class="math">a<sub>2</sub> − a<sub>1</sub></span>, le système n'a <b>aucune solution</b>.</div>
+
+<h3>Tests de primalité et factorisation de Fermat</h3>
+<ul>
+  <li><b>Crible d'Ératosthène / divisions</b> : tester les diviseurs <span class="math">≤ √n</span> (complexité <span class="math">O(√n ln³ n)</span>, non polynomial).</li>
+  <li><b>AKS (2002)</b> : « est-il premier ? » est dans la classe P (polynomial, mais plus lent en pratique que les tests probabilistes).</li>
+  <li><b>Test probabiliste de Fermat</b> : choisir <span class="math">a</span> premier à <span class="math">n</span> et calculer <span class="math">a<sup>n−1</sup> mod n</span>. Si <span class="math">≠ 1</span>, alors <span class="math">n</span> est <b>certainement composé</b>. Si <span class="math">≡ 1</span>, on ne peut pas conclure (<span class="math">n</span> peut être <b>pseudo-premier</b> en base <span class="math">a</span>, ex. <span class="math">341 = 11 × 31</span> en base 2).</li>
+  <li><b>Test de Lucas</b> : si <span class="math">PGCD(a, n) = 1</span> et pour tout diviseur premier <span class="math">p</span> de <span class="math">n − 1</span>, <span class="math">a<sup>(n−1)/p</sup> ≢ 1 (mod n)</span> (avec <span class="math">a<sup>n−1</sup> ≡ 1</span>), alors <span class="math">n</span> est premier (mais demande la factorisation de <span class="math">n − 1</span>).</li>
+  <li><b>Factorisation de Fermat</b> (efficace quand <span class="math">p</span> et <span class="math">q</span> sont proches) : écrire un entier impair <span class="math">n = t² − s² = (t − s)(t + s)</span>. On part de <span class="math">t = ⌈√n⌉</span> et on incrémente <span class="math">t</span> jusqu'à ce que <span class="math">t² − n</span> soit un carré parfait <span class="math">s²</span>. Ex. <span class="math">899 = 30² − 1² = 29 × 31</span>.</li>
+</ul>
+
+<!-- ================================================================== 3 -->
+<h2 id="poly">3. Polynômes et corps finis</h2>
+<ul>
+  <li><b>Division euclidienne dans <span class="math">K[X]</span></b> (<span class="math">K = ℚ</span> ou <span class="math">ℤ/pℤ</span>) : pour <span class="math">B ≠ 0</span>, il existe un unique couple <span class="math">(Q, R)</span> tel que <span class="math">A(X) = B(X)Q(X) + R(X)</span> avec <span class="math">deg(R) &lt; deg(B)</span> (ou <span class="math">R = 0</span>).</li>
+  <li><b>Méthode posée</b> : à chaque étape, diviser le terme de plus haut degré du reste courant par celui de <span class="math">B</span>, multiplier <span class="math">B</span> par ce monôme, <b>soustraire</b> (attention aux signes et aux puissances manquantes à laisser en colonne vide), répéter jusqu'à <span class="math">deg(R) &lt; deg(B)</span>.</li>
+  <li><b>PGCD et Bézout sur <span class="math">K[X]</span></b> : même algorithme d'Euclide que dans <span class="math">ℤ</span>, en divisant <span class="math">A</span> par <span class="math">B</span>, puis <span class="math">B</span> par <span class="math">R<sub>1</sub></span>, etc. Le PGCD est le dernier reste non nul (souvent normalisé unitaire), et en remontant on trouve <span class="math">U, V ∈ K[X]</span> tels que <span class="math">AU + BV = D</span>.</li>
+  <li><b>Polynôme irréductible</b> : ses seuls diviseurs sont lui-même et les inversibles de <span class="math">K</span> (analogue d'un nombre premier). Attention au corps de base : <span class="math">X² + 1</span> est irréductible dans <span class="math">ℚ[X]</span>, mais <b>réductible dans <span class="math">ℤ/2ℤ[X]</span></b> car <span class="math">(X + 1)² = X² + 2X + 1 = X² + 1</span>.</li>
+  <li><b>Corps fini <span class="math">𝔽<sub>p<sup>f</sup></sub></span></b> : <span class="math">ℤ/pℤ[X]/(P)</span> est un corps fini à <span class="math">q = p<sup>f</sup></span> éléments <b>ssi <span class="math">P</span> est irréductible de degré <span class="math">f</span></b>. Les éléments sont les polynômes de degré <span class="math">≤ f − 1</span>, et on réduit tout produit modulo <span class="math">P</span>.</li>
+</ul>
+
+<div class="box keep"><h4>Exemples clés du cours : 𝔽<sub>4</sub> et 𝔽<sub>256</sub> (AES)</h4>
+Dans <span class="math">𝔽<sub>4</sub> = ℤ/2ℤ[X]/(X² + X + 1) = {0, 1, X, X + 1}</span> : l'addition est un XOR (<span class="math">1 + 1 = 0</span>, donc <span class="math">−1 = 1</span>), et pour la multiplication on remplace <span class="math">X²</span> par <span class="math">X + 1</span>. On obtient <span class="math">X · (X + 1) = X² + X ≡ (X + 1) + X = 1</span> : l'inverse de <span class="math">X + 1</span> est <span class="math">X</span>.<br>
+Dans <b>AES</b>, chaque octet est un élément de <span class="math">𝔽<sub>256</sub> = 𝔽<sub>2</sub>[X]/(X<sup>8</sup> + X<sup>4</sup> + X<sup>3</sup> + X + 1)</span>.</div>
+
+<!-- ================================================================== 4 -->
+<h2 id="classiques">4. Chiffrements classiques et cryptanalyse</h2>
+
+<div class="tbl"><table class="alpha-tbl">
+  <tr><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th></tr>
+  <tr><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+  <tr><th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th></tr>
+  <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+</table></div>
+<p class="muted">Convention des TD et contrôles : <span class="math">A = 0, …, Z = 25</span>. Fréquences en français : <b>E (15,9 %)</b>, <b>A (9,4 %)</b>, I (8,4 %), S (7,9 %), T (7,3 %), N (7,2 %).</p>
+
+<div class="tbl"><table class="stack">
+  <tr><th>Système</th><th>Principe / Formule</th><th>Espace de clés</th><th>Cryptanalyse principale</th></tr>
+  <tr><td>Répertoire</td><td data-label="Principe / Formule">Dictionnaire remplaçant des mots entiers par d'autres mots/codes.</td><td data-label="Espace de clés">Dictionnaire complet</td><td data-label="Cryptanalyse principale">Lourd à transmettre, non souple (critiqué par Kerckhoffs).</td></tr>
+  <tr><td>Permutation (grille + clé)</td><td data-label="Principe / Formule">Écrire le message <b>ligne par ligne</b> dans une grille <span class="math">ℓ × k</span>, lire les <b>colonnes dans l'ordre alphabétique</b> des lettres de la clé.</td><td data-label="Espace de clés"><span class="math">k!</span> (Stirling : <span class="math">k &gt; 50 ⇒ &gt; 10<sup>85</sup></span>)</td><td data-label="Cryptanalyse principale">Fréquences inchangées ; attaque à <b>texte clair choisi</b> (un seul 1 parmi des 0).</td></tr>
+  <tr><td>César (décalage)</td><td data-label="Principe / Formule"><span class="math">y = (x + k) mod 26</span> · déchiffrement : <span class="math">x = (y − k) mod 26</span>.</td><td data-label="Espace de clés">26 (25 utiles)</td><td data-label="Cryptanalyse principale">Force brute triviale ou repérage du <b>E</b> (1 seule lettre suffit).</td></tr>
+  <tr><td>Substitution monoalphabétique</td><td data-label="Principe / Formule">Permutation fixe de l'alphabet (1 lettre claire → 1 lettre chiffrée).</td><td data-label="Espace de clés"><span class="math">26! ≈ 4 × 10<sup>26</sup></span></td><td data-label="Cryptanalyse principale"><b>Analyse de fréquences</b> (lettres, lettres doublées, digrammes) sur texte assez long.</td></tr>
+  <tr><td>Code affine</td><td data-label="Principe / Formule"><span class="math">f(x) = (ax + b) mod 26</span> avec <b><span class="math">PGCD(a, 26) = 1</span></b>.<br>Déchiffrement : <span class="math">g(y) = a<sup>−1</sup>(y − b) mod 26</span>.</td><td data-label="Espace de clés"><span class="math">12 × 26 = 312</span></td><td data-label="Cryptanalyse principale">Force brute (312 clés) ou <b>système de 2 équations mod 26</b> à partir de 2 lettres fréquentes (E, A, L/D).</td></tr>
+  <tr><td>Vigenère (polyalphabétique)</td><td data-label="Principe / Formule">Blocs de longueur <span class="math">m</span> : <span class="math">y<sub>i</sub> = (x<sub>i</sub> + k<sub>i mod m</sub>) mod 26</span>.</td><td data-label="Espace de clés"><span class="math">26<sup>m</sup></span></td><td data-label="Cryptanalyse principale"><b>Babbage / Kasiski</b> : distances entre trigrammes répétés → PGCD = <span class="math">m</span> → <span class="math">m</span> codes de César indépendants.</td></tr>
+</table></div>
+
+<div class="box"><h4>Table des inverses modulo 26 (indispensable pour le code affine)</h4>
+Les 12 valeurs autorisées pour <span class="math">a</span> (premières avec 26) et leur inverse <span class="math">a<sup>−1</sup> mod 26</span> :<br>
+<span class="math">1↔1</span> · <span class="math">3↔9</span> · <span class="math">5↔21</span> · <span class="math">7↔15</span> · <span class="math">11↔19</span> · <span class="math">17↔23</span> · <span class="math">25↔25</span>.</div>
+
+<div class="box warn"><h4>Piège classique de la permutation au déchiffrement</h4>
+Pour déchiffrer un texte de longueur <span class="math">N</span> codé avec une grille de <b><span class="math">ℓ</span> lignes et <span class="math">k</span> colonnes</b> : on découpe le texte chiffré en <b>blocs de taille <span class="math">ℓ</span></b> (hauteur d'une colonne), on place chaque bloc <b>en colonne</b> dans l'ordre alphabétique des lettres de la clé, puis on lit <b>ligne par ligne</b>. Si le message contient plusieurs grilles (ex. TD2 Ex. 2b), on traite grille par grille (blocs de <span class="math">ℓ × k</span> caractères).</div>
+
+<!-- ================================================================== 5 -->
+<h2 id="modes">5. Modes opératoires : ECB, CBC, CFB, OFB, CTR</h2>
+<p>Un chiffrement par blocs <span class="math">f<sub>k</sub></span> (ou <span class="math">E<sub>k</sub></span>) agit sur des blocs de taille fixe (64 ou 128 bits). Pour chiffrer un message de longueur quelconque <span class="math">m<sub>1</sub>, …, m<sub>n</sub></span>, on choisit un <b>mode opératoire</b>. Rappel sur le <b>XOR (<span class="math">⊕</span>)</b> : addition bit à bit sans retenue modulo 2, associatif, commutatif et involutif : <span class="math">a ⊕ a = 0</span> et <span class="math">(a ⊕ b) ⊕ b = a</span>.</p>
+
+<div class="tbl"><table class="stack">
+  <tr><th>Mode</th><th>Chiffrement</th><th>Déchiffrement</th><th>Besoin de f<sub>k</sub><sup>−1</sup></th><th>Parallèle</th><th>Erreur sur c<sub>i</sub> / Sécurité</th></tr>
+  <tr><td>ECB<br><span class="muted">Electronic Code Book</span></td>
+    <td data-label="Chiffrement"><span class="math">c<sub>i</sub> = f<sub>k</sub>(m<sub>i</sub>)</span></td>
+    <td data-label="Déchiffrement"><span class="math">m<sub>i</sub> = g<sub>k</sub>(c<sub>i</sub>)</span></td>
+    <td data-label="Besoin de f⁻¹">Oui</td>
+    <td data-label="Parallèle">Chiff. &amp; déchiff.</td>
+    <td data-label="Erreur / Sécurité"><b>Non sûr</b> (jamais utilisé) : <span class="math">m<sub>i</sub> = m<sub>j</sub> ⇒ c<sub>i</sub> = c<sub>j</sub></span>, motifs visibles (images, salaires), permutation/substitution de blocs indétectable.</td></tr>
+  <tr><td>CBC<br><span class="muted">Cipher Block Chaining</span></td>
+    <td data-label="Chiffrement"><span class="math">c<sub>0</sub> = IV</span><br><span class="math">c<sub>i</sub> = f<sub>k</sub>(m<sub>i</sub> ⊕ c<sub>i−1</sub>)</span></td>
+    <td data-label="Déchiffrement"><span class="math">m<sub>i</sub> = c<sub>i−1</sub> ⊕ g<sub>k</sub>(c<sub>i</sub>)</span></td>
+    <td data-label="Besoin de f⁻¹">Oui</td>
+    <td data-label="Parallèle">Déchiff. seul</td>
+    <td data-label="Erreur / Sécurité">Bonne sécurité. Erreur sur <span class="math">c<sub>i</sub></span> corrompt <b><span class="math">m<sub>i</sub></span> (entièrement) et <span class="math">m<sub>i+1</sub></span> (aux mêmes bits)</b>.</td></tr>
+  <tr><td>CFB<br><span class="muted">Cipher Feedback</span></td>
+    <td data-label="Chiffrement"><span class="math">c<sub>0</sub> = f<sub>k</sub>(IV)</span><br><span class="math">c<sub>i</sub> = m<sub>i</sub> ⊕ f<sub>k</sub>(c<sub>i−1</sub>)</span></td>
+    <td data-label="Déchiffrement"><span class="math">m<sub>i</sub> = c<sub>i</sub> ⊕ f<sub>k</sub>(c<sub>i−1</sub>)</span></td>
+    <td data-label="Besoin de f⁻¹"><b>Non</b></td>
+    <td data-label="Parallèle">Déchiff. seul</td>
+    <td data-label="Erreur / Sécurité">Transforme un chiffre par blocs en flot. Erreur sur <span class="math">c<sub>i</sub></span> corrompt <b><span class="math">m<sub>i</sub></span> (mêmes bits) et <span class="math">m<sub>i+1</sub></span> (entièrement)</b>.</td></tr>
+  <tr><td>OFB<br><span class="muted">Output Feedback</span></td>
+    <td data-label="Chiffrement"><span class="math">z<sub>0</sub> = f<sub>k</sub>(IV)</span><br><span class="math">z<sub>i</sub> = f<sub>k</sub>(z<sub>i−1</sub>)</span><br><span class="math">c<sub>i</sub> = m<sub>i</sub> ⊕ z<sub>i</sub></span></td>
+    <td data-label="Déchiffrement"><span class="math">m<sub>i</sub> = c<sub>i</sub> ⊕ z<sub>i</sub></span> (identique)</td>
+    <td data-label="Besoin de f⁻¹"><b>Non</b></td>
+    <td data-label="Parallèle">Flot précalculable</td>
+    <td data-label="Erreur / Sécurité">Erreur sur <span class="math">c<sub>i</sub></span> n'affecte que <b>les mêmes bits de <span class="math">m<sub>i</sub></span></b> (pas de propagation). Critique si IV réutilisé.</td></tr>
+  <tr><td>CTR<br><span class="muted">Counter</span></td>
+    <td data-label="Chiffrement"><span class="math">c<sub>i</sub> = m<sub>i</sub> ⊕ f<sub>k</sub>(T + i)</span><br>(ou <span class="math">f<sub>k</sub>(IV ∥ i)</span>)</td>
+    <td data-label="Déchiffrement"><span class="math">m<sub>i</sub> = c<sub>i</sub> ⊕ f<sub>k</sub>(T + i)</span></td>
+    <td data-label="Besoin de f⁻¹"><b>Non</b></td>
+    <td data-label="Parallèle"><b>Chiff. &amp; déchiff.</b> + accès aléatoire</td>
+    <td data-label="Erreur / Sécurité">Erreur sur <span class="math">c<sub>i</sub></span> n'affecte que <b><span class="math">m<sub>i</sub></span></b>. Critique si même compteur/IV réutilisé avec la même clé.</td></tr>
+</table></div>
+
+<div class="box warn"><h4>Les 3 pièges d'examen sur les modes opératoires (TD3)</h4>
+<ol>
+  <li><b>Rôle de l'IV</b> : il sert à randomiser le chiffrement (deux messages identiques donnent deux chiffrés différents). Il <b>n'a pas besoin d'être secret</b> (transmis en clair), mais il doit être <b>unique</b> (et imprévisible pour CBC).</li>
+  <li><b>Réutilisation d'IV en CTR ou OFB (attaque à texte clair connu)</b> : si deux messages <span class="math">M</span> et <span class="math">M'</span> sont chiffrés avec la même clé et le même IV, le masque <span class="math">z<sub>i</sub></span> est identique. Connaissant <span class="math">(M, C)</span>, on retrouve le masque <span class="math">z<sub>i</sub> = m<sub>i</sub> ⊕ c<sub>i</sub></span>, puis tout autre message <span class="math">m'<sub>i</sub> = c'<sub>i</sub> ⊕ z<sub>i</sub> = c'<sub>i</sub> ⊕ c<sub>i</sub> ⊕ m<sub>i</sub></span>. En cas d'<b>insertion d'un bloc nul</b> à l'indice <span class="math">i</span> (TD3 Ex. 6), on lit directement <span class="math">c'<sub>i</sub> = 0 ⊕ z<sub>i</sub> = z<sub>i</sub></span>, d'où <span class="math">m<sub>i</sub> = c<sub>i</sub> ⊕ c'<sub>i</sub></span>, puis on déroule toute la suite par décalage : <span class="math">z<sub>i+1</sub> = c'<sub>i+1</sub> ⊕ m<sub>i</sub></span>, etc.</li>
+  <li><b>Pas d'authentification</b> : un mode de chiffrement seul (même AES-CBC) garantit la confidentialité, <b>jamais l'authentification ni l'intégrité</b> (un attaquant peut rejouer ou tronquer un chiffré intercepté).</li>
+</ol></div>
+
+<!-- ================================================================== 6 -->
+<h2 id="modernes">6. Codes modernes : Diffie-Hellman, Vernam, LFSR, SPN, DES et AES</h2>
+
+<h3>Symétrique vs asymétrique et échange de clés</h3>
+<ul>
+  <li><b>Nombre de clés</b> pour <span class="math">n</span> interlocuteurs : symétrique = <b><span class="math">n(n − 1)/2</span></b> clés secrètes ; asymétrique = <b><span class="math">n</span></b> paires (clé publique dans un annuaire, clé privée secrète).</li>
+  <li><b>Compromis</b> : symétrique = rapide, clés courtes (128–256 bits), sécurité non prouvée, difficile pour signature/échange sans tiers ; asymétrique = 1000 à 1500× plus lent, clés longues (1024–2048 bits, ou 128–256 bits en courbes elliptiques), repose sur une fonction à sens unique, permet échange de clés, authentification et signature. En pratique on combine les deux (chiffrement hybride, ex. PGP/TLS).</li>
+  <li><b>Protocole de Diffie-Hellman-Merkle (1974)</b> :
+    <ol>
+      <li>Alice et Bob choisissent publiquement un grand premier <span class="math">p</span> et un générateur <span class="math">α</span> (ou <span class="math">g</span>) de <span class="math">(ℤ/pℤ)*</span>.</li>
+      <li>Alice choisit <span class="math">a</span> secret et envoie <span class="math">A = α<sup>a</sup> mod p</span>. Bob choisit <span class="math">b</span> secret et envoie <span class="math">B = α<sup>b</sup> mod p</span>.</li>
+      <li>Alice calcule <span class="math">B<sup>a</sup> mod p</span> et Bob calcule <span class="math">A<sup>b</sup> mod p</span> → clé commune <b><span class="math">α<sup>ab</sup> mod p</span></b>.</li>
+    </ol>
+    Sécurité : repose sur la difficulté du <b>logarithme discret</b> dans <span class="math">ℤ/pℤ</span>. Faille sans authentification : <b>attaque de l'homme du milieu (MitM)</b>.
+  </li>
+</ul>
+
+<h3>Vernam (masque jetable) et LFSR (chiffrement par flots)</h3>
+<ul>
+  <li><b>Code de Vernam / one-time pad</b> : clé <b>vraiment aléatoire</b>, <b>aussi longue que le message</b>, utilisée <b>une seule fois</b>, combinée par XOR (ou <span class="math">+ mod 26</span>). Seul système à <b>confidentialité parfaite</b> (un même chiffré peut correspondre à n'importe quel clair de même longueur), mais impraticable à grande échelle (génération et transmission sécurisée des clés).</li>
+  <li><b>LFSR (registre à décalage à rétroaction linéaire)</b> : imite Vernam en générant une suite pseudo-aléatoire dans <span class="math">ℤ/2ℤ</span> à partir de <span class="math">m</span> bits initiaux <span class="math">(k<sub>1</sub>, …, k<sub>m</sub>)</span> et d'une récurrence linéaire :
+    <span class="math">z<sub>m+i</sub> = c<sub>m</sub>z<sub>i</sub> + … + c<sub>1</sub>z<sub>m−1+i</sub> (mod 2)</span>.
+    <ul>
+      <li><b>Polynôme caractéristique</b> : <span class="math">C(x) = x<sup>m</sup> − ∑<sub>k=0..m−1</sub> c<sub>m−k</sub>x<sup>k</sup></span> (dans <span class="math">ℤ/2ℤ</span>, <span class="math">−</span> équivaut à <span class="math">+</span>).</li>
+      <li><b>Période maximale</b> : au plus <span class="math">2<sup>m</sup> − 1</span> (l'état tout-zéro reste bloqué à 0). Ex. <span class="math">m = 4</span>, <span class="math">z<sub>i+4</sub> = z<sub>i</sub> + z<sub>i+1</sub></span> → période 15.</li>
+      <li><b>Chiffrement / déchiffrement</b> : <span class="math">c<sub>i</sub> = m<sub>i</sub> ⊕ z<sub>i</sub></span> et <span class="math">m<sub>i</sub> = c<sub>i</sub> ⊕ z<sub>i</sub></span> (symétrique).</li>
+      <li><b>Faiblesse</b> : un LFSR seul est linéaire donc cassable par l'<b>algorithme de Massey-Berlekamp</b> (il suffit de <span class="math">2m</span> bits de la suite). Améliorations non linéaires : <b>NLCG</b> (combinaison booléenne de plusieurs LFSR, ex. Bluetooth/E0 avec 4 LFSR), <b>NLFG</b> (filtrage d'un LFSR), <b>CCG</b> (contrôle d'horloge).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Réseaux SPN, cryptanalyse linéaire/différentielle, DES et AES</h3>
+<ul>
+  <li><b>Principes de Shannon</b> : <b>confusion</b> (mélanger les relations entre clair/clé et chiffré : 1 bit changé affecte beaucoup de bits) et <b>diffusion</b> (disperser la redondance du clair dans tout le chiffré).</li>
+  <li><b>Réseau de substitution-permutation (SPN)</b> : répète <span class="math">N</span> étages comprenant : 1) XOR avec la sous-clé d'étage <span class="math">k<sup>e</sup></span>, 2) substitution par S-boîtes <span class="math">π<sub>S</sub></span> (seule étape non linéaire), 3) permutation de bits <span class="math">π<sub>P</sub></span> (sauf au dernier étage), puis XOR final avec <span class="math">k<sup>N+1</sup></span>.</li>
+  <li><b>Cryptanalyse linéaire</b> : attaque à <b>texte clair connu</b> cherchant une combinaison linéaire XOR de bits d'entrée/sortie de probabilité <span class="math">≠ 1/2</span> (biais <span class="math">ε<sub>i</sub> = p<sub>i</sub> − 1/2</span>, combinés via le <b>lemme d'empilement</b> <span class="math">ε = 2<sup>n−1</sup> ∏ ε<sub>i</sub></span>).</li>
+  <li><b>Cryptanalyse différentielle</b> : attaque à <b>texte clair choisi</b> comparant <span class="math">Δx = x' ⊕ x''</span> et <span class="math">Δy = y' ⊕ y''</span> pour exploiter des différentielles de probabilité <span class="math">&gt; 1/2<sup>n</sup></span>.</li>
+  <li><b>Schéma de Feistel (DES)</b> : découpe un bloc de <span class="math">2n</span> bits en <span class="math">(G, D)</span> et applique <span class="math">L<sub>i</sub> = R<sub>i−1</sub></span> et <span class="math">R<sub>i</sub> = L<sub>i−1</sub> ⊕ f(R<sub>i−1</sub>, k<sup>i</sup>)</span>. <b>Toujours bijectif</b> même si <span class="math">f</span> ne l'est pas : on remonte par <span class="math">R<sub>i−1</sub> = L<sub>i</sub></span> et <span class="math">L<sub>i−1</sub> = R<sub>i</sub> ⊕ f(L<sub>i</sub>, k<sup>i</sup>)</span>.</li>
+</ul>
+
+<div class="tbl"><table class="stack">
+  <tr><th>Critère</th><th>DES (1977, obsolète)</th><th>AES (2000, standard actuel)</th></tr>
+  <tr><td>Architecture</td><td data-label="DES">Schéma de Feistel</td><td data-label="AES">Réseau de substitution-permutation (SPN)</td></tr>
+  <tr><td>Taille de bloc</td><td data-label="DES">64 bits</td><td data-label="AES"><b>128 bits</b> (matrice State <span class="math">4 × 4</span> octets dans <span class="math">𝔽<sub>256</sub></span>)</td></tr>
+  <tr><td>Taille de clé</td><td data-label="DES"><b>56 bits utiles</b> (64 avec 8 bits de parité) → cassé par force brute ; prolongé par 3DES</td><td data-label="AES"><b>128, 192 ou 256 bits</b> (force brute hors de portée)</td></tr>
+  <tr><td>Nombre de tours</td><td data-label="DES">16 tours (sous-clés de 48 bits) + <span class="math">IP</span> / <span class="math">IP<sup>−1</sup></span></td><td data-label="AES">10, 12 ou 14 tours (clés d'étage de 128 bits via <code>ExpandKey</code>)</td></tr>
+  <tr><td>Opérations d'un tour</td><td data-label="DES">Expansion, XOR clé, S-boîtes, permutation P</td><td data-label="AES"><b>SubBytes</b> (inverse dans <span class="math">𝔽<sub>256</sub></span> + constante, seule non linéaire) → <b>ShiftRows</b> (décalage cyclique lignes 0,1,2,3) → <b>MixColumns</b> (omis au dernier tour) → <b>AddRoundKey</b> (XOR)</td></tr>
+</table></div>
+
+<!-- ================================================================== 7 -->
+<h2 id="publique">7. Clé publique : Merkle-Hellman, RSA, El Gamal et PKI</h2>
+<p>Les systèmes asymétriques reposent sur une <b>fonction à sens unique à porte dérobée (trapdoor)</b> : calcul direct <span class="math">f(x)</span> en temps polynomial, calcul inverse <span class="math">f<sup>−1</sup>(y)</span> difficile sans la clé secrète.</p>
+
+<h3>1) Merkle-Hellman (sac-à-dos, 1978 — cassé par Shamir)</h3>
+<ul>
+  <li><b>Suite super-croissante</b> : <span class="math">{b<sub>1</sub>, …, b<sub>n</sub>}</span> telle que <span class="math">b<sub>i</sub> &gt; ∑<sub>j=1..i−1</sub> b<sub>j</sub></span>. On choisit <span class="math">M &gt; ∑ b<sub>i</sub></span>, <span class="math">W</span> premier avec <span class="math">M</span>, et une permutation <span class="math">π</span>.</li>
+  <li><b>Clé publique</b> : <span class="math">a<sub>i</sub> = W · b<sub>π(i)</sub> mod M</span>. <b>Clé secrète</b> : <span class="math">(b<sub>1</sub>, …, b<sub>n</sub>, M, W, π)</span>.</li>
+  <li><b>Chiffrement</b> d'un message binaire <span class="math">m<sub>1</sub>…m<sub>n</sub></span> : <span class="math">c = ∑<sub>i=1..n</sub> m<sub>i</sub> a<sub>i</sub></span>.</li>
+  <li><b>Déchiffrement</b> : calculer <span class="math">s = c · W<sup>−1</sup> mod M</span>, résoudre le sac-à-dos super-croissant par algorithme glouton (de <span class="math">b<sub>n</sub></span> vers <span class="math">b<sub>1</sub></span>), puis réordonner par <span class="math">π</span>.</li>
+</ul>
+
+<h3>2) RSA (Rivest, Shamir, Adleman)</h3>
+<div class="box keep"><h4>Protocole RSA complet</h4>
+<ol>
+  <li><b>Génération</b> : choisir deux grands premiers distincts <span class="math">p, q</span> ; poser <span class="math">n = pq</span> et <span class="math">φ(n) = (p − 1)(q − 1)</span>. Choisir <span class="math">e</span> tel que <span class="math">PGCD(e, φ(n)) = 1</span>. Calculer <b><span class="math">d = e<sup>−1</sup> mod φ(n)</span></b> par Euclide étendu.</li>
+  <li><b>Clés</b> : publique = <b><span class="math">(n, e)</span></b> ; secrète = <b><span class="math">(p, q, d)</span></b>.</li>
+  <li><b>Chiffrement</b> (avec la clé publique du destinataire) : <span class="math">c = m<sup>e</sup> mod n</span> (avec <span class="math">0 ≤ m &lt; n</span>).</li>
+  <li><b>Déchiffrement</b> (avec la clé secrète) : <span class="math">m = c<sup>d</sup> mod n</span> (valide par Euler : <span class="math">m<sup>ed</sup> = m<sup>1 + kφ(n)</sup> ≡ m mod n</span>).</li>
+</ol></div>
+<ul>
+  <li><b>Exponentiation rapide (binaire)</b> : décomposer l'exposant en somme de puissances de 2 (ex. <span class="math">43 = 32 + 8 + 2 + 1</span>), calculer les carrés successifs modulo <span class="math">n</span> et multiplier uniquement ceux correspondant aux bits à 1.</li>
+  <li><b>Découpage en blocs</b> : pour un alphabet de <span class="math">B</span> symboles, si <span class="math">B<sup>k</sup> ≤ n &lt; B<sup>k+1</sup></span>, on découpe le clair en blocs de <span class="math">k</span> symboles (base <span class="math">B</span>) et le chiffré en blocs de <span class="math">k + 1</span> symboles.</li>
+  <li><b>Sécurité et attaque sur les petits exposants</b> : casser RSA équivaut à factoriser <span class="math">n</span> (clés actuelles : 2048 bits). <b>Piège</b> : envoyer le même message <span class="math">x</span> à <span class="math">t &gt; e</span> destinataires avec le même petit exposant <span class="math">e</span> et des modules <span class="math">n<sub>i</sub></span> premiers entre eux permet, par le <b>théorème des restes chinois</b>, de retrouver <span class="math">y = x<sup>e</sup></span> exact dans <span class="math">ℕ</span> puis d'extraire la racine <span class="math">e</span>-ième. De même si <span class="math">d &lt; n<sup>1/4</sup></span> (attaque de Wiener).</li>
+</ul>
+
+<h3>3) El Gamal et PKI (Certificats)</h3>
+<ul>
+  <li><b>El Gamal</b> (repose sur le <b>logarithme discret</b> dans <span class="math">(ℤ/pℤ)*</span>) :
+    <ul>
+      <li>Bob choisit un premier <span class="math">p</span>, un générateur <span class="math">g</span> de <span class="math">(ℤ/pℤ)*</span>, une clé secrète <span class="math">α &lt; p − 1</span>, et calcule <span class="math">β = g<sup>α</sup> mod p</span>. Clé publique : <span class="math">(p, g, β)</span>.</li>
+      <li>Pour chiffrer <span class="math">M &lt; p</span>, Alice choisit un aléa <b><span class="math">k</span> neuf à chaque message</b> et envoie la paire :
+        <span class="math">y<sub>1</sub> = g<sup>k</sup> mod p</span> et <span class="math">y<sub>2</sub> = β<sup>k</sup> · M mod p</span>.</li>
+      <li>Bob déchiffre : <b><span class="math">M ≡ y<sub>2</sub> · (y<sub>1</sub><sup>α</sup>)<sup>−1</sup> mod p</span></b> (astuce de calcul : <span class="math">(y<sub>1</sub><sup>α</sup>)<sup>−1</sup> ≡ y<sub>1</sub><sup>p − 1 − α</sup> mod p</span> par Fermat).</li>
+      <li><b>Règle d'or</b> : ne jamais réutiliser <span class="math">k</span>, sinon deux chiffrés <span class="math">(y<sub>1</sub>, y<sub>2</sub>)</span> et <span class="math">(y<sub>1</sub>, z<sub>2</sub>)</span> vérifient <span class="math">z<sub>2</sub> / y<sub>2</sub> ≡ M' / M mod p</span>.</li>
+    </ul>
+  </li>
+  <li><b>PKI (Public Key Infrastructure) et certificats</b> : une clé publique est publique mais doit être <b>authentifiée</b> (sinon Martin réalise une attaque de l'homme du milieu en remplaçant la clé publique d'Alice par la sienne). Un <b>certificat</b> lie une <b>clé publique</b> et une <b>identité</b>, le tout signé par la clé privée d'un <b>Tiers de Confiance (TTP)</b> ou <b>Autorité de Certification (CA)</b> (modèle hiérarchique ou distribué).</li>
+</ul>
+
+<!-- ================================================================== 8 -->
+<h2 id="exercices">8. 12 exercices d'application sur feuille (corrigés)</h2>
+<p class="muted">Prends une feuille et un stylo : fais chaque exercice sans ouvrir le corrigé, puis vérifie ta rédaction étape par étape. Tous les formats correspondent aux TD1–TD3, aux CC et au cours.</p>
+
+<!-- EXO 1 -->
+<article class="exo" id="exo1">
+  <div class="exo-head">
+    <h3>Exercice 1 · Euclide étendu, Bézout, PPCM et fonction d'Euler</h3>
+    <span class="exo-meta">Arithmétique · 10 min</span>
+  </div>
+  <ol>
+    <li>Calculer <span class="math">PGCD(546, 154)</span> par l'algorithme d'Euclide, puis en déduire <span class="math">PPCM(546, 154)</span>.</li>
+    <li>Trouver un couple d'entiers <span class="math">(u, v)</span> tel que <span class="math">546u + 154v = PGCD(546, 154)</span>.</li>
+    <li>Calculer <span class="math">φ(1800)</span>.</li>
+    <li>Calculer l'inverse multiplicatif de <span class="math">17</span> dans <span class="math">(ℤ/40ℤ)*</span>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. PGCD et PPCM :</b></p>
+    <div class="calc">546 = 3 × 154 + 84
+154 = 1 × 84 + 70
+ 84 = 1 × 70 + 14
+ 70 = 5 × 14 + 0</div>
+    <p>Le dernier reste non nul est <b><span class="math">PGCD(546, 154) = 14</span></b>.<br>
+    <span class="math">PPCM(546, 154) = (546 × 154) / 14 = 546 × 11 = 6006</span>.</p>
+    <p><b>2. Coefficients de Bézout (remontée) :</b></p>
+    <div class="calc">14 = 84 − 1 × 70
+   = 84 − 1 × (154 − 1 × 84) = 2 × 84 − 1 × 154
+   = 2 × (546 − 3 × 154) − 1 × 154
+   = 2 × 546 − 7 × 154</div>
+    <p>Donc <b><span class="math">u = 2</span></b> et <b><span class="math">v = −7</span></b>. Vérification : <span class="math">546 × 2 − 154 × 7 = 1092 − 1078 = 14</span>.</p>
+    <p><b>3. Fonction d'Euler :</b> <span class="math">1800 = 18 × 100 = 2 × 3² × 2² × 5² = 2³ × 3² × 5²</span>.<br>
+    <span class="math">φ(1800) = 1800 × (1 − 1/2) × (1 − 1/3) × (1 − 1/5) = 1800 × (1/2) × (2/3) × (4/5) = 480</span>.</p>
+    <p><b>4. Inverse de 17 modulo 40 :</b></p>
+    <div class="calc">40 = 2 × 17 + 6
+17 = 2 × 6 + 5
+ 6 = 1 × 5 + 1   → PGCD(17, 40) = 1, l'inverse existe.
+
+Remontée :
+1 = 6 − 1 × 5
+  = 6 − (17 − 2 × 6) = 3 × 6 − 17
+  = 3 × (40 − 2 × 17) − 17 = 3 × 40 − 7 × 17</div>
+    <p>Donc <span class="math">17<sup>−1</sup> ≡ −7 ≡ 40 − 7 = 33 (mod 40)</span>. Vérification : <span class="math">17 × 33 = 561 = 14 × 40 + 1 ≡ 1 (mod 40)</span>.</p>
+  </details>
+</article>
+
+<!-- EXO 2 -->
+<article class="exo" id="exo2">
+  <div class="exo-head">
+    <h3>Exercice 2 · Systèmes de congruences et théorème des restes chinois</h3>
+    <span class="exo-meta">CRT · 10 min</span>
+  </div>
+  <ol>
+    <li>Résoudre le système (S<sub>1</sub>) : <span class="math">x ≡ 3 (mod 5)</span>, <span class="math">x ≡ 4 (mod 7)</span>, <span class="math">x ≡ 2 (mod 9)</span>.</li>
+    <li>Le système (S<sub>2</sub>) : <span class="math">x ≡ 5 (mod 12)</span> et <span class="math">x ≡ 2 (mod 18)</span> admet-il une solution ? Justifier.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Système (S<sub>1</sub>) :</b> 5, 7 et 9 sont deux à deux premiers entre eux → le CRT garantit une unique solution modulo <span class="math">N = 5 × 7 × 9 = 315</span>.</p>
+    <div class="calc">N₁ = 315 / 5 = 63 ≡ 3 (mod 5)  → y₁ = 3⁻¹ mod 5 = 2   (3×2 = 6 ≡ 1)
+N₂ = 315 / 7 = 45 ≡ 3 (mod 7)  → y₂ = 3⁻¹ mod 7 = 5   (3×5 = 15 ≡ 1)
+N₃ = 315 / 9 = 35 ≡ 8 ≡ −1 (mod 9) → y₃ = (−1)⁻¹ mod 9 = 8
+
+x ≡ 3·63·2 + 4·45·5 + 2·35·8 (mod 315)
+  ≡ 378 + 900 + 560 = 1838 (mod 315)
+1838 = 5 × 315 + 263  →  x ≡ 263 (mod 315)</div>
+    <p>Vérification : <span class="math">263 = 52×5 + 3</span>, <span class="math">263 = 37×7 + 4</span>, <span class="math">263 = 29×9 + 2</span>.</p>
+    <p><b>2. Système (S<sub>2</sub>) :</b> <span class="math">PGCD(12, 18) = 6 ≠ 1</span>, donc le CRT ne s'applique pas. Si une solution existait, on aurait <span class="math">x = 5 + 12k = 2 + 18t</span>, soit <span class="math">18t − 12k = 3</span>. Or 6 divise le membre de gauche mais <b>6 ne divise pas 3</b> : contradiction. Le système (S<sub>2</sub>) n'a <b>aucune solution</b>.</p>
+  </details>
+</article>
+
+<!-- EXO 3 -->
+<article class="exo" id="exo3">
+  <div class="exo-head">
+    <h3>Exercice 3 · Grandes puissances modulaires et factorisation de Fermat</h3>
+    <span class="exo-meta">Fermat · 8 min</span>
+  </div>
+  <ol>
+    <li>Calculer le reste de la division euclidienne de <span class="math">11<sup>2027</sup></span> par <span class="math">7</span>.</li>
+    <li>Calculer <span class="math">2<sup>100</sup> mod 13</span>.</li>
+    <li>Factoriser <span class="math">n = 5959</span> par la méthode de factorisation de Fermat.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. <span class="math">11<sup>2027</sup> mod 7</span> :</b> <span class="math">11 ≡ 4 (mod 7)</span>. Comme 7 est premier et ne divise pas 4, <span class="math">4<sup>6</sup> ≡ 1 (mod 7)</span> (et même <span class="math">4<sup>3</sup> = 64 = 9×7 + 1 ≡ 1 (mod 7)</span>). Or <span class="math">2027 = 3 × 675 + 2</span>, donc <span class="math">11<sup>2027</sup> ≡ (4<sup>3</sup>)<sup>675</sup> × 4² ≡ 1 × 16 ≡ 2 (mod 7)</span>. Le reste est <b>2</b>.</p>
+    <p><b>2. <span class="math">2<sup>100</sup> mod 13</span> :</b> 13 est premier et ne divise pas 2, donc par Fermat <span class="math">2<sup>12</sup> ≡ 1 (mod 13)</span>. Comme <span class="math">100 = 8 × 12 + 4</span>, on a <span class="math">2<sup>100</sup> ≡ (2<sup>12</sup>)<sup>8</sup> × 2<sup>4</sup> ≡ 16 ≡ 3 (mod 13)</span>.</p>
+    <p><b>3. Factorisation de Fermat de <span class="math">5959</span> :</b> <span class="math">77² = 5929 &lt; 5959 &lt; 78² = 6084</span>, donc on commence à <span class="math">t = 78</span> :</p>
+    <div class="calc">t = 78 : 78² − 5959 = 6084 − 5959 = 125 (pas un carré)
+t = 79 : 79² − 5959 = 6241 − 5959 = 282 (pas un carré)
+t = 80 : 80² − 5959 = 6400 − 5959 = 441 = 21²</div>
+    <p>Ainsi <span class="math">5959 = 80² − 21² = (80 − 21)(80 + 21) = 59 × 101</span> (59 et 101 sont premiers).</p>
+  </details>
+</article>
+
+<!-- EXO 4 -->
+<article class="exo" id="exo4">
+  <div class="exo-head">
+    <h3>Exercice 4 · Division euclidienne de polynômes et corps fini 𝔽<sub>4</sub></h3>
+    <span class="exo-meta">Polynômes · 10 min</span>
+  </div>
+  <ol>
+    <li>Effectuer la division euclidienne de <span class="math">A(X) = 2X<sup>4</sup> − 3X<sup>3</sup> + X − 5</span> par <span class="math">B(X) = X² − 2X + 3</span> dans <span class="math">ℚ[X]</span>.</li>
+    <li>Dans <span class="math">𝔽<sub>4</sub> = ℤ/2ℤ[X]/(X² + X + 1)</span>, calculer <span class="math">(X + 1) × (X + 1)</span> et donner l'inverse multiplicatif de <span class="math">X</span>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Division posée dans <span class="math">ℚ[X]</span> :</b></p>
+    <div class="calc">2X⁴ − 3X³ + 0X² +  X − 5  | X² − 2X + 3
+−(2X⁴ − 4X³ + 6X²)        | 2X² + X − 4
+──────────────────────────
+        X³ − 6X² +  X
+      −(X³ − 2X² + 3X)
+      ────────────────────
+           − 4X² − 2X − 5
+         −(− 4X² + 8X − 12)
+         ─────────────────
+                 − 10X + 7</div>
+    <p><b>Quotient :</b> <span class="math">Q(X) = 2X² + X − 4</span> · <b>Reste :</b> <span class="math">R(X) = −10X + 7</span> (bien de degré 1 &lt; 2).<br>
+    Vérification en <span class="math">X = 1</span> : <span class="math">A(1) = −5</span> et <span class="math">B(1)Q(1) + R(1) = 2 × (−1) + (−3) = −5</span>.</p>
+    <p><b>2. Dans <span class="math">𝔽<sub>4</sub></span> :</b> dans <span class="math">ℤ/2ℤ[X]</span>, <span class="math">2 = 0</span> et <span class="math">X² ≡ X + 1 (mod X² + X + 1)</span>.</p>
+    <ul>
+      <li><span class="math">(X + 1)² = X² + 2X + 1 = X² + 1 ≡ (X + 1) + 1 = X</span>.</li>
+      <li><span class="math">X · (X + 1) = X² + X ≡ (X + 1) + X = 1</span>, donc l'inverse de <span class="math">X</span> est <b><span class="math">X + 1</span></b>.</li>
+    </ul>
+  </details>
+</article>
+
+<!-- EXO 5 -->
+<article class="exo" id="exo5">
+  <div class="exo-head">
+    <h3>Exercice 5 · Chiffrement par permutation (grille + clé)</h3>
+    <span class="exo-meta">Classique · 8 min</span>
+  </div>
+  <ol>
+    <li>Chiffrer le message <span class="math">REUSSIR LA CRYPTO 20</span> avec une grille <span class="math">4 × 5</span> (4 lignes, 5 colonnes), en remplaçant les espaces par <span class="math">0</span>, avec la clé <b>CODES</b>.</li>
+    <li>Déchiffrer le message <span class="math">E0EV0CVEDILO</span> chiffré avec une grille <span class="math">3 × 4</span> (3 lignes, 4 colonnes), espaces remplacés par <span class="math">0</span>, clé <b>LUNE</b>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Chiffrement (grille 4×5, clé CODES) :</b><br>
+    Message sans espaces : <span class="math">REUSSIR0LA0CRYPTO020</span> (20 caractères). Ordre alphabétique de <b>CODES</b> : C (col. 1), D (col. 3), E (col. 4), O (col. 2), S (col. 5).</p>
+    <div class="calc">C(1) O(4) D(2) E(3) S(5)
+ R    E    U    S    S
+ I    R    0    L    A
+ 0    C    R    Y    P
+ T    O    0    2    0</div>
+    <p>Lecture des colonnes dans l'ordre 1, 3, 4, 2, 5 : <b><span class="math">RI0T U0R0 SLY2 ERCO SAP0</span></b>.</p>
+    <p><b>2. Déchiffrement (grille 3×4, clé LUNE) :</b><br>
+    On découpe <span class="math">E0EV0CVEDILO</span> en 4 blocs de hauteur 3 : <span class="math">E0E</span>, <span class="math">V0C</span>, <span class="math">VED</span>, <span class="math">ILO</span>.<br>
+    Ordre alphabétique de <b>LUNE</b> : E (col. 4), L (col. 1), N (col. 3), U (col. 2). On place <span class="math">E0E</span> en col. 4, <span class="math">V0C</span> en col. 1, <span class="math">VED</span> en col. 3, <span class="math">ILO</span> en col. 2 :</p>
+    <div class="calc">L(2) U(4) N(3) E(1)
+ V    I    V    E
+ 0    L    E    0
+ C    O    D    E</div>
+    <p>Lecture ligne par ligne : <span class="math">VIVE0LE0CODE</span> → <b>VIVE LE CODE</b>.</p>
+  </details>
+</article>
+
+<!-- EXO 6 -->
+<article class="exo" id="exo6">
+  <div class="exo-head">
+    <h3>Exercice 6 · Chiffrement affine et cryptanalyse</h3>
+    <span class="exo-meta">Classique · 10 min</span>
+  </div>
+  <ol>
+    <li>Avec la fonction affine <span class="math">f(x) = (5x + 8) mod 26</span>, chiffrer le mot <b>CRYPTO</b>, puis donner la fonction de déchiffrement <span class="math">g(y)</span>.</li>
+    <li>Un texte français chiffré par un autre code affine présente <b>V</b> comme lettre la plus fréquente (hypothèse <span class="math">E → V</span>) et <b>J</b> comme deuxième (hypothèse <span class="math">A → J</span>). Retrouver <span class="math">(a, b)</span> puis déchiffrer le mot <b>LVPIVO</b>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Chiffrement de CRYPTO :</b></p>
+    <div class="calc">C(2)  → 5×2+8 = 18 → S       P(15) → 5×15+8 = 83 ≡ 5  → F
+R(17) → 5×17+8 = 93 ≡ 15 → P  T(19) → 5×19+8 = 103 ≡ 25 → Z
+Y(24) → 5×24+8 = 128 ≡ 24 → Y O(14) → 5×14+8 = 78 ≡ 0  → A</div>
+    <p>Message chiffré : <b>SPYFZA</b>.<br>
+    Comme <span class="math">5<sup>−1</sup> ≡ 21 (mod 26)</span> (car <span class="math">5 × 21 = 105 = 4×26 + 1</span>), la fonction de déchiffrement est <b><span class="math">g(y) = 21(y − 8) mod 26</span></b>.</p>
+    <p><b>2. Cryptanalyse :</b> <span class="math">A = 0 → J = 9</span> et <span class="math">E = 4 → V = 21</span> donnent le système :</p>
+    <div class="calc">a×0 + b ≡ 9 (mod 26)   ⇒  b = 9
+a×4 + 9 ≡ 21 (mod 26)  ⇒  4a ≡ 12 (mod 26)</div>
+    <p>Attention : <span class="math">PGCD(4, 26) = 2</span>, on divise tout par 2 : <span class="math">2a ≡ 6 (mod 13) ⇒ a ≡ 3 (mod 13)</span>, donc <span class="math">a ∈ {3, 16}</span>. Or <span class="math">a</span> doit être premier avec 26 (impair), donc <b><span class="math">a = 3, b = 9</span></b>.<br>
+    Inverse : <span class="math">3<sup>−1</sup> ≡ 9 (mod 26)</span>, donc <span class="math">g(y) = 9(y − 9) mod 26</span>.<br>
+    Déchiffrement de <b>LVPIVO</b> : L(11)→9×2=18(<b>S</b>), V(21)→9×12=108≡4(<b>E</b>), P(15)→9×6=54≡2(<b>C</b>), I(8)→9×(−1)≡17(<b>R</b>), V→<b>E</b>, O(14)→9×5=45≡19(<b>T</b>) → <b>SECRET</b>.</p>
+  </details>
+</article>
+
+<!-- EXO 7 -->
+<article class="exo" id="exo7">
+  <div class="exo-head">
+    <h3>Exercice 7 · Vigenère et méthode de Kasiski</h3>
+    <span class="exo-meta">Classique · 8 min</span>
+  </div>
+  <ol>
+    <li>Chiffrer le mot <b>SECURITE</b> avec le chiffre de Vigenère et la clé <b>CODE</b> (A = 0).</li>
+    <li>Dans un long texte chiffré par Vigenère, le trigramme <span class="math">XQT</span> apparaît aux positions 14, 56 et 112, et le trigramme <span class="math">ZMK</span> aux positions 30 et 100. Quelle longueur de clé suggère la méthode de Kasiski ? Comment termine-t-on ensuite la cryptanalyse ?</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Chiffrement de SECURITE avec CODE (C=2, O=14, D=3, E=4) :</b></p>
+    <div class="calc">Clair : S(18) E(4)  C(2)  U(20) R(17) I(8)  T(19) E(4)
+Clé   : C(2)  O(14) D(3)  E(4)  C(2)  O(14) D(3)  E(4)
+Somme : 20    18    5     24    19    22    22    8
+Code  : U     S     F     Y     T     W     W     I</div>
+    <p>Message chiffré : <b>USFYTWWI</b>.</p>
+    <p><b>2. Attaque de Kasiski :</b><br>
+    Distances entre répétitions : <span class="math">56 − 14 = 42</span>, <span class="math">112 − 56 = 56</span>, <span class="math">100 − 30 = 70</span>.<br>
+    <span class="math">PGCD(42, 56, 70) = 14</span> (en pratique on teste 14 et ses diviseurs, ici 7 si la clé est plus courte, mais le PGCD brut suggère <b>14</b> ou un diviseur de 14).<br>
+    <b>Suite :</b> une fois la longueur <span class="math">m</span> connue, on découpe le texte chiffré en <span class="math">m</span> sous-textes (positions <span class="math">0, m, 2m…</span> ; <span class="math">1, m+1…</span>) et on casse chacun par analyse de fréquences comme un <b>César</b> indépendant.</p>
+  </details>
+</article>
+
+<!-- EXO 8 -->
+<article class="exo" id="exo8">
+  <div class="exo-head">
+    <h3>Exercice 8 · Modes opératoires (ECB, CBC, CFB, CTR) sur blocs de 4 bits</h3>
+    <span class="exo-meta">TD3 · 12 min</span>
+  </div>
+  <p>On reprend la fonction <span class="math">f</span> sur 4 bits du TD3 :</p>
+  <div class="tbl"><table class="alpha-tbl">
+    <tr><th>x</th><td>0000</td><td>0001</td><td>0010</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td></tr>
+    <tr><th>f(x)</th><td>0001</td><td>1001</td><td>0000</td><td>1000</td><td>0011</td><td>1011</td><td>0010</td><td>1010</td></tr>
+    <tr><th>x</th><td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr>
+    <tr><th>f(x)</th><td>0101</td><td>1101</td><td>0100</td><td>1100</td><td>0111</td><td>1111</td><td>0110</td><td>1110</td></tr>
+  </table></div>
+  <ol>
+    <li>Chiffrer <span class="math">M = 0110 1101</span> avec <span class="math">IV = 1001</span> en modes <b>ECB</b>, <b>CBC</b> et <b>CFB</b> (avec <span class="math">c<sub>0</sub> = f(IV)</span> en CFB).</li>
+    <li>Déchiffrer le message CFB <span class="math">c<sub>0</sub> c<sub>1</sub> c<sub>2</sub> = 1101 1010 0011</span> sans calculer <span class="math">f<sup>−1</sup></span>.</li>
+    <li>En mode CTR, Alice réutilise le même IV pour deux messages <span class="math">M</span> et <span class="math">M'</span>. On intercepte <span class="math">c<sub>1</sub> = 1011</span> (dont on connaît le clair <span class="math">m<sub>1</sub> = 0110</span>) et <span class="math">c'<sub>1</sub> = 1100</span>. Retrouver <span class="math">m'<sub>1</sub></span>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Chiffrement de <span class="math">m<sub>1</sub> = 0110</span>, <span class="math">m<sub>2</sub> = 1101</span> avec <span class="math">IV = 1001</span> :</b></p>
+    <ul>
+      <li><b>ECB :</b> <span class="math">c<sub>1</sub> = f(0110) = 0010</span>, <span class="math">c<sub>2</sub> = f(1101) = 1111</span> → <b>0010 1111</b>.</li>
+      <li><b>CBC :</b> <span class="math">c<sub>0</sub> = 1001</span> ; <span class="math">m<sub>1</sub> ⊕ c<sub>0</sub> = 0110 ⊕ 1001 = 1111 ⇒ c<sub>1</sub> = f(1111) = 1110</span> ; <span class="math">m<sub>2</sub> ⊕ c<sub>1</sub> = 1101 ⊕ 1110 = 0011 ⇒ c<sub>2</sub> = f(0011) = 1000</span> → <b>1001 1110 1000</b>.</li>
+      <li><b>CFB :</b> <span class="math">c<sub>0</sub> = f(1001) = 1101</span> ; <span class="math">c<sub>1</sub> = m<sub>1</sub> ⊕ f(c<sub>0</sub>) = 0110 ⊕ f(1101) = 0110 ⊕ 1111 = 1001</span> ; <span class="math">c<sub>2</sub> = m<sub>2</sub> ⊕ f(c<sub>1</sub>) = 1101 ⊕ f(1001) = 1101 ⊕ 1101 = 0000</span> → <b>1101 1001 0000</b>.</li>
+    </ul>
+    <p><b>2. Déchiffrement CFB de <span class="math">c<sub>0</sub> = 1101, c<sub>1</sub> = 1010, c<sub>2</sub> = 0011</span> :</b><br>
+    On utilise directement <span class="math">m<sub>i</sub> = c<sub>i</sub> ⊕ f(c<sub>i−1</sub>)</span> :</p>
+    <div class="calc">m₁ = c₁ ⊕ f(c₀) = 1010 ⊕ f(1101) = 1010 ⊕ 1111 = 0101
+m₂ = c₂ ⊕ f(c₁) = 0011 ⊕ f(1010) = 0011 ⊕ 0100 = 0111</div>
+    <p>Message clair : <b>0101 0111</b>.</p>
+    <p><b>3. Attaque CTR (IV réutilisé) :</b><br>
+    Le masque vaut <span class="math">z<sub>1</sub> = m<sub>1</sub> ⊕ c<sub>1</sub> = 0110 ⊕ 1011 = 1101</span>.<br>
+    Donc <span class="math">m'<sub>1</sub> = c'<sub>1</sub> ⊕ z<sub>1</sub> = 1100 ⊕ 1101 = 0001</span>.</p>
+  </details>
+</article>
+
+<!-- EXO 9 -->
+<article class="exo" id="exo9">
+  <div class="exo-head">
+    <h3>Exercice 9 · LFSR : suite récurrente, polynôme caractéristique et chiffrement</h3>
+    <span class="exo-meta">Codes modernes · 10 min</span>
+  </div>
+  <p>On considère le LFSR de longueur <span class="math">m = 4</span> défini sur <span class="math">ℤ/2ℤ</span> par l'état initial <span class="math">(z<sub>1</sub>, z<sub>2</sub>, z<sub>3</sub>, z<sub>4</sub>) = (1, 0, 1, 0)</span> et la récurrence <span class="math">z<sub>i+4</sub> = (z<sub>i</sub> + z<sub>i+1</sub>) mod 2</span>.</p>
+  <ol>
+    <li>Donner le polynôme caractéristique <span class="math">C(x)</span> de ce LFSR.</li>
+    <li>Calculer les 16 premiers bits de la suite et vérifier que sa période est maximale (<span class="math">2<sup>4</sup> − 1 = 15</span>).</li>
+    <li>Chiffrer le bloc binaire <span class="math">M = 11010110</span> avec les 8 premiers bits du LFSR, puis vérifier le déchiffrement.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Polynôme caractéristique :</b> on a <span class="math">c<sub>4</sub> = 1, c<sub>3</sub> = 1, c<sub>2</sub> = 0, c<sub>1</sub> = 0</span>, donc dans <span class="math">ℤ/2ℤ[x]</span> :<br>
+    <b><span class="math">C(x) = x<sup>4</sup> + x + 1</span></b>.</p>
+    <p><b>2. Calcul des bits (<span class="math">z<sub>i+4</sub> = z<sub>i</sub> ⊕ z<sub>i+1</sub></span>) :</b></p>
+    <div class="calc">z₁..z₄   : 1 0 1 0
+z₅..z₈   : 1⊕0=1, 0⊕1=1, 1⊕0=1, 0⊕1=1  → 1 1 1 1
+z₉..z₁₂  : 1⊕1=0, 1⊕1=0, 1⊕1=0, 1⊕0=1  → 0 0 0 1
+z₁₃..z₁₅ : 0⊕0=0, 0⊕0=0, 0⊕1=1         → 0 0 1
+z₁₆..z₁₉ : 1⊕0=1, 0⊕0=0, 0⊕1=1, 1⊕1=0  → 1 0 1 0
+
+Suite des 15 premiers bits : 1010 1111 0001 001</div>
+    <p>On retrouve <span class="math">(z<sub>16</sub>, z<sub>17</sub>, z<sub>18</sub>, z<sub>19</sub>) = (1, 0, 1, 0) = (z<sub>1</sub>, z<sub>2</sub>, z<sub>3</sub>, z<sub>4</sub>)</span> : la période est bien <b>15</b>.</p>
+    <p><b>3. Chiffrement XOR :</b> <span class="math">z<sub>1..8</sub> = 10101111</span>.<br>
+    <span class="math">C = 11010110 ⊕ 10101111 = 01111001</span>.<br>
+    Déchiffrement : <span class="math">C ⊕ z<sub>1..8</sub> = 01111001 ⊕ 10101111 = 11010110 = M</span>.</p>
+  </details>
+</article>
+
+<!-- EXO 10 -->
+<article class="exo" id="exo10">
+  <div class="exo-head">
+    <h3>Exercice 10 · Schéma de Feistel (DES) et opération ShiftRows (AES)</h3>
+    <span class="exo-meta">DES &amp; AES · 10 min</span>
+  </div>
+  <ol>
+    <li>On applique 2 tours de Feistel sur un bloc de 8 bits <span class="math">(L<sub>0</sub>, R<sub>0</sub>) = (1010, 0110)</span> avec les sous-clés <span class="math">k<sub>1</sub> = 1100</span>, <span class="math">k<sub>2</sub> = 0101</span> et la fonction de tour <span class="math">F(R, k) = f(R ⊕ k)</span> où <span class="math">f</span> est la table 4 bits de l'exercice 8. Calculer <span class="math">(L<sub>2</sub>, R<sub>2</sub>)</span>.</li>
+    <li>Montrer comment retrouver <span class="math">(L<sub>0</sub>, R<sub>0</sub>)</span> à partir de <span class="math">(L<sub>2</sub>, R<sub>2</sub>)</span> sans inverser <span class="math">F</span>.</li>
+    <li>Appliquer <code>ShiftRows</code> à la matrice AES State dont les lignes sont <span class="math">[01, 02, 03, 04]</span>, <span class="math">[05, 06, 07, 08]</span>, <span class="math">[09, 0A, 0B, 0C]</span>, <span class="math">[0D, 0E, 0F, 10]</span>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Chiffrement Feistel (2 tours) :</b></p>
+    <div class="calc">Tour 1 : L₁ = R₀ = 0110
+         R₀ ⊕ k₁ = 0110 ⊕ 1100 = 1010 → f(1010) = 0100
+         R₁ = L₀ ⊕ 0100 = 1010 ⊕ 0100 = 1110
+
+Tour 2 : L₂ = R₁ = 1110
+         R₁ ⊕ k₂ = 1110 ⊕ 0101 = 1011 → f(1011) = 1100
+         R₂ = L₁ ⊕ 1100 = 0110 ⊕ 1100 = 1010</div>
+    <p>Sortie après 2 tours : <b><span class="math">(L<sub>2</sub>, R<sub>2</sub>) = (1110, 1010)</span></b>.</p>
+    <p><b>2. Déchiffrement sans inverser <span class="math">F</span> :</b> on remonte avec les sous-clés dans l'ordre inverse (<span class="math">k<sub>2</sub></span> puis <span class="math">k<sub>1</sub></span>) :</p>
+    <div class="calc">R₁ = L₂ = 1110
+L₁ = R₂ ⊕ F(L₂, k₂) = 1010 ⊕ f(1110 ⊕ 0101) = 1010 ⊕ 1100 = 0110
+
+R₀ = L₁ = 0110
+L₀ = R₁ ⊕ F(L₁, k₁) = 1110 ⊕ f(0110 ⊕ 1100) = 1110 ⊕ 0100 = 1010</div>
+    <p><b>3. ShiftRows (AES) :</b> décalage circulaire à gauche de 0, 1, 2, 3 octets sur les lignes 0, 1, 2, 3 :</p>
+    <div class="calc">[01, 02, 03, 04]
+[06, 07, 08, 05]
+[0B, 0C, 09, 0A]
+[10, 0D, 0E, 0F]</div>
+  </details>
+</article>
+
+<!-- EXO 11 -->
+<article class="exo" id="exo11">
+  <div class="exo-head">
+    <h3>Exercice 11 · RSA complet et exponentiation rapide</h3>
+    <span class="exo-meta">Clé publique · 12 min</span>
+  </div>
+  <p>On choisit <span class="math">p = 7</span>, <span class="math">q = 17</span> et <span class="math">e = 5</span>.</p>
+  <ol>
+    <li>Calculer <span class="math">n</span> et <span class="math">φ(n)</span>, vérifier que <span class="math">e = 5</span> est valide, puis déterminer la clé secrète <span class="math">d</span>.</li>
+    <li>Chiffrer le message <span class="math">m = 12</span> par exponentiation rapide.</li>
+    <li>Déchiffrer le chiffré obtenu par exponentiation rapide binaire pour retrouver <span class="math">m = 12</span>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Clés RSA :</b> <span class="math">n = 7 × 17 = 119</span> et <span class="math">φ(119) = 6 × 16 = 96</span>.<br>
+    <span class="math">PGCD(5, 96) = 1</span>, donc <span class="math">e = 5</span> est valide. Euclide étendu : <span class="math">96 = 19 × 5 + 1 ⇒ 1 = 96 − 19 × 5</span>, donc <span class="math">d ≡ −19 ≡ 96 − 19 = 77 (mod 96)</span>.<br>
+    Clé publique : <b><span class="math">(119, 5)</span></b> · clé secrète : <b><span class="math">d = 77</span></b> (vérification : <span class="math">5 × 77 = 385 = 4 × 96 + 1</span>).</p>
+    <p><b>2. Chiffrement de <span class="math">m = 12</span> :</b> <span class="math">5 = 4 + 1</span> :</p>
+    <div class="calc">12¹ ≡ 12 (mod 119)
+12² = 144 ≡ 25 (mod 119)
+12⁴ ≡ 25² = 625 = 5×119 + 30 ≡ 30 (mod 119)
+12⁵ ≡ 30 × 12 = 360 = 3×119 + 3 ≡ 3 (mod 119)</div>
+    <p>Message chiffré : <b><span class="math">c = 3</span></b>.</p>
+    <p><b>3. Déchiffrement de <span class="math">c = 3</span> :</b> on écrit <span class="math">77 = 64 + 8 + 4 + 1</span> :</p>
+    <div class="calc">3¹  ≡ 3                  3¹⁶ ≡ 16² = 256 ≡ 18
+3²  ≡ 9                  3³² ≡ 18² = 324 ≡ 86
+3⁴  ≡ 81                 3⁶⁴ ≡ 86² ≡ (−33)² = 1089 ≡ 18
+3⁸  ≡ 81² ≡ (−38)² = 1444 ≡ 16
+
+3⁷⁷ ≡ 3⁶⁴ × 3⁸ × 3⁴ × 3¹ ≡ 18 × 16 × 81 × 3 (mod 119)
+18 × 16 = 288 ≡ 50 ; 81 × 3 = 243 ≡ 5 ; 50 × 5 = 250 = 2×119 + 12 ≡ 12</div>
+    <p>On retrouve bien <b><span class="math">m = 12</span></b>.</p>
+  </details>
+</article>
+
+<!-- EXO 12 -->
+<article class="exo" id="exo12">
+  <div class="exo-head">
+    <h3>Exercice 12 · Diffie-Hellman, El Gamal et Merkle-Hellman</h3>
+    <span class="exo-meta">Clé publique · 12 min</span>
+  </div>
+  <ol>
+    <li><b>Diffie-Hellman :</b> <span class="math">p = 23</span>, <span class="math">g = 5</span>, secret d'Alice <span class="math">a = 4</span>, secret de Bob <span class="math">b = 7</span>. Calculer <span class="math">A</span>, <span class="math">B</span> et la clé commune <span class="math">K</span>.</li>
+    <li><b>El Gamal :</b> Bob choisit <span class="math">p = 19</span>, générateur <span class="math">g = 2</span>, clé secrète <span class="math">α = 5</span>. Calculer <span class="math">β</span>, chiffrer <span class="math">M = 14</span> avec <span class="math">k = 6</span>, puis déchiffrer la paire <span class="math">(y<sub>1</sub>, y<sub>2</sub>)</span>.</li>
+    <li><b>Merkle-Hellman :</b> suite super-croissante <span class="math">b = (2, 3, 7, 15, 31)</span>, <span class="math">M = 67</span>, <span class="math">W = 19</span> (<span class="math">π</span> identité). Construire la clé publique, chiffrer <span class="math">m = 10110</span>, puis déchiffrer sachant que <span class="math">19<sup>−1</sup> ≡ 60 (mod 67)</span>.</li>
+  </ol>
+  <details class="exo-sol">
+    <summary>Afficher la correction détaillée</summary>
+    <p><b>1. Diffie-Hellman (<span class="math">p = 23, g = 5</span>) :</b></p>
+    <div class="calc">A = 5⁴ mod 23 : 5² = 25 ≡ 2, donc 5⁴ ≡ 2² = 4
+B = 5⁷ mod 23 = 5⁴ · 5² · 5 ≡ 4 × 2 × 5 = 40 ≡ 17
+K = B⁴ = 17⁴ ≡ (−6)⁴ = 36² ≡ 13² = 169 = 7×23 + 8 ≡ 8 (mod 23)
+Vérification : A⁷ = 4⁷ = (4²)³ × 4 ≡ (−7)³ × 4 = −343 × 4 ≡ 2 × 4 = 8</div>
+    <p><b>2. El Gamal (<span class="math">p = 19, g = 2, α = 5</span>) :</b></p>
+    <div class="calc">β = 2⁵ mod 19 = 32 ≡ 13  → clé publique (19, 2, 13)
+Chiffrement (M = 14, k = 6) :
+  y₁ = 2⁶ mod 19 = 64 ≡ 7
+  β⁶ = 13⁶ ≡ (−6)⁶ = (36)³ ≡ (−2)³ = −8 ≡ 11 (mod 19)
+  y₂ = 11 × 14 = 154 = 8×19 + 2 ≡ 2  → chiffré (7, 2)
+Déchiffrement :
+  y₁⁵ = 7⁵ mod 19 : 7² = 49 ≡ 11, 7⁴ ≡ 121 ≡ 7, 7⁵ ≡ 49 ≡ 11
+  11⁻¹ mod 19 = 7 (car 11 × 7 = 77 = 4×19 + 1)
+  M ≡ y₂ × 7 = 2 × 7 = 14 (mod 19)</div>
+    <p><b>3. Merkle-Hellman :</b></p>
+    <div class="calc">Clé publique aᵢ = 19 × bᵢ mod 67 :
+  a₁ = 38, a₂ = 57, a₃ = 133 ≡ 66, a₄ = 285 ≡ 17, a₅ = 589 ≡ 53
+Chiffrement de m = 10110 :
+  c = 38 + 66 + 17 = 121
+Déchiffrement :
+  s = c × W⁻¹ mod 67 = 121 × 60 mod 67 ≡ (−13) × (−7) = 91 ≡ 24
+Glouton sur (31, 15, 7, 3, 2) pour 24 :
+  31 &gt; 24 (0) · 15 ≤ 24 (1, reste 9) · 7 ≤ 9 (1, reste 2) · 3 &gt; 2 (0) · 2 ≤ 2 (1)
+→ m = 10110</div>
+  </details>
+</article>
 
 <section class="box launch no-print">
   <h2 style="border:0;margin-top:0">Parcours guidé</h2>
-  <p>3 étapes + un examen blanc · <span data-total-time>40 min</span></p>
+  <p>7 étapes + un examen blanc de 20 questions · <span data-total-time>1 h 25</span></p>
   <button class="btn" type="button" data-parcours="">Suivre le parcours interactif</button>
 </section>
 <p class="center muted no-print">Calcule ta moyenne d'UE : <a href="../but2-calcul-moyenne/">calculateur BUT2 (FI et FA, parcours A et B)</a>.</p>
@@ -85,7 +760,7 @@
 </section>
 </main>
 <a class="btn fab no-print" href="#parcours-section" data-parcours="">Parcours</a>
-<script src="data.js?v=20261123d"></script>
+<script src="data.js?v=20261124a"></script>
 <script src="../../assets/js/parcours.js?v=20261123d"></script>
 <script src="../../assets/js/config.js?v=20261123d"></script>
 <script src="../../assets/js/auth.js?v=20261123d"></script>
